@@ -1,9 +1,12 @@
 {% if config.theme.icon %}
 {% if config.theme.icon.startswith("http") %}
-<img class="h-6 w-6" src="{{ config.theme.icon }}">
+<img class="size-5" src="{{ config.theme.icon }}">
 {% else %}
-<iconify-icon icon="{{ config.theme.icon }}" noobserver></iconify-icon>
+{{ config.theme.icon | iconify }}
+<!-- <iconify-icon class="size-5" icon="{{ config.theme.icon }}" noobserver></iconify-icon> -->
 {% endif %}
 {% else %}
+{% with override_class="size-5" %}
 {% include "icons/shadcn.svg" %}
+{% endwith %}
 {% endif %}

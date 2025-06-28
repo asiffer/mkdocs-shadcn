@@ -1,0 +1,99 @@
+name: Testing
+
+concurrency: package-testing
+
+on:
+  pull_request:
+    paths-ignore:
+      - "pages/**" # Ignore changes to the pages directory, as this is handled by the pages workflow.
+  workflow_dispatch:
+
+jobs:
+  wheel:
+    runs-on: ubuntu-latest
+    # Running this action on a fork will likely fail anyway
+    if: github.event.repository.fork == false
+
+    env:
+      # Configure a constant location for the uv cache
+      UV_CACHE_DIR: /tmp/.uv-cache
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: "pyproject.toml"
+
+      - name: Restore uv cache
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.uv-cache
+          key: uv-${{ runner.os }}-${{ hashFiles('uv.lock') }}
+          restore-keys: |
+            uv-${{ runner.os }}-${{ hashFiles('uv.lock') }}
+            uv-${{ runner.os }}
+
+      - name: Install the project
+        run: uv sync --all-extras --dev
+
+      - name: Build package
+        run: uv build --wheel
+
+      # Upload the package
+      - uses: actions/upload-artifact@v4
+        with:
+          # A file, directory or wildcard pattern that describes what to upload
+          # Required.
+          path: dist
+          name: wheel
+
+      - name: Minimize uv cache
+        run: uv cache prune --ci
+
+  install:
+    needs: wheel
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Download wheel
+        uses: actions/download-artifact@v4
+        with:
+          name: wheel
+
+      - name: Debug
+        run: |
+          echo "DIR: $(pwd)"
+          echo "FILES:"
+          ls -alh --color=auto .
+
+      - name: Install wheel
+        run: pip install ./mkdocs_shadcn*.whl
+
+      - name: Generate minimal site
+        run: |
+          mkdir -p site/docs
+          cd site
+          echo -e "# Minimal Testing Site" > docs/index.md
+          echo -e 'site_name: "Minimal Testing Site"' > mkdocs.yml
+          echo -e "theme:\n  name: shadcn" >> mkdocs.yml
+          echo -e "plugins:\n  - search\n  - excalidraw" >> mkdocs.yml
+          echo -e "markdown_extensions:\n  - admonition\n  - codehilite\n  - fenced_code\n  - extra\n  - shadcn.extensions.echarts.alpha" >> mkdocs.yml
+          cat mkdocs.yml
+          # start the mkdocs dev server and then kill it after few seconds
+          mkdocs serve &
+          sleep 3
+
+      - name: Build minimal site
+        run: cd site && mkdocs build

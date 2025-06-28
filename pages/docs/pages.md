@@ -10,6 +10,8 @@ title: Pages # title
 summary: Metadata configuration # subtitle
 ```
 
+You can also define your page title directly with `# Page title` in the markdown content.
+
 ## Navigation
 
 The navigation follows bare mkdocs. You should just notice that folders will create categories in the sidebar.
@@ -45,6 +47,15 @@ After a first pass we will have
 
 So in the sidebar we will get `a.md`, `c.md`, `d.md` and `b.md`.
 
+## External links
+
+You can add external links (like "API Reference") in the page header. This is done through the `external_links` attribute in the front-matter.
+
+```yaml
+external_links:
+  "API Reference": https://ui.shadcn.com/docs/components
+  GitHub: https://github.com/asiffer/mkdocs-shadcn
+```
 
 ## SEO
 

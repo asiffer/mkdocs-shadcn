@@ -15,8 +15,10 @@ markdown_extensions:
 
 ## Syntax
 
+You can add any pygments [html formatter options](https://pygments.org/docs/formatters/#HtmlFormatter).
+
 ~~~ md
-``` { .python linenos=true hl_lines="4 5" }
+``` { .python linenos="table" hl_lines="4 5" }
 def fibonacci(n):
     a, b = 0, 1
     for _ in range(n):
@@ -29,7 +31,34 @@ for num in fibonacci(10):
 ~~~
 
 
-``` { .python linenos=true hl_lines="4 5" }
+``` { .python linenos="table" hl_lines="4 5" }
+def fibonacci(n):
+    a, b = 0, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
+
+for num in fibonacci(10):
+    print(num)
+```
+
+As another example, you can also add references to the lines of code (goto [line 4](#fibo-4) and [line 5](#fibo-5)).
+
+~~~ md
+``` { .python linenos="inline" hl_lines="4 5" anchorlinenos="true" lineanchors="fibo" }
+def fibonacci(n):
+    a, b = 0, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
+
+for num in fibonacci(10):
+    print(num)
+```
+~~~
+
+
+``` { .python linenos="inline" hl_lines="4 5" anchorlinenos="true" lineanchors="fibo" }
 def fibonacci(n):
     a, b = 0, 1
     for _ in range(n):

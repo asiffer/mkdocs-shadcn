@@ -106,7 +106,7 @@ class EchartsBlock(Block):
             entries.forEach(entry => {{
                 if (entry.isIntersecting) {{
                     chart{self.div_id}.resize();
-                    observer.disconnect(); // Stop observing if you want a one-time trigger
+                    observer{self.div_id}.disconnect(); // Stop observing if you want a one-time trigger
                 }}
             }});
         }});

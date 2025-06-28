@@ -1,29 +1,55 @@
-<dialog id="bottom-sidebar" data-closing="0"
-    class="backdrop:bg-black backdrop:opacity-80 backdrop:transition-all backdrop:duration-500 text-foreground"
-    onclick="onBottomSidebarDialogClick(event)">
-    <div
-        class="fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border bg-background max-h-[60svh] p-0 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]">
-        <div class="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted"></div>
-        <div class="overflow-auto p-6 space-y-3">
+<dialog id="bottom-sidebar" onclick="onBottomSidebarDialogClick(event)" class="bg-transparent"
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0px, 58px); min-width: max-content; --radix-popper-transform-origin: 0% 0px; will-change: transform; z-index: 50; --radix-popper-available-width: 504px; --radix-popper-available-height: 857px; --radix-popper-anchor-width: 72.94999694824219px; --radix-popper-anchor-height: 32px;">
+    <div data-side="bottom" data-align="start" data-state="open" role="dialog" data-slot="popover-content"
+        class="text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 origin-(--radix-popover-content-transform-origin) border outline-hidden bg-background/90 no-scrollbar h-(--radix-popper-available-height) w-(--radix-popper-available-width) overflow-y-auto rounded-none border-none p-0 shadow-none backdrop-blur duration-100"
+        style="--radix-popover-content-transform-origin: var(--radix-popper-transform-origin); --radix-popover-content-available-width: var(--radix-popper-available-width); --radix-popover-content-available-height: var(--radix-popper-available-height); --radix-popover-trigger-width: var(--radix-popper-anchor-width); --radix-popover-trigger-height: var(--radix-popper-anchor-height);"
+        tabindex="-1">
+        <div class="flex flex-col gap-12 overflow-auto px-6 py-6">
             {% if nav|length > 1 %}
-            {% for top_item in nav %}
+            {% set top_items = nav|selectattr("is_page")|sort(attribute="meta.order") %}
+            {% set other_items = nav|rejectattr("is_page")|list %}
 
-            <div class="flex flex-col">
-                {% if top_item.children %}
-                <div class="flex flex-col space-y-3 pt-4">
-                    <h4 class="font-medium">{{ top_item.title }} </h4>
-                    {% for sidebar_item in top_item.children %}
-                    {% include "components/bottom_sidebar_item.html" %}
+            {% if top_items|length > 0 %}
+            <div class="flex flex-col gap-4">
+                <div class="text-muted-foreground text-sm font-medium">Menu</div>
+                <div class="flex flex-col gap-3">
+                    {% for top_item in top_items %}
+                    <a class="text-2xl font-medium" href="{{ top_item.url | url }}">
+                        {% if top_item.meta and top_item.meta.sidebar_title %}
+                        {{ top_item.meta.sidebar_title }}
+                        {% else %}
+                        {{ top_item.title }}
+                        {% endif %}
+                    </a>
                     {% endfor %}
                 </div>
-                {% else %}
-                {% with sidebar_item = top_item %}
-                {% include "components/bottom_sidebar_item.html" %}
-                {% endwith %}
-                {% endif %}
             </div>
-            {% endfor %}
             {% endif %}
+
+            {% if other_items|length > 0 %}
+            <div class="flex flex-col gap-8">
+                {% for top_item in other_items %}
+                <div class="flex flex-col gap-4">
+                    <div class="text-muted-foreground text-sm font-medium">{{ top_item.title }}</div>
+                    {% if top_item.children %}
+                    <div class="flex flex-col gap-3">
+                        {% for sidebar_item in top_item.children|sort(attribute="meta.order") %}
+                        <a class="text-2xl font-medium" href="{{ sidebar_item.url | url}}">
+                            {% if sidebar_item.meta and sidebar_item.meta.sidebar_title %}
+                            {{ sidebar_item.meta.sidebar_title }}
+                            {% else %}
+                            {{ sidebar_item.title }}
+                            {% endif %}
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endif %}
+
         </div>
     </div>
 </dialog>

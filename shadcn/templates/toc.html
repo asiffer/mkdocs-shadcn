@@ -1,31 +1,30 @@
-<div class="sticky top-20 -mt-6 pt-4">
-    <div class="no-scrollbar h-full overflow-auto pb-10">
-        <div class="space-y-2">
-            <p class="font-medium">On This Page</p>
-            <ul class="m-0 list-none">
-                {% if page.toc %}
-                {% with roottoc = page.toc | list %}
-                {% with toc = roottoc if roottoc | length > 1 else roottoc[0].children %}
-                {% for h2 in toc %}
-                <li class="mt-0 pt-2">
-                    <a class="inline-block no-underline transition-colors hover:text-foreground text-muted-foreground"
-                        href="{{ h2.url }}">{{ h2.title }}</a>
-                    {% if h2.children %}
-                    <ul class="m-0 list-none pl-4">
-                        {% for h3 in h2.children %}
-                        <li class="mt-0 pt-2">
-                            <a class="inline-block no-underline transition-colors hover:text-foreground text-muted-foreground"
-                                href="{{ h3.url }}">{{ h3.title }}</a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                </li>
-                {% endfor %}
-                {% endwith %}
-                {% endwith %}
-                {% endif %}
-            </ul>
-        </div>
+<div class="no-scrollbar overflow-y-auto px-8">
+    <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
+        <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs">On This Page</p>
+        {% if page.toc %}
+        {% with roottoc = page.toc | list %}
+        {% with toc = roottoc if roottoc | length > 1 else roottoc[0].children %}
+        {% for h2 in toc %}
+        <a href="{{ h2.url }}"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="2">
+            {{ h2.title }}
+        </a>
+        {% if h2.children %}
+        {% for h3 in h2.children %}
+        <a href="{{ h3.url }}"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3">
+            {{ h3.title }}
+        </a>
+        {% endfor %}
+        {% endif %}
+
+        {% endfor %}
+        {% endwith %}
+        {% endwith %}
+        {% endif %}
+
     </div>
+    <div class="h-12"></div>
 </div>

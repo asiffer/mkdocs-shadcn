@@ -6,7 +6,10 @@ dev_addr: "127.0.0.1:8080"
 repo_url: "https://github.com/asiffer/mkdocs-shadcn"
 theme:
   name: shadcn
-  pygments_style: "github-dark"
+  icon: "heroicons:command-line"
+  pygments_style:
+    light: shadcn-light
+    dark: github-dark
 
 # nav:
 #   - Welcome: index.md

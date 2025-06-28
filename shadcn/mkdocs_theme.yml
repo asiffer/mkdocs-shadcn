@@ -1,2 +1,6 @@
 icon: null
-pygments_style: "dracula"
+show_title: true
+show_stargazers: true
+pygments_style:
+  light: shadcn-light
+  dark: github-dark

@@ -51,6 +51,23 @@ const searchShortcutHandler = (event) => {
 	}
 };
 
+const updatePygmentsStylesheet = () => {
+	const root = document.documentElement;
+	const lightLink = document.getElementById("pygments-light");
+	const darkLink = document.getElementById("pygments-dark");
+	if (root.classList.contains("dark")) {
+		if (darkLink && lightLink) {
+			darkLink.media = "all";
+			lightLink.media = "none";
+		}
+	} else {
+		if (darkLink && lightLink) {
+			darkLink.media = "none";
+			lightLink.media = "all";
+		}
+	}
+};
+
 const onThemeSwitch = (event) => {
 	const root = document.documentElement;
 	root.classList.toggle("dark");
@@ -59,54 +76,28 @@ const onThemeSwitch = (event) => {
 	} else {
 		localStorage.setItem("theme", "light");
 	}
+
+	updatePygmentsStylesheet();
 };
 
 const onBottomSidebarDialogClick = (event) => {
 	const dialog = document.getElementById("bottom-sidebar");
 	if (dialog && event.target === dialog) {
-		dialog.classList.add("backdrop:opacity-0");
-		dialog.classList.remove("backdrop:opacity-80");
-		dialog.setAttribute("data-closing", "1");
-		const inner = dialog.children.item(0);
-		inner.classList.add("translate-y-[60vh]");
-		inner.classList.remove("translate-y-0");
-		// dialog.attributes["op"];
-		setTimeout(() => dialog.close(), 250);
-		const innerBody = document.getElementById("inner-body");
-		if (innerBody) {
-			innerBody.classList.remove(
-				"rounded-lg",
-				"overflow-hidden",
-				"scale-[0.95]",
-				"translate-y-4",
-			);
+		dialog.close();
+		const button = document.getElementById("menu-button");
+		if (button) {
+			button.dataset.state = "closed";
 		}
 	}
 };
 
 const onMobileMenuButtonClick = (event) => {
+	event.currentTarget.dataset.state =
+		event.target.dataset.state === "open" ? "closed" : "open";
 	const dialog = document.getElementById("bottom-sidebar");
 	if (dialog) {
 		dialog.showModal();
-		// dialog.classList.add("reveal");
-		dialog.classList.remove("backdrop:opacity-0");
-		dialog.classList.add("backdrop:opacity-80");
-		dialog.removeAttribute("data-closing");
-		const inner = dialog.children.item(0);
-		inner.classList.remove("translate-y-[60vh]");
-		inner.classList.add("translate-y-0");
 	}
-
-	const innerBody = document.getElementById("inner-body");
-	if (innerBody) {
-		innerBody.classList.add(
-			"rounded-lg",
-			"overflow-hidden",
-			"scale-[0.95]",
-			"translate-y-4",
-		);
-	}
-	//   document.getElementById("inner-body").classList.add("minimize");
 };
 
 const clipboardIcon = () => {
@@ -192,5 +183,38 @@ const onCodeCopy = (event) => {
 				}
 			},
 		);
+	}
+};
+
+const toggleLayout = (event) => {
+	if (document.documentElement.classList.contains("layout-fixed")) {
+		document.documentElement.classList.remove("layout-fixed");
+		document.documentElement.classList.add("layout-full");
+		localStorage.setItem("html-layout", "layout-full");
+	} else {
+		document.documentElement.classList.remove("layout-full");
+		document.documentElement.classList.add("layout-fixed");
+		localStorage.setItem("html-layout", "layout-fixed");
+	}
+};
+
+const fetchStargazers = (repoUrl) => {
+	const span = document.getElementById("stargazers");
+	if (span) {
+		const chunks = repoUrl.split("/");
+		if (chunks.length > 2) {
+			const repo = chunks[chunks.length - 1];
+			const owner = chunks[chunks.length - 2];
+			const url = `https://api.github.com/repos/${owner}/${repo}`;
+			fetch(url)
+				.catch((error) => {
+					console.error(`Error fetching stargazers at ${owner}:`, error);
+				})
+				.then((response) => response.json())
+				.then((data) => {
+					span.textContent = data.stargazers_count;
+					console.log("Stargazers updated");
+				});
+		}
 	}
 };

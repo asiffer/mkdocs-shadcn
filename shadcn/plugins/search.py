@@ -9,7 +9,7 @@ from mkdocs.structure.files import Files
 from mkdocs.structure.nav import Navigation, Section
 from mkdocs.structure.pages import Page
 
-from shadcn.filters import setattribute
+from shadcn.filters import iconify, parse_author, setattribute
 
 
 class SearchPlugin(BaseSearchPlugin):
@@ -31,6 +31,8 @@ class SearchPlugin(BaseSearchPlugin):
     def on_env(self, env, /, *, config: MkDocsConfig, files: Files):
         # custom jinja2 filter
         env.filters["setattribute"] = setattribute
+        env.filters["iconify"] = iconify
+        env.filters["parse_author"] = parse_author
         # add custom global variables
         env.globals["is_dev_server"] = self.is_dev_server
         return env
@@ -59,4 +61,7 @@ class SearchPlugin(BaseSearchPlugin):
         # increment page index
         while self.page_index in self.page_indices:
             self.page_index += 1
+
+        # remove first plain h1 if provided
+        markdown = re.sub(r"^#\s+(.+)", r"", markdown, count=1)
         return markdown

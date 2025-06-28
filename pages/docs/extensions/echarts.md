@@ -20,7 +20,8 @@ markdown_extensions:
 
 ## Syntax
 
-From a `js` config it basically plots charts through the Apache ECharts library. The uses the [PyMdown Blocks Extension API](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/) so its syntax (similar to [tab](pymdownx_blocks_tab.md) or [details](pymdownx_blocks_details.md)).
+From a `js` config it basically plots charts through the Apache ECharts library. 
+The extension uses the [PyMdown Blocks Extension API](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/) so its syntax (similar to [tab](pymdownx_blocks_tab.md) or [details](pymdownx_blocks_details.md)).
 
 ```md
 /// echarts

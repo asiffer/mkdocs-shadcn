@@ -1,14 +1,69 @@
-<article class="typography w-full">
-    {% if not page.is_top_level %}
-    {% include "templates/breadcrumbs.html" %}
-    {% endif %}
-    {% if page.meta.title %}
-    <h1 class="tracking-tight">{{ page.meta.title }}</h1>
-    {% endif %}
-    {% if page.meta.summary %}
-    <p class="summary">
-        {{ page.meta.summary }}
-    </p>
-    {% endif %}
-    {{ page.content }}
+<article class=" w-full">
+    <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2">
+            <div id="page-header" class="flex items-start justify-between">
+
+                <h1 class="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl">
+                    {% if page.meta.title %}{{ page.meta.title }}{% else %}{{page.title}}{% endif %}
+                </h1>
+
+                <div class="flex items-center gap-2 pt-1.5">
+                    {% if page.previous_page %}
+                    <a data-slot="button"
+                        class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 extend-touch-target size-8 shadow-none md:size-7"
+                        href="{{ page.previous_page.abs_url }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="tabler-icon tabler-icon-arrow-left ">
+                            <path d="M5 12l14 0"></path>
+                            <path d="M5 12l6 6"></path>
+                            <path d="M5 12l6 -6"></path>
+                        </svg>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    {% endif %}
+                    {% if page.next_page %}
+                    <a data-slot="button"
+                        class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 extend-touch-target size-8 shadow-none md:size-7"
+                        href="{{ page.next_page.abs_url }}">
+                        <span class="sr-only">Next</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="tabler-icon tabler-icon-arrow-right ">
+                            <path d="M5 12l14 0"></path>
+                            <path d="M13 18l6 -6"></path>
+                            <path d="M13 6l6 6"></path>
+                        </svg>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% if page.meta.summary %}
+            <p id="summary" class="text-muted-foreground text-[1.05rem] text-balance sm:text-base">
+                {{ page.meta.summary }}
+            </p>
+            {% endif %}
+        </div>
+        {% if page.meta.external_links %}
+        <div class="flex items-center space-x-2 pt-4">
+            {% for link_name, href in page.meta.external_links.items() %}
+            <a target="_blank" rel="noreferrer" data-slot="badge"
+                class="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&amp;&gt;svg]:size-3 gap-1 [&amp;&gt;svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden border-transparent bg-secondary text-secondary-foreground [a&amp;]:hover:bg-secondary/90"
+                href="{{ href }}">
+                {{ link_name }}
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="tabler-icon tabler-icon-arrow-up-right ">
+                    <path d="M17 7l-10 10"></path>
+                    <path d="M8 7l9 0l0 9"></path>
+                </svg>
+            </a>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+    </div>
+    <div class="typography w-full flex-1 *:data-[slot=alert]:first:mt-0">
+        {{ page.content }}
+    </div>
 </article>
