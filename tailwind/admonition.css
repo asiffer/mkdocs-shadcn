@@ -1,0 +1,32 @@
+article .admonition {
+  @apply w-full px-4 py-3 [&:not(:first-child)]:mt-6 relative rounded-lg border text-sm text-foreground bg-muted/50;
+}
+
+article .admonition > p:nth-child(1) {
+  @apply inline !m-0;
+}
+
+article .admonition > p:nth-child(2) {
+  @apply inline !m-0;
+}
+
+article .admonition .codehilite {
+  @apply mt-2 bg-background/40;
+}
+
+article .admonition.danger {
+  @apply border-destructive/50 bg-destructive/10 dark:border-destructive dark:bg-destructive/50 [&_p_code]:bg-destructive/5 dark:[&_p_code]:bg-destructive/20;
+}
+
+/* see https://ui.shadcn.com/docs/components/chart#your-first-chart */
+article .admonition.warning {
+  @apply border-warning bg-warning/10 [&_p_code]:bg-warning/20;
+}
+
+article .admonition.info {
+  @apply bg-blue-50 border-blue-600 dark:border-blue-900 dark:bg-blue-950 mb-6 [&_p_code]:bg-blue-100 dark:[&_p_code]:bg-blue-900;
+}
+
+article .admonition > p.admonition-title {
+  @apply font-bold;
+}

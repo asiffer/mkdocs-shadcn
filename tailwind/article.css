@@ -1,0 +1,125 @@
+article {
+  @apply mx-auto flex w-full max-w-2xl min-w-0 flex-1 flex-col gap-8 px-4 py-6 text-neutral-800 md:px-0 lg:py-8 dark:text-neutral-300;
+}
+
+#summary {
+  @apply mt-0 max-w-[450px] text-muted-foreground leading-6;
+}
+
+article #page-header h1 {
+  @apply scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl;
+}
+
+article strong {
+  @apply font-semibold;
+}
+
+article .typography h2 {
+  @apply mt-12 scroll-m-28 text-2xl font-medium tracking-tight lg:mt-20 [&+p]:!mt-4 *:[code]:text-2xl;
+}
+
+article .typography > h2 {
+    @apply first:mt-0;
+}
+
+article .typography h3 {
+  @apply mt-8 scroll-m-28 text-xl font-semibold tracking-tight *:[code]:text-xl;
+}
+
+article .typography h4 {
+  @apply mt-6 scroll-m-20 text-xl font-semibold tracking-tight;
+}
+
+article p {
+  @apply leading-relaxed [&:not(:first-child)]:mt-6;
+}
+
+article .typography > div {
+  @apply [&:not(:first-child)]:mt-6;
+}
+
+article a {
+  @apply font-medium text-primary underline underline-offset-4;
+}
+
+article blockquote {
+  @apply mt-6 border-l-2 pl-6 italic;
+}
+
+article ul {
+  @apply my-6 ml-6 list-disc [&>li]:mt-2;
+}
+
+article li ul {
+  @apply mt-4;
+}
+
+article ol {
+  @apply my-6 ml-6 list-decimal [&>li]:mt-2;
+}
+
+article pre {
+  @apply block mb-4 mt-6 max-h-[650px] rounded-xl py-4 px-4;
+}
+
+article > pre {
+  @apply bg-muted;
+}
+
+/* article .light > pre {
+  @apply bg-muted;
+}
+
+article .light > pre code {
+  @apply text-foreground;
+} */
+
+article pre code {
+  @apply relative font-mono text-sm not-italic;
+}
+
+article pre code > span {
+  @apply py-0.5;
+}
+
+article code:not(pre code) {
+  @apply bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] outline-none;
+}
+
+
+
+article > table {
+  @apply w-full mt-6;
+}
+
+article table thead tr {
+  @apply m-0 border-t p-0 even:bg-muted;
+}
+
+article table thead tr th {
+  @apply border px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right;
+}
+
+article table tbody tr {
+  @apply m-0 border-t p-0 even:bg-muted;
+}
+
+article table tbody tr td {
+  @apply border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right;
+}
+
+article tr td.linenos pre {
+  @apply text-sm;
+}
+
+article td.code pre {
+  @apply leading-0;
+}
+
+article .external_links > a {
+    @apply no-underline;
+}
+
+article div:empty {
+  @apply mt-0;
+}

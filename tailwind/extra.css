@@ -1,0 +1,17 @@
+.max-w-7xl {
+  max-width: 1400px;
+}
+
+.max-w-8xl {
+  max-width: 1536px;
+}
+
+@layer utilities {
+  .container-wrapper {
+    @apply w-full mx-auto;
+  }
+
+  .layout-fixed .container-wrapper {
+    @apply 3xl:max-w-[calc(var(--breakpoint-2xl)+2rem)] 3xl:px-0;
+  }
+}

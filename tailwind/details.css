@@ -1,0 +1,31 @@
+article details:not(:first-of-type) {
+  @apply !mt-0;
+}
+
+article details {
+  @apply [&:not(:first-child)]:mt-6 border-b text-sm py-4 mt-0;
+}
+
+article details summary {
+  @apply relative font-medium transition-all hover:underline cursor-pointer dark:after:invert;
+}
+
+article details summary::marker {
+  content: "";
+}
+
+article details summary::after {
+  content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>');
+}
+
+article details summary::after {
+  @apply inline-block absolute right-1.5 aspect-square transition-all;
+}
+
+article details[open] summary::after {
+  @apply rotate-180;
+}
+
+article details[open] > p {
+  @apply pb-4 pt-0 text-sm font-normal no-underline;
+}

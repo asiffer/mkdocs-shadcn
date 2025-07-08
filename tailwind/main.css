@@ -1,0 +1,33 @@
+@import "tailwindcss";
+@import "./admonition.css";
+@import "./article.css";
+@import "./codehilite.css";
+@import "./details.css";
+@import "./extra.css";
+@import "./fonts.css";
+@import "./footer.css";
+@import "./mkdocstrings.css";
+@import "./progress.css";
+@import "./scrollbar.css";
+@import "./search.css";
+@import "./shadcn.css";
+@import "./tabs.css";
+
+
+@theme {
+  --breakpoint-3xl: 1600px;
+  --breakpoint-4xl: 2000px;
+}
+
+@utility container {
+  @apply px-4 3xl:px-8 mx-auto sm:max-w-[var(--breakpoint-sm)] md:max-w-[var(--breakpoint-md)] lg:max-w-[var(--breakpoint-lg)] xl:max-w-[var(--breakpoint-xl)] 2xl:max-w-[var(--breakpoint-2xl)] 3xl:w-full 3xl:max-w-[var(--breakpoint-3xl)];
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant data-closing (&[data-closing="1"]);
+@custom-variant fixed (&:is(.layout-fixed *));
+
+@plugin '@tailwindcss/typography';
+@plugin "tailwindcss-animate";
+
+

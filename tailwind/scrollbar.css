@@ -1,0 +1,32 @@
+#inner-body {
+  scrollbar-width: thin;
+}
+
+/* thin scroll bars  */
+@supports (scrollbar-width: thin)  {
+  html,
+  body {
+    scrollbar-width: thin; /* Firefox */
+  }
+}
+
+@supports (scrollbar-color: red) {
+  html,
+  body {
+    scrollbar-color: var(--color-muted-foreground); /* Firefox */
+  }
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-muted-foreground);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}

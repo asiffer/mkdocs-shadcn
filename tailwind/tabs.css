@@ -1,0 +1,32 @@
+
+article .tabbed-set {
+  @apply flex flex-row flex-wrap first-of-type:mt-6;
+}
+
+article .tabbed-set input[type="radio"] {
+  @apply hidden;
+}
+
+article .tabbed-set input[type="radio"]:checked + label {
+  @apply text-foreground border-b-primary;
+}
+
+article .tabbed-set label {
+  @apply order-1 border-b-2 border-b-transparent font-semibold text-sm py-1 px-4 text-muted-foreground cursor-pointer transition-colors hover:text-foreground;
+}
+
+article .tabbed-set div.tabbed-content {
+  @apply hidden order-last basis-full border-t border-t-border pt-3 overflow-auto mt-0;
+}
+
+article .tabbed-content .codehilite {
+  @apply mt-0;
+}
+
+article
+  .tabbed-set
+  input[type="radio"]:checked
+  + label
+  + div.tabbed-content {
+  @apply block;
+}

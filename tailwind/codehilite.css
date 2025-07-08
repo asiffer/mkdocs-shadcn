@@ -1,0 +1,47 @@
+article .codehilite table.codehilitetable {
+  border-collapse: unset;
+  margin: 0;
+}
+
+article .codehilite .linenos {
+  @apply text-sm text-right sticky left-0 text-[var(--color-code-number)] pr-6;
+}
+
+
+article .codehilite .hll .linenos {
+  @apply bg-transparent;
+}
+
+article .codehilite td.linenos {
+  @apply pr-0;
+}
+
+article .codehilite:has(& > .codehilitetable) {
+  @apply overflow-auto;
+}
+
+article table.codehilitetable pre,
+article table.codehilitetable code {
+  @apply overflow-visible h-full;
+}
+
+article table.codehilitetable tbody tr td {
+  @apply border-0;
+}
+
+
+article table.codehilitetable pre {
+  @apply px-0 m-0;
+}
+
+article .codehilite {
+  @apply rounded-xl overflow-auto relative mt-4;
+}
+
+article .codehilite pre {
+  @apply mb-0 mt-0;
+}
+
+/* article .codehilite pre code a {
+  @apply no-underline;
+} */

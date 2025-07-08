@@ -1,0 +1,7 @@
+@layer base {
+  :root {
+    --font-inter: "Inter", sans-serif;
+    --font-sans: "Geist", sans-serif;
+    --font-mono: "Geist Mono", monospace;
+  }
+}

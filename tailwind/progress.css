@@ -1,0 +1,24 @@
+
+article .progress {
+  @apply w-full relative h-2 rounded-full bg-primary/20;
+}
+
+article .progress-bar {
+  @apply h-full bg-primary rounded-l-full;
+}
+
+article .progress.success .progress-bar {
+  @apply bg-chart-2;
+}
+
+article .progress.warning .progress-bar {
+  @apply bg-warning;
+}
+
+article .progress.danger .progress-bar {
+  @apply bg-destructive;
+}
+
+article .progress-label {
+  @apply absolute right-0 bottom-1 text-primary text-sm;
+}

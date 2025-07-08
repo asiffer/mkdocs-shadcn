@@ -1,0 +1,102 @@
+article .doc code {
+  @apply bg-transparent p-0;
+}
+
+article .doc details {
+  @apply mt-0;
+}
+
+article .doc .doc-children {
+  @apply flex flex-col gap-4;
+}
+
+article .doc details+.doc-children {
+  @apply mt-4;
+}
+
+article .doc .doc-contents {
+  @apply mt-2 flex flex-col gap-2 empty:mt-0;
+}
+
+article .doc .doc-contents.first {
+  @apply mt-6;
+}
+
+article .typography > div:first-child > h2 {
+    @apply mt-0;
+}
+
+
+article .doc .doc-contents p {
+  @apply text-muted-foreground text-sm mt-0;
+}
+
+article .doc .doc-contents h3 {
+  @apply text-lg *:[code]:text-base;
+}
+
+article .doc .doc-contents code {
+  @apply rounded-none;
+}
+
+article .doc .doc-contents ul {
+  @apply mt-0;
+}
+
+article .doc .doc-contents details {
+  @apply py-2;
+}
+
+article .doc .doc-contents table:not(.codehilitetable) {
+  @apply text-sm mt-2 w-full;
+}
+
+article .doc .doc-contents table th {
+  @apply font-medium;
+}
+
+article .doc .doc-contents .doc-class-bases {
+  @apply text-foreground;
+}
+
+article .doc .doc-contents .doc-section-title {
+  @apply text-foreground font-semibold;
+}
+
+article .doc .doc-object {
+  @apply p-5 bg-slate-50 dark:bg-slate-900 rounded-lg;
+}
+
+article .doc .doc-object.doc-function {
+  @apply bg-stone-50 dark:bg-stone-900;
+}
+
+article .doc .doc-object h2,
+article .doc .doc-object h3,
+article .doc .doc-object h4 {
+  @apply mt-0 flex flex-row items-center justify-between;
+}
+
+article .doc .doc-object .doc-labels {
+  @apply flex flex-row gap-2;
+}
+
+article .doc .doc-object .doc-contents {
+  @apply text-muted-foreground text-sm;
+}
+
+article .doc .doc-object .doc-contents ul > li {
+  @apply mt-1;
+}
+
+article .doc .doc-object code {
+  @apply mt-0;
+}
+
+article .doc small code {
+  @apply font-normal text-muted-foreground;
+}
+
+article .doc .doc-class-bases code {
+  @apply font-medium;
+}
