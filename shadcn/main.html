@@ -106,6 +106,9 @@
     {% if config.theme.show_stargazers %}
     <script>fetchStargazers("{{ config.repo_url }}");</script>
     {% endif %}
+    {% if "mkdocstrings" in config.plugins %}
+    <script src="{{ 'js/mkdocstrings.js' | url }}"></script>
+    {% endif %}
 </body>
 
 </html>

@@ -4,6 +4,7 @@ import os
 from bottle import request, response  # type: ignore
 from mkdocs.config import config_options as c
 from mkdocs.config.base import Config
+from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.plugins import BasePlugin, get_plugin_logger
 
 from ._router import RouterMixin
@@ -12,6 +13,11 @@ log = get_plugin_logger("excalidraw")
 
 
 def svg_handler_factory(directory: str):
+    """
+    Attributes:
+        directory (str): Directory where the SVG files are stored. This is relative to the docs_dir.
+    """
+
     def handler():
         file = request.query.get("file")
         svg_file = os.path.join(directory, file.replace(".json", ".svg"))
@@ -78,15 +84,23 @@ class ExcalidrawPluginConfig(Config):
 
 
 class ExcalidrawPlugin(RouterMixin, BasePlugin[ExcalidrawPluginConfig]):
-    """Excalidraw plugin that supports update in dev mode."""
+    """This plugin enabled the real time edition of
+    excalidraw scenes in development mode"""
 
     is_dev_server = False
+    """Internal flag to detect if we are in development mode."""
 
-    def on_startup(self, *, command, dirty):
+    def on_startup(self, *, command, dirty: bool):
+        """Detect if the server is running in development mode."""
         self.is_dev_server = command == "serve"
 
-    def on_config(self, config, **kwargs):
+    def on_config(self, config: MkDocsConfig, **kwargs):
+        """Three operations are performed:
 
+        - detect and create the excalidraw directory
+        - load the internal excalidraw markdown extension
+        - inject the HTTP routes needed to handle excalidraw scenes and SVGs
+        """
         base = os.path.dirname(config["config_file_path"])
         excalidraw_path = os.path.join(base, self.config.directory)
         extension_config = {
@@ -98,7 +112,9 @@ class ExcalidrawPlugin(RouterMixin, BasePlugin[ExcalidrawPluginConfig]):
             f"with configuration: {extension_config}"
         )
         config["markdown_extensions"].append("shadcn.extensions.excalidraw")
-        config["mdx_configs"]["shadcn.extensions.excalidraw"] = extension_config
+        config["mdx_configs"]["shadcn.extensions.excalidraw"] = (
+            extension_config
+        )
         # create directory
         log.debug(f"creating excalidraw directory: {excalidraw_path}")
         os.makedirs(excalidraw_path, exist_ok=True)

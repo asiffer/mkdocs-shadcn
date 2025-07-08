@@ -16,9 +16,11 @@ dependencies = [
 [dependency-groups]
 dev = [
     "accessible-pygments>=0.0.4",
+    "mkdocstrings[python]>=0.26.1",
     "mypy>=1.12.0",
     "pygments>=2.19.1",
     "pymdown-extensions>=10.14.2",
+    "ruff>=0.12.2",
     "types-markdown>=3.7.0.20241204",
     "types-pygments>=2.19.0.20250107",
 ]
@@ -36,3 +38,11 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["shadcn"]
+
+[tool.ruff]
+target-version = "py38"
+line-length = 79
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = 79

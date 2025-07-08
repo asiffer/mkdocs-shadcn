@@ -21,6 +21,7 @@ theme:
 plugins:
   - search # put it first to inject out custom code
   - excalidraw
+  - mkdocstrings
 
 markdown_extensions:
   admonition:

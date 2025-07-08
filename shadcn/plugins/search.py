@@ -1,5 +1,4 @@
 import re
-import sys
 from typing import Set
 
 from mkdocs.config import Config
@@ -19,13 +18,50 @@ class SearchPlugin(BaseSearchPlugin):
     """
 
     page_index = 0
+    """Internal page index for orderning purpose"""
     page_indices: Set[int] = set()
+    """Internal set of pages that have hard-coded order"""
 
     def on_startup(self, *, command, dirty):
         self.is_dev_server = command == "serve"
 
-    def on_config(self, config, **kwargs):
+    def on_mkdocstrings(self, config: MkDocsConfig, **kwargs):
+        mkdocstrings_config = {
+            "handlers": {
+                "python": {
+                    "options": {
+                        "show_root_heading": True,
+                    }
+                },
+            },
+            "default_handler": "python",
+        }
+
+        plugin = config["plugins"].get("mkdocstrings", None)
+
+        if plugin:
+            options = (
+                plugin.config.get("handlers", {})
+                .get("python", {})
+                .get("options", {})
+            )
+            show_root_heading = options.get("show_root_heading", None)
+            if show_root_heading is None:
+                plugin.config.update(mkdocstrings_config)
+
+    def on_config(self, config: MkDocsConfig, **kwargs):
+        """Called when the config is loaded.
+
+        Attributes:
+            config (dict): The MkDocs configuration dictionary.
+
+        """
+        # dev server detection
         config["is_dev_server"] = self.is_dev_server
+
+        # mkdocstrings configuration
+        self.on_mkdocstrings(config, **kwargs)
+
         return super().on_config(config, **kwargs)
 
     def on_env(self, env, /, *, config: MkDocsConfig, files: Files):
@@ -37,7 +73,9 @@ class SearchPlugin(BaseSearchPlugin):
         env.globals["is_dev_server"] = self.is_dev_server
         return env
 
-    def on_nav(self, nav: Navigation, config: Config, files: Files) -> Navigation:
+    def on_nav(
+        self, nav: Navigation, /, *, config: Config, files: Files
+    ) -> Navigation:
         # if we create folders with 00_name_of_the_folder we remove the prepended number
         # from the title. It is a common hack to have the folders ordered in the navigation
         rex = re.compile(r"^[0-9]+[ _]")
