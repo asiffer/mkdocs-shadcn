@@ -25,7 +25,7 @@ class SearchPlugin(BaseSearchPlugin):
     def on_startup(self, *, command, dirty):
         self.is_dev_server = command == "serve"
 
-    def on_mkdocstrings(self, config: MkDocsConfig, **kwargs):
+    def configure_mkdocstrings(self, config: MkDocsConfig, **kwargs):
         mkdocstrings_config = {
             "handlers": {
                 "python": {
@@ -60,7 +60,7 @@ class SearchPlugin(BaseSearchPlugin):
         config["is_dev_server"] = self.is_dev_server
 
         # mkdocstrings configuration
-        self.on_mkdocstrings(config, **kwargs)
+        self.configure_mkdocstrings(config, **kwargs)
 
         return super().on_config(config, **kwargs)
 
