@@ -8,7 +8,7 @@ external_links:
 
 
 !!! warning "Limits"
-    This theme tries to support the output of the **python handler** first. We do not know how it behaves woth other languages.
+    This theme tries to support the output of the **python handler** first. We do not know how it behaves with other languages.
 
 ## Installation
 
@@ -40,6 +40,9 @@ plugins:
 ```
 
 You can look at all the available options in the [python handler documentation](https://mkdocstrings.github.io/python/usage/).
+
+!!! warning "Important"
+    If you do not define `show_root_heading`, the theme sets it to `true` by default.
 
 ## Syntax
 
