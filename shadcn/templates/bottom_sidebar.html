@@ -33,7 +33,7 @@
                     <div class="text-muted-foreground text-sm font-medium">{{ top_item.title }}</div>
                     {% if top_item.children %}
                     <div class="flex flex-col gap-3">
-                        {% for sidebar_item in top_item.children|sort(attribute="meta.order") %}
+                        {% for sidebar_item in top_item.children|selectattr("is_page")|sort(attribute="meta.order") %}
                         <a class="text-2xl font-medium" href="{{ sidebar_item.url | url}}">
                             {% if sidebar_item.meta and sidebar_item.meta.sidebar_title %}
                             {{ sidebar_item.meta.sidebar_title }}
