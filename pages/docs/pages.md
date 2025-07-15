@@ -14,11 +14,11 @@ You can also define your page title directly with `# Page title` in the markdown
 
 ## Navigation
 
-The navigation follows bare mkdocs. You should just notice that folders will create categories in the sidebar.
+The navigation follows bare mkdocs. You should just notice that folders will create categories in the sidebar (or in the top bar when `topbar_sections: true`).
 To sort the sections, you can use the common `00_section_title/` hack. The first numbers sort the folders in the filesystem (so the sections). They are removed by the theme at compile time. 
 
 !!! warning "Important"
-    `mkdocs-shadcn` has not been tested with highly nested documentation (`d>2`, i.e. `root / folder / folder`)
+    `mkdocs-shadcn` has not been extensively tested with highly nested documentation (`d>2`, i.e. `root / folder / folder`). When subfolders are used, we may recommend to activate the [`topbar_sections`](./get_started.md#topbar_sections-bool) option in the theme configuration. This will display the top level sections in the top bar.
 
 In addition, two other attributes may help to configure pages within the sidebar.
 
@@ -86,4 +86,25 @@ extra_css:
   - css/custom.css
 extra_javascript:
   - js/custom.js
+```
+
+## Example
+
+```yaml
+title: Demo page
+summary: Example page for mkdocs-shadcn users
+new: true
+description: Example page for mkdocs-shadcn users
+keywords: mkdocs,shadcn,demo
+author: asiffer
+image: https://raw.githubusercontent.com/asiffer/mkdocs-shadcn/refs/heads/master/.github/assets/logo.svg
+order: 5
+sidebar_title: Demo
+external_links:
+  "API Reference": https://ui.shadcn.com/docs/components
+  GitHub: "https://github.com/asiffer/mkdocs-shadcn"
+extra_css:
+  - css/custom-style.css
+extra_javascript:
+  - js/custom-script.js
 ```
