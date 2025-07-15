@@ -1,5 +1,6 @@
 ---
 title: Fenced code
+summary: Another way to define code blocks
 external_links:
     Reference: https://python-markdown.github.io/extensions/fenced_code_blocks/
 ---
