@@ -16,14 +16,7 @@
                                 class="group-data-[state=open]:-translate-y-[2.25px] group-data-[state=open]:-translate-x-[2.25px] group-data-[state=open]:-rotate-45 transition-all duration-300 origin-center" />
                         </svg>
                     </div>
-                    <!-- <div class="relative size-4 hidden group-data-[state=open]:block">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 18" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-x-icon lucide-x">
-                            <path d="M18 6 6 18" />
-                            <path d="m6 6 12 12" />
-                        </svg>
-                    </div> -->
+
                     <span class="sr-only">Toggle Menu</span>
                 </div>
                 <span class="flex h-8 items-center text-lg leading-none font-medium">Menu</span>
@@ -39,6 +32,9 @@
                 <h1 class="pr-2">{{ config.site_name }}</h1>
                 {% endif %}
             </a>
+            {% if config.theme.topbar_sections %}
+            {% include "templates/header_navigation.html" %}
+            {% endif %}
             <div class="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
                 <div class="hidden w-full flex-1 md:flex md:w-auto md:flex-none">
                     {% include "templates/search.html" %}
@@ -61,19 +57,23 @@
                 </a>
                 <div data-orientation="vertical" role="none" data-slot="separator"
                     class="bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px 3xl:flex hidden">
-                </div><button data-slot="button"
+                </div>
+                <button data-slot="button"
                     class="items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 size-8 3xl:flex hidden"
-                    title="Toggle layout" onclick="toggleLayout(event)"><span class="sr-only">Toggle layout</span><svg
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    title="Toggle layout" onclick="toggleLayout(event)">
+                    <span class="sr-only">Toggle layout</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="lucide lucide-gallery-horizontal">
                         <path d="M2 3v18"></path>
                         <rect width="12" height="18" x="6" y="3" rx="2"></rect>
                         <path d="M22 3v18"></path>
-                    </svg></button>
+                    </svg>
+                </button>
                 <div data-orientation="vertical" role="none" data-slot="separator"
                     class="bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px">
-                </div><button data-slot="button"
+                </div>
+                <button data-slot="button"
                     class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 group/toggle extend-touch-target size-8"
                     title="Toggle theme" onclick="onThemeSwitch(event)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"

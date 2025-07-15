@@ -8,7 +8,13 @@ from mkdocs.structure.files import Files
 from mkdocs.structure.nav import Navigation, Section
 from mkdocs.structure.pages import Page
 
-from shadcn.filters import iconify, parse_author, setattribute
+from shadcn.filters import (
+    active_section,
+    first_page,
+    iconify,
+    parse_author,
+    setattribute,
+)
 
 
 class SearchPlugin(BaseSearchPlugin):
@@ -69,6 +75,8 @@ class SearchPlugin(BaseSearchPlugin):
         env.filters["setattribute"] = setattribute
         env.filters["iconify"] = iconify
         env.filters["parse_author"] = parse_author
+        env.filters["active_section"] = active_section
+        env.filters["first_page"] = first_page
         # add custom global variables
         env.globals["is_dev_server"] = self.is_dev_server
         return env

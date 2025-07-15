@@ -4,3 +4,4 @@ show_stargazers: true
 pygments_style:
   light: shadcn-light
   dark: github-dark
+topbar_sections: false

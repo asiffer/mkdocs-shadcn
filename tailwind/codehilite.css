@@ -42,6 +42,6 @@ article .codehilite pre {
   @apply mb-0 mt-0;
 }
 
-/* article .codehilite pre code a {
-  @apply no-underline;
-} */
+article .codehilite code a {
+  @apply no-underline cursor-text;
+}

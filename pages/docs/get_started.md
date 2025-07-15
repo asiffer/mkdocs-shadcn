@@ -46,6 +46,8 @@ If you want to use `pymdown` extensions, you can also install the `pymdown-exten
 
 ## Configure
 
+The theme configuration is roughly the contract with the users. When it changes, we increment the major version of the package (or minor in the `0.X.Y` case). Currently the theme does not provide so many options.
+
 ```yaml
 # mkdocs.yml
 site_name: "awesome-project"
@@ -57,15 +59,21 @@ theme:
         light: shadcn-light
         dark: github-dark
   icon: heroicons:rocket-launch # use the shadcn svg if not defined
+  topbar_sections: false # NEW!
 ```
 
-Currently there are not many options and they are likely to change. You can define an `icon` (image url or [iconify class](https://icon-sets.iconify.design/)) for the top bar.
+### `show_title: bool` 
 
-**`show_title`** (`bool`): If `false`, only the icon will be visible in the top bar (left-side). Default to `true`.
+If `false`, only the icon will be visible in the top bar (left-side). Default to `true`.
 
-**`show_stargazers`** (`bool`): If `false`, hides the GitHub stargazers besides the repo icon in the top bar (right side). Default to `true`.
 
-**`pygments_style`** (`str | dict`): Define the pygments style for the code blocks. Supported styles are given below. 
+### `show_stargazers: bool`
+
+If `false`, hides the GitHub stargazers besides the repo icon in the top bar (right side). Default to `true`.
+
+### `pygments_style: str | dict`
+
+Define the pygments style for the code blocks. Supported styles are given below. 
 If a single theme is provided, it is applies for both light and dark themes. If a dictionary is provided, it should contain `light` and `dark` keys with the respective styles.
 
 <script>
@@ -162,4 +170,11 @@ for num in fibonacci(10):
     print(num)
 ```
 
-**`icon`** (`str`): Sets the top-left icon. If not defined, the default shadcn icon is used. You can either pass an image URL or an [iconify class](https://icon-sets.iconify.design/).
+### `icon: str`
+
+Sets the top-left icon. If not defined, the default shadcn icon is used. You can either pass an image URL or an [iconify class](https://icon-sets.iconify.design/).
+
+
+### `topbar_sections: bool`
+
+If `true`, the top level sections (i.e. top level directories of the docs) will be displayed in the top bar (and not in the sidebar). It allows to have a deeper navigation tree within the website (basically 2 levels of nesting), but it can be used in any cases. Default to `false`.
