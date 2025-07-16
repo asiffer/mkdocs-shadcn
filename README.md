@@ -1,7 +1,23 @@
 
 ![banner](https://raw.githubusercontent.com/asiffer/mkdocs-shadcn/master/.github/assets/banner.png)
 
-![screenshot](https://raw.githubusercontent.com/asiffer/mkdocs-shadcn/master/.github/assets/screenshot3.png)
+<p align="center">
+  <a href="https://github.com/squidfunk/mkdocs-shadcn/actions"><img
+    src="https://github.com/asiffer/mkdocs-shadcn/actions/workflows/testing.yaml/badge.svg"
+    alt="Testing"
+  /></a>
+  <a href="https://pypistats.org/packages/mkdocs-shadcn"><img
+    src="https://img.shields.io/pypi/dm/mkdocs-shadcn.svg"
+    alt="Downloads"
+  /></a>
+  <a href="https://pypi.org/project/mkdocs-shadcn"><img
+    src="https://img.shields.io/pypi/v/mkdocs-shadcn.svg"
+    alt="Python Package Index"
+  /></a>
+</p>
+
+
+![screenshot](https://raw.githubusercontent.com/asiffer/mkdocs-shadcn/master/.github/assets/screenshot4.png)
 
 
 > [!IMPORTANT]  
