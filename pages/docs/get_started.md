@@ -60,6 +60,10 @@ theme:
         dark: github-dark
   icon: heroicons:rocket-launch # use the shadcn svg if not defined
   topbar_sections: false # NEW!
+  katex_options: # optional
+    macros: # example of macros
+      "\\RR": "\\mathbb{R}" 
+      "\\dx": "\\mathrm{d}x" 
 ```
 
 ### `show_title: bool` 
@@ -178,3 +182,15 @@ Sets the top-left icon. If not defined, the default shadcn icon is used. You can
 ### `topbar_sections: bool`
 
 If `true`, the top level sections (i.e. top level directories of the docs) will be displayed in the top bar (and not in the sidebar). It allows to have a deeper navigation tree within the website (basically 2 levels of nesting), but it can be used in any cases. Default to `false`.
+
+### `katex_options: dict`
+
+`null` by default. This theme options allows to configure the [KateX rendering options](https://katex.org/docs/options.html). It is useful if you want to define macros or change the rendering behavior. 
+
+```yaml
+katex_options:
+  displayMode: true
+  macros:
+    "\\RR": "\\mathbb{R}" 
+    "\\dx": "\\mathrm{d}x" 
+```

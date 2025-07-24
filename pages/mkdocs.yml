@@ -10,6 +10,9 @@ theme:
   pygments_style:
     light: shadcn-light
     dark: github-dark
+  katex_options:
+    macros:
+      "\\dx": "\\mathrm{d}x"
 
 # nav:
 #   - Welcome: index.md
@@ -34,8 +37,6 @@ markdown_extensions:
   pymdownx.blocks.tab:
     combine_header_slug: true
     separator: ___
-    slugify:
-      !!python/object/apply:pymdownx.slugs.slugify { kwds: { case: lower } }
   pymdownx.progressbar:
   pymdownx.snippets:
   pymdownx.arithmatex:

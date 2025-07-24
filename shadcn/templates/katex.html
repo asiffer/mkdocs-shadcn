@@ -3,4 +3,5 @@
 <!-- The loading of KaTeX is deferred to speed up page rendering -->
 <script defer src="{{ 'js/katex.min.js' | url }}"></script>
 <!-- To automatically render math in text elements, include the auto-render extension: -->
-<script defer src="{{ 'js/auto-render.min.js' | url }}" onload="renderMathInElement(document.body);"></script>
+<script defer src="{{ 'js/auto-render.min.js' | url }}"
+    onload='renderMathInElement(document.body, {{ ((config.theme.katex_options or "{}") | tojson) }});'></script>
