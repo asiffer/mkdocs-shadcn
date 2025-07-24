@@ -27,6 +27,7 @@ markdown_extensions:
   admonition:
   codehilite:
   fenced_code:
+  footnotes:
   extra:
   pymdownx.blocks.details:
   pymdownx.tabbed:

@@ -50,6 +50,7 @@ The theme tries to support the built-in extensions along with some `pymdownx` on
 - [x] [`admonition`](https://python-markdown.github.io/extensions/admonition/)
 - [x] [`codehilite`](https://python-markdown.github.io/extensions/code_hilite/)
 - [x] [`fenced_code`](https://python-markdown.github.io/extensions/fenced_code_blocks/)
+- [x] [`footnotes`](https://python-markdown.github.io/extensions/footnotes/)
 - [x] [`pymdownx.tabbed`](https://facelessuser.github.io/pymdown-extensions/extensions/tabbed/)
 - [x] [`pymdownx.blocks.details`](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/plugins/details/) 
 - [x] [`pymdownx.blocks.tab`](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/plugins/tab/) 
