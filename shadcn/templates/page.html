@@ -1,4 +1,4 @@
-<article class=" w-full">
+<article class=" w-full" view-transition-name="page">
     <div class="flex flex-col gap-2">
         <div class="flex flex-col gap-2">
             <div id="page-header" class="flex items-start justify-between">
@@ -9,7 +9,7 @@
 
                 <div class="flex items-center gap-2 pt-1.5">
                     {% if page.previous_page %}
-                    <a data-slot="button"
+                    <a data-slot="button" id="previous-button"
                         class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 extend-touch-target size-8 shadow-none md:size-7"
                         href="{{ page.previous_page.abs_url }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -23,7 +23,7 @@
                     </a>
                     {% endif %}
                     {% if page.next_page %}
-                    <a data-slot="button"
+                    <a data-slot="button" id="next-button"
                         class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 extend-touch-target size-8 shadow-none md:size-7"
                         href="{{ page.next_page.abs_url }}">
                         <span class="sr-only">Next</span>
