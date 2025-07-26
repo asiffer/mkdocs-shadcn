@@ -1,0 +1,19 @@
+@view-transition {
+	navigation: auto;
+}
+
+::view-transition-old(header),
+::view-transition-new(header) {
+	animation-duration: 250ms;
+}
+
+::view-transition-old(sidebar),
+::view-transition-new(sidebar) {
+	animation-duration: 250ms;
+}
+
+::view-transition-old(page),
+::view-transition-new(page) {
+	animation-duration: 250ms;
+	animation-timing-function: ease;
+}

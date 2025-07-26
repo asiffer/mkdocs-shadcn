@@ -12,15 +12,15 @@
 @import "./search.css";
 @import "./shadcn.css";
 @import "./tabs.css";
-
+@import "./transition.css";
 
 @theme {
-  --breakpoint-3xl: 1600px;
-  --breakpoint-4xl: 2000px;
+	--breakpoint-3xl: 1600px;
+	--breakpoint-4xl: 2000px;
 }
 
 @utility container {
-  @apply px-4 3xl:px-8 mx-auto sm:max-w-[var(--breakpoint-sm)] md:max-w-[var(--breakpoint-md)] lg:max-w-[var(--breakpoint-lg)] xl:max-w-[var(--breakpoint-xl)] 2xl:max-w-[var(--breakpoint-2xl)] 3xl:w-full 3xl:max-w-[var(--breakpoint-3xl)];
+	@apply px-4 3xl:px-8 mx-auto sm:max-w-[var(--breakpoint-sm)] md:max-w-[var(--breakpoint-md)] lg:max-w-[var(--breakpoint-lg)] xl:max-w-[var(--breakpoint-xl)] 2xl:max-w-[var(--breakpoint-2xl)] 3xl:w-full 3xl:max-w-[var(--breakpoint-3xl)];
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -29,5 +29,3 @@
 
 @plugin '@tailwindcss/typography';
 @plugin "tailwindcss-animate";
-
-
