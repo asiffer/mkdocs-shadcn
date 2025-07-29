@@ -13,7 +13,8 @@ The `pymdownx.arithmatex` extension is a Python-Markdown plugin that enables ren
 # mkdocs.yml
 
 markdown_extensions:
-  - pymdownx.arithmatex
+  - pymdownx.arithmatex:
+      generic: true # required to work
 ```
 
 !!! note "Note:"
