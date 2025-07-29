@@ -1,6 +1,7 @@
 import re
-from typing import Set
+from typing import Set, Union
 
+from git import Repo
 from mkdocs.config import Config
 from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.contrib.search import SearchPlugin as BaseSearchPlugin
@@ -15,6 +16,18 @@ from shadcn.filters import (
     parse_author,
     setattribute,
 )
+
+
+def find_repo(abs_src_file: str) -> Union[Repo, None]:
+    """
+    Find the git repository for the given source file.
+    Returns None if no repository is found.
+    """
+    try:
+        return Repo(abs_src_file, search_parent_directories=True)
+    except Exception:
+        print(f"Could not find git repository starting from {abs_src_file}")
+        return None
 
 
 class SearchPlugin(BaseSearchPlugin):
@@ -64,6 +77,7 @@ class SearchPlugin(BaseSearchPlugin):
         """
         # dev server detection
         config["is_dev_server"] = self.is_dev_server
+        config["git_repository"] = find_repo(config.config_file_path)
 
         # mkdocstrings configuration
         self.configure_mkdocstrings(config, **kwargs)
@@ -101,6 +115,17 @@ class SearchPlugin(BaseSearchPlugin):
         config: MkDocsConfig,
         files: Files,
     ):
+        # add git timestamps to page metadata
+        repo = config.get("git_repository", None)
+        if isinstance(repo, Repo) and page.file.abs_src_path:
+            dates = [
+                commit.committed_datetime
+                for commit in repo.iter_commits(paths=page.file.abs_src_path)
+            ]
+            if len(dates) > 0:
+                page.meta["created_at"] = dates[-1]
+                page.meta["updated_at"] = dates[0]
+
         # add order to page if not defined
         page.meta["order"] = page.meta.get("order", self.page_index)
         self.page_indices.add(self.page_index)

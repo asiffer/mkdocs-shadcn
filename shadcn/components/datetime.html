@@ -1,0 +1,13 @@
+<div class="grow text-muted-foreground pt-4 flex flex-row justify-end items-center">
+    <span id="updated_at" class="text-sm opacity-50 hover:opacity-100 transition-opacity duration-200"
+        title="last update (local time)"></span>
+</div>
+{% if page.meta.updated_at %}
+<script>
+    const updatedAt = document.getElementById("updated_at");
+    if (updatedAt) {
+        const date = new Date('{{ page.meta.updated_at.isoformat() }}');
+        updatedAt.textContent = date.toLocaleDateString();
+    }
+</script>
+{% endif %}

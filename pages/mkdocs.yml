@@ -13,6 +13,7 @@ theme:
   katex_options:
     macros:
       "\\dx": "\\mathrm{d}x"
+  # show_datetime: true
 
 # nav:
 #   - Welcome: index.md
@@ -42,3 +43,4 @@ markdown_extensions:
   pymdownx.arithmatex:
     generic: true
   shadcn.extensions.echarts.alpha:
+  shadcn.extensions.onecompiler:

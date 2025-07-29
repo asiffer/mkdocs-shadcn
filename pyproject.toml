@@ -16,6 +16,7 @@ dependencies = [
 [dependency-groups]
 dev = [
     "accessible-pygments>=0.0.4",
+    "gitpython>=3.1.45",
     "mkdocstrings[python]>=0.26.1",
     "mypy>=1.12.0",
     "pygments>=2.19.1",

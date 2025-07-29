@@ -1,6 +1,7 @@
 ---
 title: Pages
 summary: Metadata configuration
+show_datetime: true
 ---
 
 Like this page, you can define its title (and subtitle) through front-matter configuration.
@@ -79,6 +80,14 @@ new: true
 # alpha: true
 ```
 
+The [`show_datetime` theme option](./get_started.md#show_datetime-bool) can be overriden per page 
+if you want to show/hide the last update date for a specific page.
+
+```yaml
+show_datetime: true
+```
+
+
 Finally you an also load per-page CSS and JS files. This is done through the `extra_css` and `extra_javascript` attributes.
 
 ```yaml
@@ -100,6 +109,7 @@ author: asiffer
 image: https://raw.githubusercontent.com/asiffer/mkdocs-shadcn/refs/heads/master/.github/assets/logo.svg
 order: 5
 sidebar_title: Demo
+show_datetime: false
 external_links:
   "API Reference": https://ui.shadcn.com/docs/components
   GitHub: "https://github.com/asiffer/mkdocs-shadcn"

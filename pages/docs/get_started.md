@@ -1,5 +1,6 @@
 ---
 title: Get started
+show_datetime: true
 extra_css:
   - "css/pygments/all.css" # add scoped styles
 
@@ -63,7 +64,8 @@ theme:
   katex_options: # optional
     macros: # example of macros
       "\\RR": "\\mathbb{R}" 
-      "\\dx": "\\mathrm{d}x" 
+      "\\dx": "\\mathrm{d}x"
+  show_datetime: false 
 ```
 
 ### `show_title: bool` 
@@ -194,3 +196,12 @@ katex_options:
     "\\RR": "\\mathbb{R}" 
     "\\dx": "\\mathrm{d}x" 
 ```
+
+### `show_datetime: bool`
+
+If `true`, the last update date of the page (source: last git commit involving the current page) will be displayed at the top right corner of the page (see [above](#inner-body)). 
+Default to `false`. The date is displayed in the local timezone of the user.
+
+This options allows to enable the date display for all the pages of the documentation. 
+If you want to disable it for a specific page, you can set `show_datetime: false` in the front-matter of the page.
+
