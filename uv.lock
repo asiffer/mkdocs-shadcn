@@ -475,6 +475,7 @@ version = "0.8.0"
 source = { editable = "." }
 dependencies = [
     { name = "bottle" },
+    { name = "gitpython" },
     { name = "mkdocs" },
     { name = "pymdown-extensions", version = "10.15", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
     { name = "pymdown-extensions", version = "10.16", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.9'" },
@@ -484,7 +485,6 @@ dependencies = [
 dev = [
     { name = "accessible-pygments", version = "0.0.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
     { name = "accessible-pygments", version = "0.0.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.9'" },
-    { name = "gitpython" },
     { name = "mkdocstrings", version = "0.26.1", source = { registry = "https://pypi.org/simple" }, extra = ["python"], marker = "python_full_version < '3.9'" },
     { name = "mkdocstrings", version = "0.29.1", source = { registry = "https://pypi.org/simple" }, extra = ["python"], marker = "python_full_version >= '3.9'" },
     { name = "mypy", version = "1.14.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
@@ -502,6 +502,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "bottle", specifier = ">=0.13.2" },
+    { name = "gitpython", specifier = ">=3.1.45" },
     { name = "mkdocs", specifier = ">=1.6.1" },
     { name = "pymdown-extensions", specifier = ">=10.14.3" },
 ]
@@ -509,7 +510,6 @@ requires-dist = [
 [package.metadata.requires-dev]
 dev = [
     { name = "accessible-pygments", specifier = ">=0.0.4" },
-    { name = "gitpython", specifier = ">=3.1.45" },
     { name = "mkdocstrings", extras = ["python"], specifier = ">=0.26.1" },
     { name = "mypy", specifier = ">=1.12.0" },
     { name = "pygments", specifier = ">=2.19.1" },
