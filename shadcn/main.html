@@ -107,7 +107,10 @@
     <script>fetchStargazers("{{ config.repo_url }}");</script>
     {% endif %}
     {% if "mkdocstrings" in config.plugins %}
-    <script src="{{ 'js/mkdocstrings.js' | url }}"></script>
+    {% include "templates/mkdocstrings.html" %}
+    {% endif %}
+    {% if "shadcn.extensions.codexec" in config.markdown_extensions %}
+    {% include "templates/codexec.html" %}
     {% endif %}
     {% include "templates/speculation_rules.html" %}
 </body>
