@@ -43,3 +43,4 @@ markdown_extensions:
   pymdownx.arithmatex:
     generic: true
   shadcn.extensions.echarts.alpha:
+  shadcn.extensions.codexec:
