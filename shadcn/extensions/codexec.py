@@ -83,12 +83,17 @@ class CodexecBlock(Block):
 
         # run button
         button = etree.SubElement(block, "button")
-        callback = """(data) => { 
+        callback = """({output, ok}) => { 
             const result = this.parentElement.getElementsByClassName('codexec-result')[0]; 
             if (result) { 
+                if (ok === false) {
+                    result.classList.add('error');
+                } else {
+                    result.classList.remove('error');
+                }
                 const pre = result.querySelector('pre');
                 if (pre) {
-                    pre.innerHTML = data;
+                    pre.innerHTML = output;
                 }
             }
             this.dataset.status = '';

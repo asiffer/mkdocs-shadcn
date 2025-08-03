@@ -26,6 +26,10 @@
 	@apply bg-slate-50 text-muted-foreground rounded-xl;
 }
 
+.codexec-result.error {
+	@apply bg-destructive/5 text-destructive;
+}
+
 .codexec-result > pre {
 	@apply p-4 m-0 font-mono empty:p-0;
 }

@@ -11,7 +11,7 @@
      * Executes code using Programiz REPL via socket.io
      * @param {string} lang - Programming language (e.g., "python", "cpp", "javascript")
      * @param {string} code - Code to execute
-     * @returns {Promise<string>} Promise resolving to the output
+     * @returns {Promise<{output:string,ok:boolean}>} Promise resolving to the output
      */
     function runCodexec(code, lang) {
         console.log(`Running code in ${lang}:`, code);
@@ -31,8 +31,10 @@
 
         const id = `${lang}/${sessionId}`;
 
+
         return new Promise((resolve, reject) => {
             let timeout;
+            let ok = true;
 
             socket.on("connect_error", (err) => {
                 console.error(`[${id}] Connection error:`, err);
@@ -51,8 +53,13 @@
 
             socket.on("output", ({ output }) => {
                 console.log(`[${id}] Output received:`, output);
+                if (output.slice(0, 6) === "ERROR!") {
+                    ok = false;
+                    // we try to retrieve the error message in the next message
+                    return
+                }
                 clearTimeout(timeout);
-                resolve(output);
+                resolve({ output, ok });
                 socket.disconnect();
             });
 
