@@ -13,7 +13,7 @@ The Codexec extensions extends a [codehilite](codehilite.md) code block to execu
 
 markdown_extensions:
   - codehilite
-  - codexec
+  - shadcn.extensions.codexec
 ```
 
 ## Syntax
