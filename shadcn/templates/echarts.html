@@ -2,15 +2,6 @@
 <script>
     const rootStyles = getComputedStyle(document.documentElement);
     const color = ["#8ec5ff", "#2b7fff", "#1d6ed4", "#155ab6", "#0f4c8a"];
-    // const color = [
-    //     "hsl(173,58%,39%)",
-    //     "hsl(12,76%,61%)",
-    //     "hsl(197,37%,24%)",
-    //     "hsl(43,74%,66%)",
-    //     "hsl(27,87%,67%)"
-    // ]
-    // const color = [1, 2, 3, 4, 5].map(i => rootStyles.getPropertyValue(`--chart-${i}`).trim());
-    console.log('ECharts color scheme:', color);
     const waitForECharts = () => {
         if (typeof echarts !== 'undefined') {
             console.log('ECharts is loaded');
