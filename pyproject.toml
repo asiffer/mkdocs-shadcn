@@ -1,6 +1,6 @@
 [project]
 name = "mkdocs-shadcn"
-version = "0.9.0"
+version = "0.9.1"
 description = "Documentation that also shines"
 authors = [
     { name = "Alban Siffer", email = "31479857+asiffer@users.noreply.github.com" },
