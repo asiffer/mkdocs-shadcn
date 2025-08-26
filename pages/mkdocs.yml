@@ -44,3 +44,4 @@ markdown_extensions:
     generic: true
   shadcn.extensions.echarts.alpha:
   shadcn.extensions.codexec:
+  shadcn.extensions.iconify:

@@ -8,7 +8,7 @@ from mkdocs.structure.pages import Page
 
 
 @lru_cache()
-def iconify(key: str) -> str:
+def iconify(key: str, height: str = "20px", **kwargs) -> str:
     base_url = "https://api.iconify.design"
     icon = key.split(":")
     if len(icon) != 2:
@@ -16,7 +16,7 @@ def iconify(key: str) -> str:
             f"Invalid icon format: {key}. Expected format 'provider:name'."
         )
     provider, name = icon
-    url = f"{base_url}/{provider}/{name}.svg?{urllib.parse.urlencode({'height': '20px'})}"
+    url = f"{base_url}/{provider}/{name}.svg?{urllib.parse.urlencode({'height': height, **kwargs})}"
     with urllib.request.urlopen(url) as response:
         content = response.read().decode(
             "utf-8"

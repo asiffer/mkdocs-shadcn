@@ -132,3 +132,7 @@ article a.footnote-backref {
 	mask-size: contain;
 	background-color: currentColor;
 }
+
+article .iconify {
+	@apply inline-block
+}
