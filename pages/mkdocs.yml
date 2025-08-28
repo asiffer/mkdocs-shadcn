@@ -23,7 +23,7 @@ theme:
 #       - examples/a.md
 
 plugins:
-  - search # put it first to inject out custom code
+  - search
   - excalidraw
   - mkdocstrings
 
