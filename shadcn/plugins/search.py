@@ -1,12 +1,10 @@
 import re
-from typing import Set, Union
+from typing import Union
 
 from git import Repo
-from mkdocs.config import Config
 from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.contrib.search import SearchPlugin as BaseSearchPlugin
 from mkdocs.structure.files import Files
-from mkdocs.structure.nav import Navigation, Section
 from mkdocs.structure.pages import Page
 
 from shadcn.filters import (
@@ -16,6 +14,12 @@ from shadcn.filters import (
     parse_author,
     setattribute,
 )
+from shadcn.plugins.mixins.dev import DevServerMixin
+from shadcn.plugins.mixins.git import GitTimestampsMixin
+from shadcn.plugins.mixins.mkdocstrings import MkdocstringsMixin
+from shadcn.plugins.mixins.order import OrderMixin
+
+# from shadcn.plugins.mixins.search import SearchMixin as BaseSearchPlugin
 
 
 def find_repo(abs_src_file: str) -> Union[Repo, None]:
@@ -30,59 +34,22 @@ def find_repo(abs_src_file: str) -> Union[Repo, None]:
         return None
 
 
-class SearchPlugin(BaseSearchPlugin):
+class SearchPlugin(
+    GitTimestampsMixin,
+    DevServerMixin,
+    OrderMixin,
+    MkdocstringsMixin,
+    BaseSearchPlugin,
+):
     """⚠️ HACK ⚠️
     Custom plugin. As search is loaded by default, we subclass it so as
     to inject what we want (and without adding a list of additional plugins)
     """
 
-    page_index = 0
-    """Internal page index for orderning purpose"""
-    page_indices: Set[int] = set()
-    """Internal set of pages that have hard-coded order"""
-
-    def on_startup(self, *, command, dirty):
-        self.is_dev_server = command == "serve"
-
-    def configure_mkdocstrings(self, config: MkDocsConfig, **kwargs):
-        mkdocstrings_config = {
-            "handlers": {
-                "python": {
-                    "options": {
-                        "show_root_heading": True,
-                    }
-                },
-            },
-            "default_handler": "python",
-        }
-
-        plugin = config["plugins"].get("mkdocstrings", None)
-
-        if plugin:
-            options = (
-                plugin.config.get("handlers", {})
-                .get("python", {})
-                .get("options", {})
-            )
-            show_root_heading = options.get("show_root_heading", None)
-            if show_root_heading is None:
-                plugin.config.update(mkdocstrings_config)
-
     def on_config(self, config: MkDocsConfig, **kwargs):
-        """Called when the config is loaded.
-
-        Attributes:
-            config (dict): The MkDocs configuration dictionary.
-
-        """
-        # dev server detection
-        config["is_dev_server"] = self.is_dev_server
-        config["git_repository"] = find_repo(config.config_file_path)
-
-        # mkdocstrings configuration
-        self.configure_mkdocstrings(config, **kwargs)
-
-        return super().on_config(config, **kwargs)
+        # we need to put "en" as default language for search
+        self.config["lang"] = self.config.get("lang", None) or ["en"]
+        return super().on_config(config)
 
     def on_env(self, env, /, *, config: MkDocsConfig, files: Files):
         # custom jinja2 filter
@@ -91,20 +58,7 @@ class SearchPlugin(BaseSearchPlugin):
         env.filters["parse_author"] = parse_author
         env.filters["active_section"] = active_section
         env.filters["first_page"] = first_page
-        # add custom global variables
-        env.globals["is_dev_server"] = self.is_dev_server
-        return env
-
-    def on_nav(
-        self, nav: Navigation, /, *, config: Config, files: Files
-    ) -> Navigation:
-        # if we create folders with 00_name_of_the_folder we remove the prepended number
-        # from the title. It is a common hack to have the folders ordered in the navigation
-        rex = re.compile(r"^[0-9]+[ _]")
-        for item in nav.items:
-            if isinstance(item, Section) and rex.match(item.title):
-                item.title = rex.sub("", item.title).capitalize()
-        return nav
+        return super().on_env(env, config=config, files=files)
 
     def on_page_markdown(
         self,
@@ -115,24 +69,8 @@ class SearchPlugin(BaseSearchPlugin):
         config: MkDocsConfig,
         files: Files,
     ):
-        # add git timestamps to page metadata
-        repo = config.get("git_repository", None)
-        if isinstance(repo, Repo) and page.file.abs_src_path:
-            dates = [
-                commit.committed_datetime
-                for commit in repo.iter_commits(paths=page.file.abs_src_path)
-            ]
-            if len(dates) > 0:
-                page.meta["created_at"] = dates[-1]
-                page.meta["updated_at"] = dates[0]
-
-        # add order to page if not defined
-        page.meta["order"] = page.meta.get("order", self.page_index)
-        self.page_indices.add(self.page_index)
-        # increment page index
-        while self.page_index in self.page_indices:
-            self.page_index += 1
-
         # remove first plain h1 if provided
         markdown = re.sub(r"^#\s+(.+)", r"", markdown, count=1)
-        return markdown
+        return super().on_page_markdown(
+            markdown, page=page, config=config, files=files
+        )
