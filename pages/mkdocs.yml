@@ -17,13 +17,15 @@ theme:
 
 # nav:
 #   - Welcome: index.md
-#   - install.md
-#   - extensions.md
-#   - Examples:
-#       - examples/a.md
+#   - get_started.md
+#   - Extensions:
+#       - Footnotes: extensions/footnotes.md
+#       - Tabs: extensions/pymdownx_blocks_tab.md
+#       - Details: extensions/pymdownx_blocks_details.md
+#       - Codexec: extensions/codexec.md
 
 plugins:
-  - search # put it first to inject out custom code
+  - search
   - excalidraw
   - mkdocstrings
 
