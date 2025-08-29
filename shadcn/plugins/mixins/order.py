@@ -60,9 +60,14 @@ class OrderMixin(Mixin):
         files: Files,
     ) -> str:
         # add order to page if not defined
+        # It uses the following priority:
+        # 1. order defined in the page's meta (frontmatter)
+        # 2. order defined by the navigation position
+        # 3. order defined by the order of processing pages (alphabetically)
         try:
             page.meta[ORDER_META_KEY] = page.meta.get(
-                ORDER_META_KEY, self.nav_order.index(page.file.src_path)
+                ORDER_META_KEY,
+                self.nav_order.index(page.file.src_path),
             )
         except ValueError:
             page.meta[ORDER_META_KEY] = self.page_index
@@ -73,5 +78,8 @@ class OrderMixin(Mixin):
             self.page_index += 1
 
         return super().on_page_markdown(
-            markdown, page=page, config=config, files=files
+            markdown,
+            page=page,
+            config=config,
+            files=files,
         )
