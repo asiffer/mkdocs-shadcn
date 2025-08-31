@@ -22,38 +22,55 @@ markdown_extensions:
 ```md
 ### FAQ
 
-/// details | Why copy/paste and not packaged as a dependency?
-The idea behind this is to give you ownership and control over the code, allowing you to decide how the components are built and styled.
-
-Start with some sensible defaults, then customize the components to your needs.
-
-*One of the drawbacks of packaging the components in an npm package is that the style is coupled with the implementation. The design of your components should be separate from their implementation.*
+/// details | Is this theme an official shadcn port?
+No. But you can still [star it +heroicons:star+](hhttps://github.com/asiffer/mkdocs-shadcn)
 ///
 
-/// details | Do you plan to publish it as an npm package?
-No. I have no plans to publish it as an npm package.
+
+/// details | Why a new mkdocs theme while `material` exists?
+First the [shadcn/ui](https://ui.shadcn.com/) theme is just incredible. 
+
+Actually, nothing can compete with the [material](https://squidfunk.github.io/mkdocs-material/) theme which is very mature and feature rich. 
+
+In addition to sticking to the shadcn theme, the idea is to remain a simple theme, providing some special built-in features that we may not find in other themes.
 ///
 
-/// details | Which frameworks are supported?
-You can use any framework that supports React. Next.js, Astro, Remix, Gatsby etc.
+
+/// details | Is it open to contributions?
+Yes, yes and yes! On its own, the theme tries to provide more and more relevant extensions/plugins. But anyone can define what could be relevant! 
+
+[Open an issue](https://github.com/asiffer/mkdocs-shadcn/issues) and let us discuss about it +heroicons:face-smile+
+///
+
+/// details | Is `mkdocs-rube-goldberg-plugin-extension` supported?
+In general no.
 ///
 ```
 
+
 ### FAQ
 
-/// details | Why copy/paste and not packaged as a dependency?
-The idea behind this is to give you ownership and control over the code, allowing you to decide how the components are built and styled.
-
-Start with some sensible defaults, then customize the components to your needs.
-
-*One of the drawbacks of packaging the components in an npm package is that the style is coupled with the implementation. The design of your components should be separate from their implementation.*
+/// details | Is this theme an official shadcn port?
+No. But you can still [star it +heroicons:star+](hhttps://github.com/asiffer/mkdocs-shadcn)
 ///
 
-/// details | Do you plan to publish it as an npm package?
-No. I have no plans to publish it as an npm package.
+
+/// details | Why a new mkdocs theme while `material` exists?
+First the [shadcn/ui](https://ui.shadcn.com/) theme is just incredible. 
+
+Actually, nothing can compete with the [material](https://squidfunk.github.io/mkdocs-material/) theme which is very mature and feature rich. 
+
+In addition to sticking to the shadcn theme, the idea is to remain a simple theme, providing some special built-in features that we may not find in other themes.
 ///
 
-/// details | Which frameworks are supported?
-You can use any framework that supports React. Next.js, Astro, Remix, Gatsby etc.
+
+/// details | Is it open to contributions?
+Yes, yes and yes! On its own, the theme tries to provide more and more relevant extensions/plugins. But anyone can define what could be relevant! 
+
+[Open an issue](https://github.com/asiffer/mkdocs-shadcn/issues) and let us discuss about it +heroicons:face-smile+
+///
+
+/// details | Is `mkdocs-rube-goldberg-plugin-extension` supported?
+In general no.
 ///
 
