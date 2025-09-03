@@ -1,7 +1,7 @@
 from functools import wraps
 from typing import Callable, List, Union
 
-from bottle import Bottle, request, response  # type: ignore
+from bottle import Bottle  # type: ignore
 from mkdocs.livereload import LiveReloadServer
 
 

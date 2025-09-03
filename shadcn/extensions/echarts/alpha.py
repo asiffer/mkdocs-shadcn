@@ -74,7 +74,7 @@ class EchartsBlock(Block):
         if start == -1 or end == -1:
             return block
 
-        log.debug(f"echarts options can be extracted from the block")
+        log.debug("echarts options can be extracted from the block")
         self.echarts_options = block.text[start : end + 1]
         # remove the text (otherwise the raw text will be displayed)
         block.text = ""
