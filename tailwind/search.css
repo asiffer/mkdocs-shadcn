@@ -1,24 +1,28 @@
+#mkdocs-search-results {
+	@apply max-h-[300px] overflow-y-auto overflow-x-hidden flex flex-col items-stretch gap-2;
+}
+
 #mkdocs-search-results:has(article) {
-  @apply p-3;
+	@apply p-3;
 }
 
 #mkdocs-search-results > p:first-child {
-  /* not found */
-  @apply px-2 py-1.5 text-muted-foreground text-sm;
+	/* not found */
+	@apply px-2 py-1.5 text-muted-foreground text-sm;
 }
 
 #mkdocs-search-results article {
-  @apply relative flex flex-col hover:bg-accent gap-2 items-start rounded px-2 py-1.5 outline-none;
+	@apply relative flex flex-col hover:bg-accent gap-2 items-start rounded px-2 py-1.5 outline-none;
 }
 
 #mkdocs-search-results article > h3 {
-  @apply font-medium text-foreground;
+	@apply font-medium text-foreground;
 }
 
 #mkdocs-search-results article > p {
-  @apply text-muted-foreground text-sm;
+	@apply text-muted-foreground text-sm mt-0;
 }
 
 #search-dialog::backdrop {
-  @apply bg-black/50;
+	@apply bg-black/50;
 }
