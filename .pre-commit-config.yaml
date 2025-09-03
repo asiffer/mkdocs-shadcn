@@ -1,0 +1,19 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: v0.12.11
+    hooks:
+      # Run the linter.
+      - id: ruff-check
+        args: [--fix, --config=pyproject.toml]
+      # Run the formatter.
+      - id: ruff-format
+        args: [--config=pyproject.toml]
+  - repo: local
+    hooks:
+      - id: sync-version
+        name: sync versions (pyproject.toml → package.json)
+        language: system
+        entry: uv run -- python -c "import re, json; v=re.search(r'^version *= *\"([^\"]+)\"', open('pyproject.toml').read(), re.M).group(1); d=json.load(open('package.json')); d['version']=v; json.dump(d, open('package.json','w'), indent=2)"
+        pass_filenames: false
+        files: ^(pyproject\.toml|package\.json)$
