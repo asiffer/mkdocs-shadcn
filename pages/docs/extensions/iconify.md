@@ -8,6 +8,16 @@ external_links:
 
 This extension uses the [Iconify API](https://iconify.design/docs/api/svg.html#query) to fetch any icon from the [Iconify collection](https://icon-sets.iconify.design/) and insert it in your documentation (rendered as **inline svg**).
 
+## Configuration
+
+```yaml
+# mkdocs.yml
+
+markdown_extensions:
+  - shadcn.extensions.iconify
+```
+
+
 ## Syntax
 
 Basically, you must wrap the iconify key with `+` symbols. The key is composed by the provider and the icon name, separated by a colon `:`. You can look at all the available collections.

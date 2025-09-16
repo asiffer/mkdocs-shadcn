@@ -16,4 +16,4 @@ repos:
         language: system
         entry: uv run -- python -c "import re, json; v=re.search(r'^version *= *\"([^\"]+)\"', open('pyproject.toml').read(), re.M).group(1); d=json.load(open('package.json')); d['version']=v; json.dump(d, open('package.json','w'), indent=2)"
         pass_filenames: false
-        files: ^(pyproject\.toml|package\.json)$
+        files: pyproject.toml
