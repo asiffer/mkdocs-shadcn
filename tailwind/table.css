@@ -1,0 +1,27 @@
+article table {
+	@apply [&:not(:first-child)]:mt-6;
+}
+
+article table {
+	@apply w-full caption-bottom text-sm ;
+}
+
+article table thead {
+	@apply [&_tr]:border-b;
+}
+
+article table tr {
+	@apply hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors;
+}
+
+article table thead tr th {
+	@apply text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px] w-[100px];
+}
+
+article table tbody {
+    @apply [&_tr:last-child]:border-0;
+}
+
+article table tbody tr td {
+    @apply p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px];
+}
