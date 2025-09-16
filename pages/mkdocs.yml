@@ -47,3 +47,4 @@ markdown_extensions:
   shadcn.extensions.echarts.alpha:
   shadcn.extensions.codexec:
   shadcn.extensions.iconify:
+  pymdownx.blocks.caption:

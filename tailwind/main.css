@@ -15,6 +15,7 @@
 @import "./transition.css";
 @import "./table.css";
 @import "./codexec.css";
+@import "./caption.css";
 
 @theme {
 	--breakpoint-3xl: 1600px;
