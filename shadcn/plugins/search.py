@@ -8,7 +8,7 @@ from mkdocs.structure.pages import Page
 from shadcn.filters import (
     active_section,
     first_page,
-    iconify,
+    parse_icon,
     parse_author,
     setattribute,
 )
@@ -38,7 +38,7 @@ class SearchPlugin(
     def on_env(self, env, /, *, config: MkDocsConfig, files: Files):
         # custom jinja2 filter
         env.filters["setattribute"] = setattribute
-        env.filters["iconify"] = iconify
+        env.filters["iconify"] = parse_icon
         env.filters["parse_author"] = parse_author
         env.filters["active_section"] = active_section
         env.filters["first_page"] = first_page

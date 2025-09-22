@@ -1,3 +1,4 @@
+import os
 import urllib.parse
 import urllib.request
 from functools import lru_cache
@@ -8,8 +9,13 @@ from mkdocs.structure.pages import Page
 
 
 @lru_cache()
-def iconify(key: str, height: str = "20px", **kwargs) -> str:
+def parse_icon(key: str, height: str = "20px", **kwargs) -> str:
     base_url = "https://api.iconify.design"
+
+    if os.path.isfile(key) and key.lower().endswith(".svg"):
+        with open(key, "r", encoding="utf-8") as f:
+            return f.read()
+
     icon = key.split(":")
     if len(icon) != 2:
         raise ValueError(
@@ -17,11 +23,9 @@ def iconify(key: str, height: str = "20px", **kwargs) -> str:
         )
     provider, name = icon
     url = f"{base_url}/{provider}/{name}.svg?{urllib.parse.urlencode({'height': height, **kwargs})}"
+
     with urllib.request.urlopen(url) as response:
-        content = response.read().decode(
-            "utf-8"
-        )  # Convert to string if needed
-    return content
+        return response.read().decode("utf-8")  # Convert to string if needed
 
 
 def parse_author(site_author: str) -> Union[str, None]:
