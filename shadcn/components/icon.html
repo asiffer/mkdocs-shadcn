@@ -1,9 +1,8 @@
 {% if config.theme.icon %}
-{% if config.theme.icon.startswith("http") %}
-<img class="size-5" src="{{ config.theme.icon }}">
+{% if (config.theme.icon | file_exists) or (config.theme.icon | is_http_url) %}
+<img class="size-5" src="{{ config.theme.icon }}" alt="icon">
 {% else %}
 {{ config.theme.icon | iconify }}
-<!-- <iconify-icon class="size-5" icon="{{ config.theme.icon }}" noobserver></iconify-icon> -->
 {% endif %}
 {% else %}
 {% with override_class="size-5" %}
