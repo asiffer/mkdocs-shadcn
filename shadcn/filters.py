@@ -1,8 +1,10 @@
 import urllib.parse
 import urllib.request
 from functools import lru_cache
+from pathlib import Path
 from typing import Any, Union
 
+from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.structure.nav import Navigation, Section
 from mkdocs.structure.pages import Page
 
@@ -67,3 +69,21 @@ def first_page(section: Section) -> Union[Page, None]:
                 return fp
 
     return None
+
+
+def file_exists(path: str, config: MkDocsConfig) -> bool:
+    """Check if a file exists at the given path, from docs_dir"""
+    p = Path(config.docs_dir) / Path(path)
+    return p.exists() and p.is_file()
+
+
+def is_http_url(path: str) -> bool:
+    """Check if a path is a valid URL (http, https and also data scheme)"""
+    try:
+        parsed = urllib.parse.urlparse(path)
+    except Exception:
+        return False
+
+    if parsed.scheme not in ("http", "https", "data"):
+        return False
+    return True

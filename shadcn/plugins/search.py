@@ -1,4 +1,5 @@
 import re
+from functools import partial
 
 from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.contrib.search import SearchPlugin as BaseSearchPlugin
@@ -7,8 +8,10 @@ from mkdocs.structure.pages import Page
 
 from shadcn.filters import (
     active_section,
+    file_exists,
     first_page,
     iconify,
+    is_http_url,
     parse_author,
     setattribute,
 )
@@ -42,6 +45,8 @@ class SearchPlugin(
         env.filters["parse_author"] = parse_author
         env.filters["active_section"] = active_section
         env.filters["first_page"] = first_page
+        env.filters["file_exists"] = partial(file_exists, config=config)
+        env.filters["is_http_url"] = is_http_url
         return super().on_env(env, config=config, files=files)
 
     def on_page_markdown(
@@ -56,5 +61,8 @@ class SearchPlugin(
         # remove first plain h1 if provided
         markdown = re.sub(r"^#\s+(.+)", r"", markdown, count=1)
         return super().on_page_markdown(
-            markdown, page=page, config=config, files=files
+            markdown,
+            page=page,
+            config=config,
+            files=files,
         )
