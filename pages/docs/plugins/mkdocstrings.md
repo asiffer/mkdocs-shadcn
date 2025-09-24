@@ -36,6 +36,7 @@ external_links:
 # mkdocs.yml
 
 plugins:
+  - search
   - mkdocstrings
 ```
 

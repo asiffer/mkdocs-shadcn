@@ -178,7 +178,11 @@ for num in fibonacci(10):
 
 ### `icon: str`
 
-Sets the top-left icon. If not defined, the default shadcn icon is used. You can either pass an image URL or an [iconify class](https://icon-sets.iconify.design/).
+Sets the top-left icon. If not defined (or null), the default shadcn icon is used. You can provide:
+
+- an URL (like `https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png`)
+- a path to a local image (relative to the `docs_dir` directory, like `assets/logo.svg`)
+- an [iconify class](https://icon-sets.iconify.design/) (like `heroicons:bolt`).
 
 
 ### `topbar_sections: bool`
