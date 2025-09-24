@@ -44,7 +44,7 @@ def parse_author(site_author: str) -> Union[str, None]:
 
 def setattribute(value: Union[dict, object], k: str, v: Any):
     if hasattr(value, "__setattr__"):
-        value.__setattr__(k, v)
+        setattr(value, k, v)
     return value
 
 
@@ -73,7 +73,7 @@ def first_page(section: Section) -> Union[Page, None]:
 
 def file_exists(path: str, config: MkDocsConfig) -> bool:
     """Check if a file exists at the given path, from docs_dir"""
-    p = Path(config.docs_dir) / Path(path)
+    p: Path = Path(config.docs_dir) / Path(path)
     return p.exists() and p.is_file()
 
 
