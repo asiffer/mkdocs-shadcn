@@ -17,6 +17,7 @@ def iconify(key: str, height: str = "20px", **kwargs) -> str:
         raise ValueError(
             f"Invalid icon format: {key}. Expected format 'provider:name'."
         )
+    # collapse icon
     provider, name = icon
     url = f"{base_url}/{provider}/{name}.svg?{urllib.parse.urlencode({'height': height, **kwargs})}"
     with urllib.request.urlopen(url) as response:
