@@ -25,3 +25,7 @@ article table tbody {
 article table tbody tr td {
     @apply p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px];
 }
+
+article .table-wrapper {
+	@apply relative w-full overflow-x-auto;
+}
