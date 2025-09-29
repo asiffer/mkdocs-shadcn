@@ -29,3 +29,7 @@ article table tbody tr td {
 article .table-wrapper {
 	@apply relative w-full overflow-x-auto;
 }
+
+article table .wrap {
+    white-space: wrap;
+}
