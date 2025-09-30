@@ -7,7 +7,7 @@ article {
 }
 
 article #page-header h1 {
-	@apply scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl;
+	@apply scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl break-all;
 }
 
 article strong {
