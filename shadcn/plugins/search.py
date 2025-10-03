@@ -20,6 +20,7 @@ from shadcn.plugins.mixins.git import GitTimestampsMixin
 from shadcn.plugins.mixins.mkdocstrings import MkdocstringsMixin
 from shadcn.plugins.mixins.order import OrderMixin
 from shadcn.plugins.mixins.table import TableMixin
+from shadcn.plugins.mixins.markdown import MarkdownMixin
 
 
 class SearchPlugin(
@@ -28,6 +29,7 @@ class SearchPlugin(
     OrderMixin,
     MkdocstringsMixin,
     TableMixin,
+    MarkdownMixin,
     BaseSearchPlugin,
 ):
     """⚠️ HACK ⚠️
