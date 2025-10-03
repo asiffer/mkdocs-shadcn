@@ -1,6 +1,6 @@
 {% if config.theme.icon %}
 {% if (config.theme.icon | file_exists) or (config.theme.icon | is_http_url) %}
-<img class="size-5" src="{{ config.theme.icon }}" alt="icon">
+<img class="size-5" src="{{ config.theme.icon | url }}" alt="icon">
 {% else %}
 {{ config.theme.icon | iconify }}
 {% endif %}
