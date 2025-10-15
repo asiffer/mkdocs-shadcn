@@ -36,3 +36,4 @@ class MarkdownMixin(Mixin):
         for src, dst in self.raw_markdown.items():
             logger.debug(f"Copying raw markdown file {src} to {dst}")
             shutil.copy2(src, dst)
+        return super().on_post_build(config)
