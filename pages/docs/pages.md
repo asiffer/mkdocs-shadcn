@@ -48,6 +48,9 @@ After a first pass we will have
 
 So in the sidebar we will get `a.md`, `c.md`, `d.md` and `b.md`.
 
+!!! danger "Caveat"
+    The sidebar order does not change the internal navigation order. It implies that `previous` and `next` pages are unlikely to match a custom order. To prevent that, either use the classical `00_page.md`, `01_page.md`, `02_page.md` ... file pattern in your folder or set the navigation in `mkdocs.yml`.
+
 ## External links
 
 You can add external links (like "API Reference") in the page header. This is done through the `external_links` attribute in the front-matter.
