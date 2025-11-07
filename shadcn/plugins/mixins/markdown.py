@@ -1,11 +1,13 @@
-from urllib.parse import urljoin
-from mkdocs.config.defaults import MkDocsConfig
-from mkdocs.plugins import get_plugin_logger
-from mkdocs.utils.templates import TemplateContext
-from mkdocs.structure.pages import Page
-from shadcn.plugins.mixins.base import Mixin
 import os
 import shutil
+from urllib.parse import urljoin
+
+from mkdocs.config.defaults import MkDocsConfig
+from mkdocs.plugins import get_plugin_logger
+from mkdocs.structure.pages import Page
+from mkdocs.utils.templates import TemplateContext
+
+from shadcn.plugins.mixins.base import Mixin
 
 logger = get_plugin_logger("mixins/markdown")
 
@@ -17,7 +19,11 @@ class MarkdownMixin(Mixin):
         self.raw_markdown = {}
 
     def on_page_context(
-        self, context: TemplateContext, page: Page, config: MkDocsConfig, nav
+        self,
+        context: TemplateContext,
+        page: Page,
+        config: MkDocsConfig,
+        nav,
     ):
         self.raw_markdown[page.file.abs_src_path] = os.path.join(
             config.site_dir, page.file.src_path
@@ -29,7 +35,7 @@ class MarkdownMixin(Mixin):
                 )
             }
         )
-        return context
+        return super().on_page_context(context, page, config, nav)
 
     def on_post_build(self, config):
         # Copy raw markdown files to the build directory

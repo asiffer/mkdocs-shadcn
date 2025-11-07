@@ -6,6 +6,7 @@ from mkdocs.plugins import get_plugin_logger
 from mkdocs.structure.files import Files
 from mkdocs.structure.nav import Navigation
 from mkdocs.structure.pages import Page
+from mkdocs.utils.templates import TemplateContext
 
 mixin_logger = get_plugin_logger("mixins")
 
@@ -85,3 +86,26 @@ class Mixin:
 
     def on_config(self, config: MkDocsConfig):
         return self._super_method_or("on_config", config, fallback=config)
+
+    def on_page_context(
+        self,
+        context: TemplateContext,
+        page: Page,
+        config: MkDocsConfig,
+        nav,
+    ):
+        return self._super_method_or(
+            "on_page_context",
+            context,
+            page,
+            config=config,
+            nav=nav,
+            fallback=context,
+        )
+
+    def on_post_build(self, config):
+        return self._super_method_or(
+            "on_post_build",
+            config,
+            fallback=None,
+        )
