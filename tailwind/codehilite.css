@@ -35,11 +35,11 @@ article table.codehilitetable pre {
 }
 
 article .codehilite {
-  @apply rounded-xl overflow-auto relative mt-4;
+  @apply rounded-xl relative mt-4;
 }
 
 article .codehilite pre {
-  @apply mb-0 mt-0;
+  @apply mb-0 mt-0 overflow-auto;
 }
 
 article .codehilite code a {
