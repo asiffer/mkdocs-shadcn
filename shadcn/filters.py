@@ -3,10 +3,14 @@ import urllib.request
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Union
+from urllib.error import URLError
 
 from mkdocs.config.defaults import MkDocsConfig
+from mkdocs.plugins import get_plugin_logger
 from mkdocs.structure.nav import Navigation, Section
 from mkdocs.structure.pages import Page
+
+logger = get_plugin_logger("filters")
 
 
 @lru_cache()
@@ -20,11 +24,18 @@ def iconify(key: str, height: str = "20px", **kwargs) -> str:
     # collapse icon
     provider, name = icon
     url = f"{base_url}/{provider}/{name}.svg?{urllib.parse.urlencode({'height': height, **kwargs})}"
-    with urllib.request.urlopen(url) as response:
-        content = response.read().decode(
-            "utf-8"
-        )  # Convert to string if needed
-    return content
+
+    # need to provide a user-agent to fix cloudlfare 403 error
+    req = urllib.request.Request(url, headers={"User-Agent": "mkdocs-shadcn"})
+    try:
+        with urllib.request.urlopen(req) as response:
+            return response.read().decode(
+                "utf-8"
+            )  # Convert to string if needed
+    except URLError as err:
+        logger.error(f"fail to call iconify api: {err} ({url})")
+
+    return "<svg></svg>"
 
 
 def parse_author(site_author: str) -> Union[str, None]:
