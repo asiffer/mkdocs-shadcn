@@ -16,6 +16,7 @@
 @import "./table.css";
 @import "./codexec.css";
 @import "./caption.css";
+@import "./kbd.css";
 
 @theme {
 	--breakpoint-3xl: 1600px;
