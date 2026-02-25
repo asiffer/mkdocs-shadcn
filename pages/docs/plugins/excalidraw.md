@@ -46,6 +46,11 @@ plugins:
     directory: assets/excalidraw
 ```
 
+!!! warning "Warning"
+    Currently, you should avoid putting excalidraw files within your `docs/` folder. 
+    A server hot reload triggers everytime the 
+    content is edited.
+
 ## Syntax
 
 The path to the json file is relative to the directory provided to the plugin. The title is injected as build time through a `<title></title>` tag inside the output svg file.
