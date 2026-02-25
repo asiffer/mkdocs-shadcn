@@ -7,6 +7,7 @@ repo_url: "https://github.com/asiffer/mkdocs-shadcn"
 theme:
   name: shadcn
   icon: null
+  topbar_sections: false
   pygments_style:
     light: shadcn-light
     dark: github-dark
