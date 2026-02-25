@@ -22,4 +22,4 @@ repos:
         language: system
         entry: bun run build 
         pass_filenames: false
-        files: ./tailwind/*.css
+        files: ^tailwind/.*\.css$
