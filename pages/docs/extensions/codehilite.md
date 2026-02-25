@@ -7,6 +7,27 @@ external_links:
 
 The CodeHilite extension adds code/syntax highlighting to standard Python-Markdown code blocks using [Pygments](http://pygments.org/).
 
+You must have pygments installed.
+
+/// tab | `pip`
+
+    :::bash
+    pip install Pygments
+///
+
+/// tab | uv
+
+    :::bash
+    uv add Pygments
+///
+
+/// tab | poetry
+
+    :::bash
+    poetry add Pygments
+///
+
+
 ## Configuration
 
 ```yaml

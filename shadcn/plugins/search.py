@@ -17,10 +17,10 @@ from shadcn.filters import (
 )
 from shadcn.plugins.mixins.dev import DevServerMixin
 from shadcn.plugins.mixins.git import GitTimestampsMixin
+from shadcn.plugins.mixins.markdown import MarkdownMixin
 from shadcn.plugins.mixins.mkdocstrings import MkdocstringsMixin
 from shadcn.plugins.mixins.order import OrderMixin
 from shadcn.plugins.mixins.table import TableMixin
-from shadcn.plugins.mixins.markdown import MarkdownMixin
 
 
 class SearchPlugin(
