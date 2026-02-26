@@ -50,6 +50,14 @@ class Mixin:
             fallback=env,
         )
 
+    def on_files(self, files: Files, config: MkDocsConfig) -> Files:
+        return self._super_method_or(
+            "on_files",
+            files,
+            config=config,
+            fallback=files,
+        )
+
     def on_nav(
         self,
         nav: Navigation,

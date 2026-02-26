@@ -91,3 +91,40 @@ You can combine with [admonition](admonition.md) for instance.
     $$
     \frac{\overline{X}_n - \mu}{\sigma/\sqrt{n}} \xrightarrow{d} \mathcal{N}(0,1), \quad \text{as } n \to \infty
     $$
+
+## Extra
+
+Rembember that the theme automatically loads Katex. 
+Unfortunately Katex does not support all LateX symbols/functions, notably [`\label`](https://katex.org/docs/support_table.html#l) and [`\ref`](https://katex.org/docs/support_table.html#r).
+
+`mkdocs-shadcn` does add this support so that you can label and references across pages. 
+
+```md
+$$
+e^{i \pi} + 1 = 0 \label{~my-equation}
+$$
+
+In $\ref{~my-equation}$ we see a relation between fundamental math symbols.
+```
+
+!!! warning ""
+    In the above snippet we do prepend an extra `~` to prevent the rendering (forbidden char).
+    The following format is parsed: `[a-zA-Z0-9:._-]+`.
+
+It renders as follows:
+
+$$
+e^{i \pi} + 1 = 0 \label{my-equation}
+$$
+
+In $\ref{my-equation}$ we see a relation between fundamental math symbols.
+
+!!! info "Tip"
+    To activate cross-page links, ensure that the `trust` option is activated in `katex_options`:
+
+        :::yaml
+        theme:
+            name: shadcn
+            katex_options:
+                trust: true # <- here
+    
