@@ -17,6 +17,7 @@ from shadcn.filters import (
 )
 from shadcn.plugins.mixins.dev import DevServerMixin
 from shadcn.plugins.mixins.git import GitTimestampsMixin
+from shadcn.plugins.mixins.katex import KatexMixin
 from shadcn.plugins.mixins.markdown import MarkdownMixin
 from shadcn.plugins.mixins.mkdocstrings import MkdocstringsMixin
 from shadcn.plugins.mixins.order import OrderMixin
@@ -28,6 +29,7 @@ class SearchPlugin(
     DevServerMixin,
     OrderMixin,
     MkdocstringsMixin,
+    KatexMixin,
     TableMixin,
     MarkdownMixin,
     BaseSearchPlugin,

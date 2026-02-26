@@ -12,6 +12,7 @@ theme:
     light: shadcn-light
     dark: github-dark
   katex_options:
+    trust: true
     macros:
       "\\dx": "\\mathrm{d}x"
   # show_datetime: true
