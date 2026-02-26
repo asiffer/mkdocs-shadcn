@@ -20,7 +20,7 @@ markdown_extensions:
 !!! note "Note:"
     When `pymdownx.arithmatex` is enabled, the theme automatically 
     loads [KateX](https://katex.org/) material to render math (css, js and fonts). 
-    Currently we ship the version `v0.16.21`.
+    Currently we ship the version `v0.16.33`.
 
 !!! info "NEW!"
     Now you can pass options to Katex (like macros). See the dedicated [theme option](../get_started.md#katex_options-dict) for more details.
