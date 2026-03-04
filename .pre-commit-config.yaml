@@ -20,6 +20,6 @@ repos:
       - id: build-css
         name: Compile tailwind CSS
         language: system
-        entry: bun run build 
+        entry: bun run build
         pass_filenames: false
         files: ^tailwind/.*\.css$

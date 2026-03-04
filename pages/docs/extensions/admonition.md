@@ -1,6 +1,6 @@
 ---
 title: Admonitions
-summary: Notes, infos, warnings and dangers
+summary: Notes, infos, warnings, dangers and successes
 external_links:
     Reference: https://python-markdown.github.io/extensions/admonition/
 ---
@@ -30,6 +30,9 @@ markdown_extensions:
 
     !!! danger "Danger:"
         Don't look at `node_modules` **please**! 
+    
+    !!! success "Success:"
+        It works! Tell your friends to download `mkdocs-shacn`
 
 
 !!! info "Information:"
@@ -43,6 +46,9 @@ markdown_extensions:
 
 !!! danger "Danger:"
     Don't look at `node_modules` **please**! 
+
+!!! success "Success:"
+    It works! Tell your friends to download `mkdocs-shacn`
 
 ## Code
 
