@@ -74,14 +74,16 @@ image: https://raw.githubusercontent.com/asiffer/mkdocs-shadcn/refs/heads/master
 
 ## Extra
 
-As we may find in [shadcn/ui](https://ui.shadcn.com/docs), we can add a `NEW` tag in the sidebar 
-(`Alpha` and `Beta` are also available).
+As we may find in [shadcn/ui](https://ui.shadcn.com/docs), you can add a small badge in the sidebar
+to denote new item. You can change the default color of the badge with the [`accent`](./get_started.md#accent-str) theme config.
 
 ```yaml
 new: true
-# beta: true
-# alpha: true
 ```
+
+!!! warning "Note"
+  In versions `<=0.9.10`, `alpha` and `beta` were also supported. **They are still supported** but a warning badge is used instead .
+
 
 The [`show_datetime` theme option](./get_started.md#show_datetime-bool) can be overriden per page 
 if you want to show/hide the last update date for a specific page.

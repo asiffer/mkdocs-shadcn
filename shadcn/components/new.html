@@ -1,4 +1,8 @@
-{% if config.theme.accent %}
+{% if new_tag_class %}
+<span class="flex size-2 rounded-full {{ new_tag_class }}" title="New"></span>
+{% elif new_tag_color %}
+<span class="flex size-2 rounded-full" title="New" style="background-color: {{ new_tag_color }};"></span>
+{% elif config.theme.accent %}
 <span class="flex size-2 rounded-full" title="New" style="background-color: {{ config.theme.accent }};"></span>
 {% else %}
 <span class="flex size-2 rounded-full bg-blue-500" title="New"></span>

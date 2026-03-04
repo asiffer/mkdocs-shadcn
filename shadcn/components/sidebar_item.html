@@ -16,14 +16,14 @@
         {% endif %}
 
         {% if sidebar_item.meta and sidebar_item.meta.alpha %}
-        {% with tag_content = "Alpha" %}
-        {% include "components/tag.html" %}
+        {% with new_tag_class = "bg-warning" %}
+        {% include "components/new.html" %}
         {% endwith %}
         {% endif %}
 
         {% if sidebar_item.meta and sidebar_item.meta.beta %}
-        {% with tag_content = "Beta" %}
-        {% include "components/tag.html" %}
+        {% with new_tag_class = "bg-warning" %}
+        {% include "components/new.html" %}
         {% endwith %}
         {% endif %}
     </a>

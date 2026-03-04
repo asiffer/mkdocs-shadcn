@@ -16,15 +16,7 @@ theme:
     macros:
       "\\dx": "\\mathrm{d}x"
   # show_datetime: true
-
-# nav:
-#   - Welcome: index.md
-#   - get_started.md
-#   - Extensions:
-#       - Footnotes: extensions/footnotes.md
-#       - Tabs: extensions/pymdownx_blocks_tab.md
-#       - Details: extensions/pymdownx_blocks_details.md
-#       - Codexec: extensions/codexec.md
+  # accent: "oklch(64.5% 0.246 16.439)"
 
 plugins:
   - search

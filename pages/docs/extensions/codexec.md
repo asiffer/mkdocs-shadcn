@@ -1,7 +1,6 @@
 ---
 title: Codexec
 summary: Execute code(hilite) snippets
-new: true
 ---
 
 The Codexec extensions extends a [codehilite](codehilite.md) code block to execute the code and display the output.
