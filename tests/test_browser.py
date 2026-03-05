@@ -1,6 +1,6 @@
 from collections import defaultdict
 from typing import Dict, List
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urlunparse
 
 from conftest import BASE
 from playwright.sync_api import Page
@@ -22,20 +22,17 @@ def test_all_pages_no_browser_errors(page: Page):
     to_visit = [BASE + "/"]
     errors_by_page: Dict[str, List[str]] = defaultdict(list)
 
-    def is_internal(url: str) -> bool:
-        return urlparse(url).netloc == urlparse(BASE).netloc
+    base_url = urlparse(BASE)
+    # def is_internal(url: str) -> bool:
+    #     return urlparse(url).netloc == urlparse(BASE).netloc
 
     def catch_console_error(msg):
-        print(msg.__dict__)
         if msg.type == "error":
             console_errors.append(msg.text)
 
     while to_visit:
         url = to_visit.pop()
         if url in visited:
-            continue
-        if url.endswith("index.html/"):
-            # ignore trailing slash on index.html
             continue
 
         visited.add(url)
@@ -61,8 +58,16 @@ def test_all_pages_no_browser_errors(page: Page):
             "a[href]", "els => els.map(e => e.href)"
         )
         for href in anchors:
-            normalized = href.split("#")[0].rstrip("/") + "/"
-            if is_internal(normalized) and normalized not in visited:
-                to_visit.append(normalized)
+            normalized = urlparse(href)
+            if normalized.scheme not in ["http", "https"]:
+                continue
+            normalized = normalized._replace(fragment="")
+            if normalized.path.endswith("/"):
+                normalized = normalized._replace(
+                    path=normalized.path + "index.html"
+                )
+            link = urlunparse(normalized)
+            if normalized.netloc == base_url.netloc and link not in visited:
+                to_visit.append(link)
 
     assert not errors_by_page, format_errors(errors_by_page)
