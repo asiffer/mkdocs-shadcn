@@ -7,5 +7,5 @@ dist
 .venv
 __pycache__
 pages/site
-_site
+tests/_site
 test.mkdocs.*
