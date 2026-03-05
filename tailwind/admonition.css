@@ -30,3 +30,8 @@ article .admonition.info {
 article .admonition > p.admonition-title {
   @apply font-bold;
 }
+
+/* see https://ui.shadcn.com/docs/installation */
+article .admonition.success {
+  @apply border-emerald-600 bg-emerald-100 dark:border-emerald-400 dark:bg-emerald-900 [&_p_code]:bg-emerald-200 dark:[&_p_code]:bg-emerald-800;
+}

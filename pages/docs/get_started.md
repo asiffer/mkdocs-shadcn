@@ -3,7 +3,7 @@ title: Get started
 show_datetime: true
 extra_css:
   - "css/pygments/all.css" # add scoped styles
-
+new: true
 ---
 
 ## Install
@@ -60,12 +60,13 @@ theme:
         light: shadcn-light
         dark: github-dark
   icon: heroicons:rocket-launch # use the shadcn svg if not defined
-  topbar_sections: false # NEW!
+  topbar_sections: false 
   katex_options: # optional
     macros: # example of macros
       "\\RR": "\\mathbb{R}" 
       "\\dx": "\\mathrm{d}x"
   show_datetime: false 
+  accent: "oklch(64.5% 0.246 16.439)" # NEW!
 ```
 
 ### `show_title: bool` 
@@ -209,3 +210,7 @@ Default to `false`. The date is displayed in the local timezone of the user.
 This options allows to enable the date display for all the pages of the documentation. 
 If you want to disable it for a specific page, you can set `show_datetime: false` in the front-matter of the page.
 
+### `accent: str`
+
+Defines an accent color. Currently it is only used for ["new" badges](./pages.md#extra).
+If not defined, the default shadcn color used (tailwind [blue-500](https://tailwindcss.com/docs/colors)).
