@@ -1,33 +1,54 @@
 from collections import defaultdict
+from typing import Dict, List
 from urllib.parse import urlparse
 
 from conftest import BASE
 from playwright.sync_api import Page
 
 
+def format_errors(errors_by_page: Dict[str, List[str]]) -> str:
+    if len(errors_by_page) == 0:
+        return ""
+    out = ""
+    for url, errs in errors_by_page.items():
+        out += f"{url} ({len(errs)}):\n"
+        for e in errs:
+            out += f"\t- {e}\n"
+    return out
+
+
 def test_all_pages_no_browser_errors(page: Page):
     visited = set()
     to_visit = [BASE + "/"]
-    errors_by_page: dict[str, list[str]] = defaultdict(list)
+    errors_by_page: Dict[str, List[str]] = defaultdict(list)
 
     def is_internal(url: str) -> bool:
         return urlparse(url).netloc == urlparse(BASE).netloc
+
+    def catch_console_error(msg):
+        print(msg.__dict__)
+        if msg.type == "error":
+            console_errors.append(msg.text)
 
     while to_visit:
         url = to_visit.pop()
         if url in visited:
             continue
+        if url.endswith("index.html/"):
+            # ignore trailing slash on index.html
+            continue
+
         visited.add(url)
 
         console_errors: list[str] = []
-        # page.on(
-        #     "console",
-        #     lambda msg: (
-        #         console_errors.append(msg.text)
-        #         if msg.type == "error"
-        #         else None
-        #     ),
-        # )
+        page.on(
+            "console",
+            lambda msg: (
+                console_errors.append(msg.text)
+                if msg.type == "error"
+                else None
+            ),
+        )
         page.on("pageerror", lambda err: console_errors.append(str(err)))
 
         page.goto(url, wait_until="networkidle")
@@ -44,7 +65,4 @@ def test_all_pages_no_browser_errors(page: Page):
             if is_internal(normalized) and normalized not in visited:
                 to_visit.append(normalized)
 
-    assert not errors_by_page, "\n".join(
-        f"{url}:\n" + "\n".join(f"  - {e}" for e in errs)
-        for url, errs in errors_by_page.items()
-    )
+    assert not errors_by_page, format_errors(errors_by_page)
