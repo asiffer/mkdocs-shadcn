@@ -20,15 +20,15 @@ def test_all_pages_no_browser_errors(page: Page):
         visited.add(url)
 
         console_errors: list[str] = []
-        page.on(
-            "console",
-            lambda msg: (
-                console_errors.append(msg.text)
-                if msg.type == "error"
-                else None
-            ),
-        )
-        # page.on("pageerror", lambda err: console_errors.append(str(err)))
+        # page.on(
+        #     "console",
+        #     lambda msg: (
+        #         console_errors.append(msg.text)
+        #         if msg.type == "error"
+        #         else None
+        #     ),
+        # )
+        page.on("pageerror", lambda err: console_errors.append(str(err)))
 
         page.goto(url, wait_until="networkidle")
 
