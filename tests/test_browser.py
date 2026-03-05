@@ -22,9 +22,8 @@ def test_all_pages_no_browser_errors(page: Page):
         console_errors: list[str] = []
         page.on(
             "console",
-            # lambda msg: console_errors.append(msg.text)
             lambda msg: (
-                print("[console error]", msg.text)
+                console_errors.append(msg.text)
                 if msg.type == "error"
                 else None
             ),
