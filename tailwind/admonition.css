@@ -1,5 +1,9 @@
-article .admonition {
+/* article .admonition {
   @apply w-full px-4 py-3 [&:not(:first-child)]:mt-6 relative rounded-lg border text-sm text-foreground bg-muted/50;
+} */
+
+article .admonition {
+  @apply relative border px-4 py-3 text-sm w-auto rounded-xl border-surface bg-surface text-card-foreground/80 md:-mx-1 [&_code]:border [&_code]:bg-transparent mt-6;
 }
 
 article .admonition > p:nth-child(1) {
@@ -10,28 +14,32 @@ article .admonition > p:nth-child(2) {
   @apply inline !m-0;
 }
 
+article .admonition > p.admonition-title {
+  @apply font-bold;
+}
+
 article .admonition .codehilite {
   @apply mt-2 bg-background/40;
 }
 
 article .admonition.danger {
-  @apply border-destructive/50 bg-destructive/10 dark:border-destructive dark:bg-destructive/50 [&_p_code]:bg-destructive/5 dark:[&_p_code]:bg-destructive/20;
+  @apply border-destructive/50 bg-destructive/10 dark:border-destructive dark:bg-destructive/50 [&_code]:border-destructive/10 dark:[&_code]:border-destructive/20;
 }
 
 /* see https://ui.shadcn.com/docs/components/chart#your-first-chart */
 article .admonition.warning {
-  @apply border-warning bg-warning/10 [&_p_code]:bg-warning/20;
+  @apply border-warning bg-warning/10 [&_code]:border-warning/10 dark:[&_code]:border-warning/40;
 }
 
 article .admonition.info {
-  @apply bg-blue-50 border-blue-600 dark:border-blue-900 dark:bg-blue-950 mb-6 [&_p_code]:bg-blue-100 dark:[&_p_code]:bg-blue-900;
-}
-
-article .admonition > p.admonition-title {
-  @apply font-bold;
+  @apply bg-blue-50 border-blue-600 dark:border-blue-900 dark:bg-blue-950 mb-6 [&_code]:border-blue-200 dark:[&_code]:border-blue-900;
 }
 
 /* see https://ui.shadcn.com/docs/installation */
 article .admonition.success {
-  @apply border-emerald-600 bg-emerald-100 dark:border-emerald-400 dark:bg-emerald-900 [&_p_code]:bg-emerald-200 dark:[&_p_code]:bg-emerald-800;
+  @apply border-emerald-600 bg-emerald-100 dark:border-emerald-400 dark:bg-emerald-900 [&_code]:border-emerald-200 dark:[&_code]:border-emerald-800;
+}
+
+article .admonition ul {
+  @apply my-1;
 }

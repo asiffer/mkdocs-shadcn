@@ -48,7 +48,10 @@ markdown_extensions:
     Don't look at `node_modules` **please**! 
 
 !!! success "Success:"
-    It works! Tell your friends to download `mkdocs-shacn`
+    It works! Tell your friends to download `mkdocs-shacn`, either:
+    
+    - with `uv`
+    - with `pip`
 
 ## Code
 
