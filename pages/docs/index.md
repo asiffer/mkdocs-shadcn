@@ -20,10 +20,3 @@ So first it should support [built-in extensions](https://python-markdown.github.
 
     You can easily migrate to this theme if your documentaion does not rely on too many extensions/plugins. Of course, this is also a good choice for your next brand new project!
   
-
-<kbd>Ctrl</kbd>
-
-<kbd>
-<kbd>Ctrl+B</kbd>
-<kbd>Ctrl+K</kbd>
-</kbd>

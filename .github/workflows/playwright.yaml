@@ -1,0 +1,39 @@
+name: Playwright Tests
+
+on:
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+  test:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v7
+    
+    - name: Set up Python
+      uses: actions/setup-python@v6
+      with:
+        python-version-file: "pyproject.toml"
+
+    - name: Install the project
+      run: uv sync --all-extras --dev
+
+    - name: Ensure browsers are installed
+      run: |
+        uv run playwright install --with-deps chromium
+        uv run playwright install --with-deps firefox
+        uv run playwright install --with-deps webkit
+    
+    - name: Run tests 
+      run: uv run pytest --tracing=retain-on-failure --browser webkit --browser firefox --browser chromium
+    
+    - name: Upload Playwright traces
+      uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-traces
+        path: test-results/

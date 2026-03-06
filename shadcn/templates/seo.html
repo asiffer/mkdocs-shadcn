@@ -2,8 +2,10 @@
 
 {% if page.meta.title %}
 <title>{{ page.meta.title }}</title>
-{% else %}
+{% elif page.title %}
 <title>{{ page.title }}</title>
+{% else %}
+<title>{{ config.site_name }}</title>
 {% endif %}
 
 {% if page.meta.description %}
@@ -16,6 +18,8 @@
 
 {% if page.meta.author %}
 <meta name="author" content="{{ page.meta.author }}">
+{% elif config.site_author %}
+<meta name="author" content="{{ config.site_author }}">
 {% endif %}
 
 {% if page.canonical_url %}

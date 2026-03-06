@@ -3,15 +3,14 @@
 
 <head>
     <script>
-        // for search plugin notably
-        const base_url = "{{ config.site_url }}";
+        const base_url = "{{ config.site_url }}"; /* for search plugin notably */
     </script>
     {% include "templates/dark.html" %}
 
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ config.site_name }}</title>
+
     {% include "templates/seo.html" %}
 
     {%- if config.theme.favicon %}

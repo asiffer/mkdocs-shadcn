@@ -33,6 +33,8 @@ class KatexMixin(Mixin):
             )
             logger.info("Katex mixin activated.")
 
+        self.katex_mixin_labels.clear()
+        self.katex_mixin_translations.clear()
         return super().on_config(config)
 
     def on_page_markdown(
@@ -81,7 +83,7 @@ class KatexMixin(Mixin):
                 if label in self.katex_mixin_labels:
                     logger.warning(
                         f"Duplicate label '{label}' found in page '{file.src_path}'. "
-                        f"Previous occurrence was in page '{self.katex_mixin_labels[label]}'."
+                        f"Previous occurrence was in page '{self.katex_mixin_translations[label]}'."
                     )
                 else:
                     self.katex_mixin_labels[label] = (
