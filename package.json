@@ -1,6 +1,6 @@
 {
   "name": "mkdocs-shadcn",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "author": "Alban Siffer <31479857+asiffer@users.noreply.github.com>",
   "license": "MIT",
   "scripts": {
