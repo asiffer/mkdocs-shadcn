@@ -43,3 +43,8 @@ article .admonition.success {
 article .admonition ul {
   @apply my-1;
 }
+
+/* remove border in code blocks */
+article .admonition pre code {
+  @apply border-none;
+}
