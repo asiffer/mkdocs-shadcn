@@ -17,18 +17,22 @@ def format_errors(errors_by_page: Dict[str, List[str]]) -> str:
     return out
 
 
+# fixtures: see https://playwright.dev/python/docs/test-runners#fixtures
 def test_all_pages_no_browser_errors(page: Page):
     visited = set()
     to_visit = [BASE + "/"]
     errors_by_page: Dict[str, List[str]] = defaultdict(list)
 
     base_url = urlparse(BASE)
-    # def is_internal(url: str) -> bool:
-    #     return urlparse(url).netloc == urlparse(BASE).netloc
+    console_errors: list[str] = []
 
-    def catch_console_error(msg):
-        if msg.type == "error":
-            console_errors.append(msg.text)
+    page.on(
+        "console",
+        lambda msg: (
+            console_errors.append(msg.text) if msg.type == "error" else None
+        ),
+    )
+    page.on("pageerror", lambda err: console_errors.append(str(err)))
 
     while to_visit:
         url = to_visit.pop()
@@ -37,17 +41,7 @@ def test_all_pages_no_browser_errors(page: Page):
 
         visited.add(url)
 
-        console_errors: list[str] = []
-        page.on(
-            "console",
-            lambda msg: (
-                console_errors.append(msg.text)
-                if msg.type == "error"
-                else None
-            ),
-        )
-        page.on("pageerror", lambda err: console_errors.append(str(err)))
-
+        console_errors.clear()
         page.goto(url, wait_until="networkidle")
 
         if console_errors:
