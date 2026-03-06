@@ -1,19 +1,48 @@
+import json
 from collections import defaultdict
-from typing import Dict, List
+from typing import Dict, List, Union
 from urllib.parse import urlparse, urlunparse
 
 from conftest import BASE
-from playwright.sync_api import Page
+from playwright.sync_api import ConsoleMessage, Error, Page
+
+BrowserError = Union[ConsoleMessage, Error]
 
 
-def format_errors(errors_by_page: Dict[str, List[str]]) -> str:
+def format_errors(errors_by_page: Dict[str, List[BrowserError]]) -> str:
     if len(errors_by_page) == 0:
         return ""
     out = ""
     for url, errs in errors_by_page.items():
-        out += f"{url} ({len(errs)}):\n"
+        out += f"😱 {url} ({len(errs)}):\n"
         for e in errs:
-            out += f"\t- {e}\n"
+            if isinstance(e, ConsoleMessage):
+                out += json.dumps(
+                    {
+                        "text": e.text,
+                        "url": e.location["url"] if e.location else "",
+                        "lineNumber": e.location["lineNumber"]
+                        if e.location
+                        else None,
+                        "columnNumber": e.location["columnNumber"]
+                        if e.location
+                        else None,
+                    },
+                    indent=2,
+                )
+            elif isinstance(e, Error):
+                out += json.dumps(
+                    {
+                        "name": e.name,
+                        "message": e.message,
+                        "stack": e.stack.replace("\n", "").replace("  ", " ")
+                        if e.stack
+                        else "",
+                        "args": e.args,
+                    },
+                    indent=2,
+                )
+            out += "\n"
     return out
 
 
@@ -21,18 +50,39 @@ def format_errors(errors_by_page: Dict[str, List[str]]) -> str:
 def test_all_pages_no_browser_errors(page: Page):
     visited = set()
     to_visit = [BASE + "/"]
-    errors_by_page: Dict[str, List[str]] = defaultdict(list)
+    errors_by_page: Dict[str, List[BrowserError]] = defaultdict(list)
 
     base_url = urlparse(BASE)
-    console_errors: list[str] = []
+    errors: List[BrowserError] = []
 
+    def console_error_handler(msg: ConsoleMessage):
+        if msg.type == "error":
+            # err: Dict[str, Any] = {}
+            # if msg.location:
+            #     err: Dict[str, Any] = dict(msg.location.items())
+            # err["text"] = msg.text
+            errors.append(msg)
+
+    def page_error_handler(err: Error):
+        errors.append(err)
+        # print(err.args)
+        # print(err.stack.replace("\n", ""))
+        # print(err.name)
+        # print(err.message)
+
+    # page.on(
+    #     "console",
+    #     lambda msg: (
+    #         print(type(msg), msg.args, msg.location)
+    #         if msg.type == "error"
+    #         else None
+    #     ),
+    # )
     page.on(
         "console",
-        lambda msg: (
-            console_errors.append(msg.text) if msg.type == "error" else None
-        ),
+        console_error_handler,
     )
-    page.on("pageerror", lambda err: console_errors.append(str(err)))
+    page.on("pageerror", page_error_handler)
 
     while to_visit:
         url = to_visit.pop()
@@ -41,11 +91,11 @@ def test_all_pages_no_browser_errors(page: Page):
 
         visited.add(url)
 
-        console_errors.clear()
+        errors.clear()
         page.goto(url, wait_until="networkidle")
 
-        if console_errors:
-            errors_by_page[url].extend(console_errors)
+        if errors:
+            errors_by_page[url].extend(errors)
 
         # Collect internal links
         anchors = page.eval_on_selector_all(
