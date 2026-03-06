@@ -23,10 +23,13 @@ jobs:
       run: uv sync --all-extras --dev
 
     - name: Ensure browsers are installed
-      run: uv run playwright install --with-deps chromium
+      run: |
+        uv run playwright install --with-deps chromium
+        uv run playwright install --with-deps firefox
+        uv run playwright install --with-deps webkit
     
-    - name: Run your tests
-      run: uv run pytest --tracing=retain-on-failure
+    - name: Run tests 
+      run: uv run pytest --tracing=retain-on-failure --browser webkit --browser firefox --browser chromium
     
     - name: Upload Playwright traces
       uses: actions/upload-artifact@v4
