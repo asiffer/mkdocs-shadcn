@@ -18,6 +18,8 @@
 
 {% if page.meta.author %}
 <meta name="author" content="{{ page.meta.author }}">
+{% elif config.site_author %}
+<meta name="author" content="{{ config.site_author }}">
 {% endif %}
 
 {% if page.canonical_url %}
