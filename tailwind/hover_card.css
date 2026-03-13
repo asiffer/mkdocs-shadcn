@@ -1,44 +1,44 @@
 .hover-card {
-  @apply absolute z-10 !mt-0 pointer-events-none w-max min-w-[150px] max-w-[350px] transition-colors opacity-0 ring-foreground/10 bg-popover text-popover-foreground rounded-lg p-2.5 text-sm shadow-md ring-1 duration-150 outline-hidden;
+	@apply absolute z-10 !mt-0 pointer-events-none w-max min-w-[150px] max-w-[350px] transition-colors opacity-0 ring-foreground/10 bg-popover text-popover-foreground rounded-lg p-2.5 text-sm shadow-md ring-1 duration-150 outline-hidden;
 }
 
 div.hover-card {
-  /* mimick 'animate-in zoom-in-95 slide-in-from-bottom-[5%]' */
-  animation-duration: 0.15s;
-  --tw-enter-opacity: initial;
-  --tw-enter-scale: 0.95;
-  --tw-enter-rotate: initial;
-  /* --tw-enter-translate-x: initial;
+	/* mimick 'animate-in zoom-in-95 slide-in-from-bottom-[5%]' */
+	animation-duration: 0.15s;
+	--tw-enter-opacity: initial;
+	--tw-enter-scale: 0.95;
+	--tw-enter-rotate: initial;
+	/* --tw-enter-translate-x: initial;
   --tw-enter-translate-y: 5%; */
 }
 
 span.hover-card {
-  @apply left-1/2 -translate-x-1/2 top-[105%];
+	@apply left-1/2 -translate-x-1/2 top-[105%];
 }
 
 .hover-card-trigger:hover span.hover-card,
 span.hover-card:hover {
-  @apply opacity-100 pointer-events-auto animate-in zoom-in-95 slide-in-from-bottom-[5%];
+	@apply opacity-100 pointer-events-auto animate-in zoom-in-95 slide-in-from-bottom-[5%];
 }
 
 .hover-card:hover {
-  opacity: 1;
-  pointer-events: auto;
+	opacity: 1;
+	pointer-events: auto;
 }
 
 .hover-card-trigger {
-  @apply inline-block underline decoration-muted-foreground underline-offset-2 relative transition-colors duration-150;
+	@apply inline-block underline decoration-muted-foreground underline-offset-2 relative transition-colors duration-150;
 }
 
 .hover-card-trigger:hover {
-  @apply decoration-foreground;
+	@apply decoration-foreground;
 }
 
 /* first child is style*/
 .hover-card p:not(:first-of-type) {
-  @apply mt-2;
+	@apply mt-2;
 }
 
 .hover-card p:first-of-type {
-  @apply mt-0;
+	@apply mt-0;
 }

@@ -3,7 +3,7 @@ article table {
 }
 
 article table {
-	@apply w-full caption-bottom text-sm ;
+	@apply w-full caption-bottom text-sm;
 }
 
 article table thead {
@@ -19,11 +19,11 @@ article table thead tr th {
 }
 
 article table tbody {
-    @apply [&_tr:last-child]:border-0;
+	@apply [&_tr:last-child]:border-0;
 }
 
 article table tbody tr td {
-    @apply p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px];
+	@apply p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px];
 }
 
 article .table-wrapper {
@@ -31,5 +31,5 @@ article .table-wrapper {
 }
 
 article table .wrap {
-    white-space: wrap;
+	white-space: wrap;
 }

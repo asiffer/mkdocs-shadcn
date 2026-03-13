@@ -1,5 +1,5 @@
 article figcaption {
-    @apply text-muted-foreground mt-4 text-sm text-center;
+	@apply text-muted-foreground mt-4 text-sm text-center;
 }
 
 article figure {
