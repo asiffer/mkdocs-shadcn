@@ -66,14 +66,6 @@ article > pre {
 	@apply bg-muted;
 }
 
-/* article .light > pre {
-  @apply bg-muted;
-}
-
-article .light > pre code {
-  @apply text-foreground;
-} */
-
 article pre code {
 	@apply relative font-mono text-sm not-italic;
 }
@@ -85,26 +77,6 @@ article pre code > span {
 article code:not(pre code) {
 	@apply bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] outline-none;
 }
-
-/* article > table {
-	@apply w-full mt-6;
-}
-
-article table thead tr {
-	@apply m-0 border-t p-0 even:bg-muted;
-}
-
-article table thead tr th {
-	@apply border px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right;
-}
-
-article table tbody tr {
-	@apply m-0 border-t p-0 even:bg-muted;
-}
-
-article table tbody tr td {
-	@apply border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right;
-} */
 
 article tr td.linenos pre {
 	@apply text-sm;
@@ -134,5 +106,5 @@ article a.footnote-backref {
 }
 
 article .iconify {
-	@apply inline-block
+	@apply inline-block;
 }

@@ -17,6 +17,7 @@
 @import "./codexec.css";
 @import "./caption.css";
 @import "./kbd.css";
+@import "./hover_card.css";
 
 @theme {
 	--breakpoint-3xl: 1600px;
@@ -31,5 +32,5 @@
 @custom-variant data-closing (&[data-closing="1"]);
 @custom-variant fixed (&:is(.layout-fixed *));
 
-@plugin '@tailwindcss/typography';
+@plugin "@tailwindcss/typography";
 @plugin "tailwindcss-animate";

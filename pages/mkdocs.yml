@@ -42,3 +42,4 @@ markdown_extensions:
   shadcn.extensions.codexec:
   shadcn.extensions.iconify:
   pymdownx.blocks.caption:
+  shadcn.extensions.hover_card:
