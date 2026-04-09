@@ -1,0 +1,5 @@
+{% if sidebar_item.is_section %}
+{% include "components/sidebar_section.html" %}
+{% elif sidebar_item.is_page %}
+{% include "components/sidebar_item.html" %}
+{% endif %}

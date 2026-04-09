@@ -1,0 +1,31 @@
+{% if title_item is not defined %}
+{% set title_item = sidebar_item %}
+{% endif %}
+{% if badge_item is not defined %}
+{% set badge_item = title_item %}
+{% endif %}
+<span class="min-w-0 flex-1 whitespace-normal break-words leading-5">
+    {% if title_item.meta and title_item.meta.sidebar_title %}
+    {{ title_item.meta.sidebar_title }}
+    {% else %}
+    {{ title_item.title }}
+    {% endif %}
+</span>
+
+{% if badge_item.meta and badge_item.meta.new %}
+{% with tag_content = "New", new_tag_class = none, new_tag_color = none %}
+{% include "components/new.html" %}
+{% endwith %}
+{% endif %}
+
+{% if badge_item.meta and badge_item.meta.alpha %}
+{% with new_tag_class = "bg-warning", tag_content = "New", new_tag_color = none %}
+{% include "components/new.html" %}
+{% endwith %}
+{% endif %}
+
+{% if badge_item.meta and badge_item.meta.beta %}
+{% with new_tag_class = "bg-warning", tag_content = "New", new_tag_color = none %}
+{% include "components/new.html" %}
+{% endwith %}
+{% endif %}

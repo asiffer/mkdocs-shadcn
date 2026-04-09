@@ -1,15 +1,52 @@
 {% if sidebar_item.is_section %}
-<div class="flex flex-col gap-3">
-    <div class="text-xl font-medium">
-        {{ sidebar_item.title }}
+{% set nav = namespace(index_page=none, visible_children=0) %}
+{% for child_item in sidebar_item.children %}
+{% if child_item.is_page and child_item.is_index and nav.index_page is none %}
+{% set nav.index_page = child_item %}
+{% else %}
+{% set nav.visible_children = nav.visible_children + 1 %}
+{% endif %}
+{% endfor %}
+{% set is_open = "open" if sidebar_item.active else "closed" %}
+<div class="group/bottom-section flex flex-col gap-3" data-state="{{ is_open }}">
+    <div
+        class="flex items-start gap-3 rounded-md text-foreground transition-colors data-[state=open]:text-foreground">
+        {% if nav.index_page %}
+        <a href="{{ nav.index_page.url | url }}"
+            class="min-w-0 flex-1 text-xl font-medium leading-tight no-underline transition-colors {% if nav.index_page.active %}text-foreground{% else %}text-foreground/90 hover:text-foreground{% endif %}">
+            {{ sidebar_item.title }}
+        </a>
+        {% else %}
+        <div class="min-w-0 flex-1 text-xl font-medium leading-tight">
+            {{ sidebar_item.title }}
+        </div>
+        {% endif %}
+        {% if nav.visible_children > 0 %}
+        <button type="button"
+            class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+            aria-expanded="{% if is_open == 'open' %}true{% else %}false{% endif %}"
+            onclick="const item = this.closest('[data-state]'); const open = item.getAttribute('data-state') !== 'open'; item.setAttribute('data-state', open ? 'open' : 'closed'); this.setAttribute('aria-expanded', open ? 'true' : 'false');">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="transition-transform duration-200 group-data-[state=open]/bottom-section:rotate-90">
+                <path d="m9 18 6-6-6-6"></path>
+            </svg>
+        </button>
+        {% endif %}
     </div>
-    {% if sidebar_item.children %}
-    <div class="ml-4 flex flex-col gap-3 border-l border-sidebar-border pl-4">
-        {% for child_item in sidebar_item.children %}
-        {% with sidebar_item=child_item %}
-        {% include "components/bottom_sidebar_item.html" %}
-        {% endwith %}
-        {% endfor %}
+    {% if nav.visible_children > 0 %}
+    <div class="grid grid-rows-[0fr] transition-[grid-template-rows] group-data-[state=open]/bottom-section:grid-rows-[1fr]">
+        <div class="overflow-hidden">
+            <div class="ml-4 flex flex-col gap-3 border-l border-sidebar-border pl-4">
+                {% for child_item in sidebar_item.children %}
+                {% if not nav.index_page or child_item != nav.index_page %}
+                {% with sidebar_item=child_item %}
+                {% include "components/bottom_sidebar_item.html" %}
+                {% endwith %}
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
     </div>
     {% endif %}
 </div>
