@@ -27,4 +27,19 @@
         {% endwith %}
         {% endif %}
     </a>
+    {% if sidebar_item.active and page.toc %}
+    {% set toc_items = page.toc | list %}
+    {% set first_toc_item = toc_items | first %}
+    {% if first_toc_item and first_toc_item.level == 1 %}
+    {% set toc_items = first_toc_item.children %}
+    {% endif %}
+    {% if toc_items %}
+    <ul data-slot="sidebar-menu-sub" data-sidebar="menu-sub"
+        class="ml-3.5 flex flex-col gap-0.5 border-l border-sidebar-border pl-2.5 py-0.5">
+        {% for toc_item in toc_items %}
+        {% include "components/sidebar_toc_item.html" %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endif %}
 </li>

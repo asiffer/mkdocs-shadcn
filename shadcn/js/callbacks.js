@@ -221,7 +221,7 @@ const fetchStargazers = (repoUrl) => {
 
 const setActiveTocLink = (id) => {
 	id = id.replace("#", "");
-	const tocLinks = document.querySelectorAll("#toc a");
+	const tocLinks = document.querySelectorAll("[data-toc-link]");
 	tocLinks.forEach((link) => {
 		if (link.getAttribute("href") === `#${id}`) {
 			link.dataset.active = "true";

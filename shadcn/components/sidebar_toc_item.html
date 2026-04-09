@@ -1,0 +1,18 @@
+<li data-slot="sidebar-menu-sub-item" data-sidebar="menu-sub-item" class="flex flex-col gap-0.5">
+    <a href="{{ toc_item.url }}" data-slot="sidebar-menu-sub-button" data-sidebar="menu-sub-button" data-toc-link
+        data-active="false"
+        class="flex h-7 min-w-0 -translate-x-px items-center overflow-hidden rounded-md px-2 text-[0.75rem] text-muted-foreground no-underline ring-sidebar-ring outline-hidden transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground"
+        onClick="deferSetActiveTocLink('{{ toc_item.url }}');">
+        {{ toc_item.title }}
+    </a>
+    {% if toc_item.children %}
+    <ul data-slot="sidebar-menu-sub" data-sidebar="menu-sub"
+        class="ml-2.5 flex flex-col gap-0.5 border-l border-sidebar-border/60 pl-2">
+        {% for child_toc_item in toc_item.children %}
+        {% with toc_item=child_toc_item %}
+        {% include "components/sidebar_toc_item.html" %}
+        {% endwith %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+</li>

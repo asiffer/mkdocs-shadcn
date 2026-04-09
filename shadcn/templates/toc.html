@@ -2,27 +2,18 @@
     <div class="flex flex-col gap-2 p-4 pt-0 text-sm">
         <p class="text-muted-foreground bg-background sticky top-0 h-6 text-xs">On This Page</p>
         {% if page.toc %}
-        {% with roottoc = page.toc | list %}
-        {% with toc = roottoc if roottoc | length > 1 else roottoc[0].children %}
-        {% for h2 in toc %}
-        <a href="{{ h2.url }}"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('{{ h2.url }}');">
-            {{ h2.title }}
-        </a>
-        {% if h2.children %}
-        {% for h3 in h2.children %}
-        <a href="{{ h3.url }}"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('{{ h3.url }}');">
-            {{ h3.title }}
-        </a>
-        {% endfor %}
+        {% set toc_items = page.toc | list %}
+        {% set first_toc_item = toc_items | first %}
+        {% if first_toc_item and first_toc_item.level == 1 %}
+        {% set toc_items = first_toc_item.children %}
         {% endif %}
-
-        {% endfor %}
-        {% endwith %}
-        {% endwith %}
+        {% if toc_items %}
+        <ul class="flex flex-col gap-2">
+            {% for toc_item in toc_items %}
+            {% include "components/toc_item.html" %}
+            {% endfor %}
+        </ul>
+        {% endif %}
         {% endif %}
 
     </div>

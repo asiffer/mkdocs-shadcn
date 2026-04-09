@@ -14,11 +14,26 @@
     {% endif %}
 </div>
 {% elif sidebar_item.is_page %}
-<a href="{{ sidebar_item.url | url }}" class="text-base shrink-0">
+<a href="{{ sidebar_item.url | url }}"
+    class="text-base shrink-0 no-underline transition-colors {% if sidebar_item.active %}font-medium text-foreground{% else %}text-foreground/90 hover:text-foreground{% endif %}">
     {% if sidebar_item.meta and sidebar_item.meta.sidebar_title %}
     {{ sidebar_item.meta.sidebar_title }}
     {% else %}
     {{ sidebar_item.title }}
     {% endif %}
 </a>
+{% if sidebar_item.active and page.toc %}
+{% set toc_items = page.toc | list %}
+{% set first_toc_item = toc_items | first %}
+{% if first_toc_item and first_toc_item.level == 1 %}
+{% set toc_items = first_toc_item.children %}
+{% endif %}
+{% if toc_items %}
+<div class="ml-4 flex flex-col gap-2 border-l border-sidebar-border pl-4">
+    {% for toc_item in toc_items %}
+    {% include "components/bottom_sidebar_toc_item.html" %}
+    {% endfor %}
+</div>
+{% endif %}
+{% endif %}
 {% endif %}

@@ -1,6 +1,9 @@
 // scroll to the active link in the sidebar on page load
 const sidebar = document.querySelector('[data-sidebar="content"]');
-const activeLink = sidebar?.querySelector('[data-active="true"]');
+const activeLinks = sidebar
+	? [...sidebar.querySelectorAll('[data-active="true"]')]
+	: [];
+const activeLink = activeLinks.at(-1);
 if (sidebar && activeLink) {
 	const saved = sessionStorage.getItem("sidebar-scroll");
 	if (saved !== null) {
