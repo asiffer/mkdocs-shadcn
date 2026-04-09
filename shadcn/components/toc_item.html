@@ -1,0 +1,16 @@
+<li class="flex flex-col gap-1">
+    <a href="{{ toc_item.url }}" data-toc-link data-active="false"
+        class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors"
+        onClick="deferSetActiveTocLink('{{ toc_item.url }}');">
+        {{ toc_item.title }}
+    </a>
+    {% if toc_item.children %}
+    <ul class="ml-3 flex flex-col gap-1 border-l border-border/50 pl-3">
+        {% for child_toc_item in toc_item.children %}
+        {% with toc_item=child_toc_item %}
+        {% include "components/toc_item.html" %}
+        {% endwith %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+</li>
