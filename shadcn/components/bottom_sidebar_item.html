@@ -1,3 +1,24 @@
+{% if sidebar_item.is_section %}
+<div class="flex flex-col gap-3">
+    <div class="text-xl font-medium">
+        {{ sidebar_item.title }}
+    </div>
+    {% if sidebar_item.children %}
+    <div class="ml-4 flex flex-col gap-3 border-l border-sidebar-border pl-4">
+        {% for child_item in sidebar_item.children %}
+        {% with sidebar_item=child_item %}
+        {% include "components/bottom_sidebar_item.html" %}
+        {% endwith %}
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% elif sidebar_item.is_page %}
 <a href="{{ sidebar_item.url | url }}" class="text-base shrink-0">
+    {% if sidebar_item.meta and sidebar_item.meta.sidebar_title %}
+    {{ sidebar_item.meta.sidebar_title }}
+    {% else %}
     {{ sidebar_item.title }}
+    {% endif %}
 </a>
+{% endif %}

@@ -1,10 +1,12 @@
 <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="group/menu-item relative">
-    {# nested items #}
+    {% set is_open = "open" if sidebar_item.active else "closed" %}
     <button data-slot="collapsible-trigger" data-sidebar="menu-button" data-size="default" data-active="false"
         class="peer/menu-button group/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left ring-sidebar-ring outline-hidden transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-open:hover:bg-sidebar-accent data-open:hover:text-sidebar-accent-foreground data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 [&amp;&gt;span:last-child]:truncate hover:bg-sidebar-accent hover:text-sidebar-accent-foreground h-8 text-[0.8rem] font-medium"
-        type="button" aria-expanded="true"
-        data-state="{% if sidebar_item.children|map(attribute='active')|select|first is defined %}open{% else %}closed{% endif %}"
-        onclick="this.setAttribute('data-state', this.getAttribute('data-state') === 'closed' ? 'open' : 'closed')">
+        type="button"
+        aria-expanded="{% if is_open == 'open' %}true{% else %}false{% endif %}"
+        data-active="{{ '%s' % sidebar_item.active|lower }}"
+        data-state="{{ is_open }}"
+        onclick="const open = this.getAttribute('data-state') !== 'open'; this.setAttribute('data-state', open ? 'open' : 'closed'); this.setAttribute('aria-expanded', open ? 'true' : 'false');">
         {% if sidebar_item.meta and sidebar_item.meta.sidebar_title %}
         {{ sidebar_item.meta.sidebar_title }}
         {% else %}
@@ -16,15 +18,20 @@
             <path d="m9 18 6-6-6-6"></path>
         </svg>
     </button>
-    <div data-state="open" data-slot="collapsible-content"
+    <div data-slot="collapsible-content"
         class="grid grid-rows-[0fr] transition-[grid-template-rows] peer-data-[state=open]/menu-button:grid-rows-[1fr] py-0.5">
         <ul data-slot="sidebar-menu-sub" data-sidebar="menu-sub"
             class="overflow-hidden ml-3.5 flex flex-col gap-0.5 border-l border-sidebar-border pl-2.5">
-
-            {% for sub_item in sidebar_item.children|selectattr("is_page") %}
+            {% for sub_item in sidebar_item.children %}
+            {% if sub_item.is_section %}
+            {% with sidebar_item=sub_item %}
+            {% include "components/sidebar_section.html" %}
+            {% endwith %}
+            {% elif sub_item.is_page %}
             {% with sidebar_item=sub_item %}
             {% include "components/sidebar_item.html" %}
             {% endwith %}
+            {% endif %}
             {% endfor %}
         </ul>
     </div>
