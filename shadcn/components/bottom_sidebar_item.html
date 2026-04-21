@@ -59,18 +59,4 @@
     {{ sidebar_item.title }}
     {% endif %}
 </a>
-{% if sidebar_item.active and page.toc %}
-{% set toc_items = page.toc | list %}
-{% set first_toc_item = toc_items | first %}
-{% if first_toc_item and first_toc_item.level == 1 %}
-{% set toc_items = first_toc_item.children %}
-{% endif %}
-{% if toc_items %}
-<div class="ml-4 flex flex-col gap-2 border-l border-sidebar-border pl-4">
-    {% for toc_item in toc_items %}
-    {% include "components/bottom_sidebar_toc_item.html" %}
-    {% endfor %}
-</div>
-{% endif %}
-{% endif %}
 {% endif %}
