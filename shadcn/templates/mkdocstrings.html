@@ -1,11 +1,1 @@
-<script>
-    for (const el of document.querySelectorAll(
-        ".typography .doc code.language-python",
-    )) {
-        el.classList.add("codehilite");
-    }
-
-    for (const el of document.querySelectorAll("article .doc .doc-contents")) {
-        el.innerHTML = el.innerHTML.trim();
-    }
-</script>
+<script integrity="sha384-Oi13RhLSSgEpSmRyDbfsfmU5N1KzT7IBoQqMenKZoi1Mu+0mCDcF1mKtSZw3cd80" src="{{ 'js/mkdocstrings.js' | url }}"></script>
