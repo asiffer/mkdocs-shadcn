@@ -1,13 +1,3 @@
-{# <div class="relative h-8">
-    <button class="button" popovertarget="xxx" id="yyy">test</button>
-    <div id="xxx" anchor="yyy" style="top: anchor(bottom); " popover="auto"
-        class="absolute m-auto bg-white p-6 rounded shadow" ontoggle="console.log('toggle', event);">
-
-
-        <span>OK</span>
-        <span>GO</span>
-    </div>
-</div> #}
 <button
     onclick="fetch(`{{ raw_markdown_url | url }}`).then((r) => r.blob()).then((blob) => navigator.clipboard.write([new ClipboardItem({ 'text/plain': blob })]))"
     data-slot="button" class="secondary cursor-pointer">
