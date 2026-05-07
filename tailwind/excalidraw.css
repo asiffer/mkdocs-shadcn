@@ -1,0 +1,84 @@
+article .excalidraw {
+	--color-primary: var(--foreground);
+    --color-primary-darker: color-mix(in oklab, var(--foreground) 90%, transparent);
+    --color-primary-foreground: var(--background);
+    --color-border: var(--border);
+    --button-hover-bg: color-mix(in oklab, var(--muted) 70%, transparent);
+    --color-on-primary-container: var(--foreground);
+    --color-surface-primary-container: color-mix(in oklab, var(--theme-accent) 30%, transparent);
+    --button-selected-bg: color-mix(in oklab, var(--theme-accent) 20%, transparent);
+    --popup-secondary-bg-color: var(--background);
+    --color-on-surface: var(--foreground);
+    --color-surface-low: var(--muted);
+    --icon-fill-color: var(--foreground);
+    --island-bg-color: var(--background);
+    --popup-bg-color: var(--foreground);
+    --button-bg: var(--muted);
+    --color-surface-mid: var(--muted);
+    --color-brand-hover: var(--primary);
+    overflow: visible;
+}
+
+article .excalidraw li {
+	@apply mt-0;
+}
+
+/* context menu */
+article .excalidraw ul.context-menu {
+    @apply p-2 flex flex-col gap-1 items-stretch border-none;
+} 
+
+
+/* color pickers */
+article div.excalidraw button.color-picker__button {
+    @apply hover:bg-(--swatch-color);
+}
+
+/* bottom bar */
+article .excalidraw .App-toolbar-content button.ToolIcon_type_button {
+    @apply hover:bg-transparent;
+}
+
+/* burger button */
+article .excalidraw.excalidraw-container button.dropdown-menu-button {
+    @apply bg-muted/30 hover:bg-muted/40;
+}
+
+/* context menu */
+article .excalidraw button.context-menu-item {
+    @apply rounded hover:bg-(--button-hover-bg);
+}
+
+/* context menu when object selected */
+article .excalidraw ul li button.context-menu-item.dangerous {
+   @apply hover:bg-destructive hover:text-white;
+}
+
+/* context menu when object selected */
+article .excalidraw ul li button.context-menu-item.dangerous:hover .context-menu-item__label {
+   @apply text-white;
+}
+
+article .excalidraw .context-menu-item-separator {
+    @apply border-t-muted;
+}
+
+/* library panel - close button */
+article .excalidraw button.sidebar__close {
+    @apply hover:bg-transparent;
+}
+
+/* library panel - tab trigger */
+article .excalidraw button.sidebar-tab-trigger {
+    @apply hover:bg-(--button-hover-bg);
+}
+
+/* library button right sidebar */
+article .excalidraw .sidebar-trigger__label-element {
+    @apply size-8 flex items-center justify-center;
+}
+
+/* library button right sidebar */
+article .excalidraw .sidebar-trigger {
+    @apply p-0 w-full h-full rounded-none;
+}
