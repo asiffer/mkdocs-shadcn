@@ -201,6 +201,21 @@
     }
   };
 
+  function useTheme() {
+    const get = () =>
+      document.documentElement.classList.contains("dark") ? "dark" : "light";
+    const [theme, setTheme] = React.useState(get);
+    React.useEffect(() => {
+      const obs = new MutationObserver(() => setTheme(get()));
+      obs.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
+      return () => obs.disconnect();
+    }, []);
+    return theme;
+  }
+
   function App({ file, viewModeEnabled = false }) {
     // API to call excalidraw functions (mainly to retrive the inner scene)
     const [excalidrawAPI, setExcalidrawAPI] = React.useState(null);
@@ -210,6 +225,7 @@
     const [right, setRight] = React.useState(0); // offset to position the excalidraw editor
     const containerRef = React.useRef(null); // outer container to compute the right offset
     const [height, setHeight] = React.useState(400);
+    const theme = useTheme();
 
 
     // download data
@@ -217,7 +233,10 @@
       if (edit && excalidrawAPI) {
         fetchScene(file).then((data) => {
           setHeight(data.appState.height);
-          excalidrawAPI.updateScene({ ...data });
+          excalidrawAPI.updateScene({
+            ...data,
+            appState: { ...data.appState, theme },
+          });
           excalidrawAPI.refresh();
         });
       } else {
@@ -232,6 +251,13 @@
       }
 
     }, [file, edit, excalidrawAPI]);
+
+    // Keep Excalidraw's theme in sync when the page theme flips
+    React.useEffect(() => {
+      if (excalidrawAPI) {
+        excalidrawAPI.updateScene({ appState: { theme } });
+      }
+    }, [theme, excalidrawAPI]);
     // Position the excalidraw editor properly if we have not enough place
     // on the right side
     React.useEffect(() => {
@@ -302,9 +328,10 @@
                 {
                   "data-scene": file,
                   className:
-                    "h-full w-full rounded overflow-hidden border relative shadow",
+                    "h-full w-full rounded border relative shadow",
                 },
                 React.createElement(Excalidraw, {
+                  theme,
                   excalidrawAPI: (api) => setExcalidrawAPI(api),
                   onChange,
                   viewModeEnabled: false,
