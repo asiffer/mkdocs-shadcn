@@ -13,6 +13,8 @@ ORDER_META_KEY = "order"
 
 logger = get_plugin_logger("mixins/order")
 
+NUMBER_PREFIX = re.compile(r"((?:^|/))([0-9]+[ _])")
+
 
 class OrderMixin(Mixin):
     page_index = 0
@@ -32,10 +34,9 @@ class OrderMixin(Mixin):
 
     def on_files(self, files: Files, config: MkDocsConfig) -> Files:
         """Remove order from file destination URI, to get nicer URLs."""
-        rex = re.compile(r"((?:^|/))([0-9]+[ _])")
         for file in files:
-            if rex.search(file.dest_uri):
-                file.dest_uri = rex.sub(
+            if NUMBER_PREFIX.search(file.dest_uri):
+                file.dest_uri = NUMBER_PREFIX.sub(
                     lambda m: m.group(1),
                     file.dest_uri,
                 )
@@ -52,13 +53,19 @@ class OrderMixin(Mixin):
         # if we create folders with 00_name_of_the_folder we remove the prepended number
         # from the title. It is a common hack to have the folders ordered in the navigation
         rex = re.compile(r"^[0-9]+[ _]")
-        for item in nav.items:
-            if (
-                isinstance(item, Section)
-                and item.title
-                and rex.match(item.title)
-            ):
-                item.title = rex.sub("", item.title).capitalize()
+
+        def recursive_strip_number_prefix(items: list):
+            for item in items:
+                if (
+                    isinstance(item, Section)
+                    and item.title
+                    and rex.match(item.title)
+                ):
+                    item.title = rex.sub("", item.title).capitalize()
+                    if item.children:
+                        recursive_strip_number_prefix(item.children)
+
+        recursive_strip_number_prefix(nav.items)
 
         # save the nav order for later use
         self.pre_order(nav.items)

@@ -25,6 +25,11 @@
     {% if "codehilite" in config.markdown_extensions %}
     {% include "templates/pygments.html" %}
     {% endif %}
+    <style>
+        :root {
+            --theme-accent: {{ config.theme.accent or "oklch(62.3% 0.214 259.815)" }};
+        }
+    </style>
 
     {%- for path in config.extra_css %}
     <link href="{{ path | url }}" rel="stylesheet">
