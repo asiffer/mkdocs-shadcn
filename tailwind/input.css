@@ -28,11 +28,11 @@ article button {
 
 /* Primary (default — applied when no other variant class is present) */
 article input[type="button"].primary,
-article input[type="button"]:not(.secondary):not(.outline):not(.destructive):not(.ghost):not(.link),
+article input[type="button"]:where(:not(.secondary, .outline, .destructive, .ghost, .link)),
 article a.button.primary,
-article a.button:not(.secondary):not(.outline):not(.destructive):not(.ghost):not(.link),
+article a.button:where(:not(.secondary, .outline, .destructive, .ghost, .link)),
 article button.primary,
-article button:not(.secondary):not(.outline):not(.destructive):not(.ghost):not(.link) {
+article button:where(:not(.secondary, .outline, .destructive, .ghost, .link)) {
   @apply border border-transparent
     bg-primary text-primary-foreground hover:bg-primary/80
     focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50;
