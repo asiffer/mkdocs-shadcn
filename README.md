@@ -30,7 +30,7 @@ Yes, yes, the [documentation](https://asiffer.github.io/mkdocs-shadcn/) is built
 
 ## Quick start
 
-`mkdocs-shadcn` can be installed with `pip`
+`mkdocs-shadcn` can be installed with `pip` (you may also need `Pygments` for syntax highlighting).
 
 ```shell
 pip install mkdocs-shadcn
@@ -43,6 +43,9 @@ theme:
   name: shadcn
 ```
 
+> [!NOTE]  
+> [MkDocs is stale](https://fpgmaas.com/blog/collapse-of-mkdocs/). You can use [ProperDocs](github.com/ProperDocs/properdocs) as a drop-in replacement.
+
 ## Extensions
 
 The theme tries to support the built-in extensions along with some `pymdownx` ones. 
@@ -52,6 +55,7 @@ The theme tries to support the built-in extensions along with some `pymdownx` on
 - [x] [`fenced_code`](https://python-markdown.github.io/extensions/fenced_code_blocks/)
 - [x] [`footnotes`](https://python-markdown.github.io/extensions/footnotes/)
 - [x] [`pymdownx.tabbed`](https://facelessuser.github.io/pymdown-extensions/extensions/tabbed/)
+- [x] [`pymdownx.blocks.caption`](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/plugins/caption/) 
 - [x] [`pymdownx.blocks.details`](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/plugins/details/) 
 - [x] [`pymdownx.blocks.tab`](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/plugins/tab/) 
 - [x] [`pymdownx.progressbar`](https://facelessuser.github.io/pymdown-extensions/extensions/progressbar/)
@@ -65,6 +69,7 @@ The theme tries to support the built-in extensions along with some `pymdownx` on
 
 - [x] builtin [`excalidraw`](https://excalidraw.com/) - With this plugin, you can directly edit your excalidraw scene in dev mode (kind of WYSIWYG) while it is rendered as svg at build time.
 - [x] [`mkdocstrings`](https://mkdocstrings.github.io/) - a MkDocs plugin for auto-generating API documentation from docstrings. (alpha)
+- [x] taylor-made `autonumber` plugin to automatically number and reference some elements (figures, tables, equations...)
 
 ## Developers
 
