@@ -29,6 +29,9 @@ dev = [
     "types-pygments>=2.19.0.20250107",
 ]
 
+[project.optional-dependencies]
+properdocs = ["properdocs >= 1.6.7; python_version >= '3.9'"]
+
 [project.entry-points."mkdocs.themes"]
 shadcn = "shadcn"
 
