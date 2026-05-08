@@ -61,10 +61,14 @@
         </a>
         {% endfor %}
       </div>
-      {% endif %} {% if page.meta.show_datetime == True %} {% include
-      "components/datetime.html" %} {% elif page.meta.show_datetime == False %}
-      {# do nothing #} {% elif config.theme.show_datetime == True %} {% include
-      "components/datetime.html" %} {% endif %}
+      {% endif %}
+      {% if page.meta.show_datetime == True %}
+      {% include "templates/datetime.html" %}
+      {% elif page.meta.show_datetime == False %}
+      {# do nothing #}
+      {% elif config.theme.show_datetime == True %}
+      {% include "templates/datetime.html" %}
+      {% endif %}
     </div>
   </div>
   <div class="typography w-full flex-1 *:data-[slot=alert]:first:mt-0">
