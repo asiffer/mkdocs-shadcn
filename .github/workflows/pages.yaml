@@ -58,7 +58,7 @@ jobs:
           path: .cache
 
       - name: Build site
-        run: cd pages && uv run mkdocs build -d ../site
+        run: cd pages && uv run properdocs build -d ../site -f mkdocs.yml
 
       # Upload the built site as an artifact, this will be used by the deploy job.
       - uses: actions/upload-pages-artifact@v3
@@ -67,9 +67,9 @@ jobs:
 
       - name: Minimize uv cache
         run: uv cache prune --ci
+
   deploy:
     needs: build
-
     # Deploy to the github-pages environment
     environment:
       name: github-pages
