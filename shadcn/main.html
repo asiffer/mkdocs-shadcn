@@ -23,11 +23,17 @@
     <link href="{{ 'css/geist.css' | url }}" rel="stylesheet">
 
     {% if "codehilite" in config.markdown_extensions %}
-    {% include "templates/pygments.html" %}
+    {% include "templates/external/pygments.html" %}
     {% endif %}
     <style>
         :root {
-            --theme-accent: {{ config.theme.accent or "oklch(62.3% 0.214 259.815)" }};
+            --theme-accent: {
+                    {
+                    config.theme.accent or "oklch(62.3% 0.214 259.815)"
+                }
+            }
+
+            ;
         }
     </style>
 
@@ -44,15 +50,15 @@
     <script src="{{ 'js/callbacks.js' | url }}"></script>
 
     {% if "pymdownx.arithmatex" in config.markdown_extensions %}
-    {% include "templates/katex.html" %}
+    {% include "templates/external/katex.html" %}
     {% endif %}
 
     {% if "shadcn.extensions.echarts.alpha" in config.markdown_extensions %}
-    {% include "templates/echarts.html" %}
+    {% include "templates/external/echarts.html" %}
     {% endif %}
 
     {% if "shadcn/excalidraw" in config.plugins and is_dev_server %}
-    {% include "templates/excalidraw.html" %}
+    {% include "templates/external/excalidraw.html" %}
     {% endif %}
 
     {% if "toc" in config.markdown_extensions %}
@@ -126,10 +132,10 @@
     <script>fetchStargazers("{{ config.repo_url }}");</script>
     {% endif %}
     {% if "mkdocstrings" in config.plugins %}
-    {% include "templates/mkdocstrings.html" %}
+    {% include "templates/external/mkdocstrings.html" %}
     {% endif %}
     {% if "shadcn.extensions.codexec" in config.markdown_extensions %}
-    {% include "templates/codexec.html" %}
+    {% include "templates/external/codexec.html" %}
     {% endif %}
     {% include "templates/speculation_rules.html" %}
 </body>
