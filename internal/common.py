@@ -12,7 +12,7 @@ def error(msg):
 
 
 def log(msg):
-    print(f"[dim]{msg}[/dim]")
+    rich.print(f"[dim]{msg}[/dim]")
 
 
 def info(msg):
