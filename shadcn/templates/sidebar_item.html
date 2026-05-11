@@ -10,7 +10,7 @@
         {% endif %}
 
         {% if sidebar_item.meta and sidebar_item.meta.new %}
-        {% with tag_content = "New" %}
+        {% with tag_content = _("New") %}
         {% include "templates/new.html" %}
         {% endwith %}
         {% endif %}
