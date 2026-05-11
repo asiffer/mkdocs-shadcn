@@ -1,6 +1,7 @@
 import re
 from functools import partial
 
+from jinja2 import Environment
 from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.contrib.search import SearchPlugin as BaseSearchPlugin
 from mkdocs.structure.files import Files
@@ -17,6 +18,7 @@ from shadcn.filters import (
 )
 from shadcn.plugins.mixins.dev import DevServerMixin
 from shadcn.plugins.mixins.git import GitTimestampsMixin
+from shadcn.plugins.mixins.i18n import I18nMixin
 from shadcn.plugins.mixins.katex import KatexMixin
 from shadcn.plugins.mixins.markdown import MarkdownMixin
 from shadcn.plugins.mixins.mkdocstrings import MkdocstringsMixin
@@ -25,6 +27,7 @@ from shadcn.plugins.mixins.table import TableMixin
 
 
 class SearchPlugin(
+    I18nMixin,
     GitTimestampsMixin,
     DevServerMixin,
     OrderMixin,
@@ -44,7 +47,12 @@ class SearchPlugin(
         self.config["lang"] = self.config.get("lang", None) or ["en"]
         return super().on_config(config)
 
-    def on_env(self, env, /, *, config: MkDocsConfig, files: Files):
+    def on_env(
+        self,
+        env: Environment,
+        config: MkDocsConfig,
+        files: Files,
+    ):
         # custom jinja2 filter
         env.filters["setattribute"] = setattribute
         env.filters["iconify"] = iconify
@@ -58,8 +66,6 @@ class SearchPlugin(
     def on_page_markdown(
         self,
         markdown: str,
-        /,
-        *,
         page: Page,
         config: MkDocsConfig,
         files: Files,

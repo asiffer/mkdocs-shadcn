@@ -17,14 +17,19 @@ dependencies = [
 [dependency-groups]
 dev = [
     "accessible-pygments>=0.0.4",
+    "babel>=2.18.0",
+    "beautifulsoup4>=4.14.3",
     "mkdocstrings[python]>=0.26.1",
     "mypy>=1.12.0",
     "pre-commit>=3.5.0",
+    "pygithub>=2.8.1",
     "pygments>=2.19.1",
     "pymdown-extensions>=10.14.2",
     "pytest-playwright>=0.5.2",
+    "rich>=14.3.4",
     "ruff>=0.12.11",
     "ty>=0.0.1a21",
+    "typer>=0.20.1",
     "types-markdown>=3.7.0.20241204",
     "types-pygments>=2.19.0.20250107",
 ]
