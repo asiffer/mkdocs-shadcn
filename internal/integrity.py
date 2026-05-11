@@ -2,6 +2,7 @@ import os
 import re
 from base64 import b64encode
 from hashlib import sha384
+from pathlib import Path
 from typing import Annotated
 
 import typer
@@ -10,12 +11,19 @@ from bs4 import BeautifulSoup
 from internal.common import THEME_PATH, info, log
 
 
-def get_templates():
-    out = {THEME_PATH / "main.html"}
-    for file in os.listdir(THEME_PATH / "templates"):
-        fp = THEME_PATH / "templates" / file
+def list_templates(directory: Path):
+    out = set()
+    for file in os.listdir(directory):
+        fp = directory / file
         if file.endswith(".html"):
             out.add(fp)
+    return out
+
+
+def get_templates():
+    out = {THEME_PATH / "main.html"}
+    out.update(list_templates(THEME_PATH / "templates"))
+    out.update(list_templates(THEME_PATH / "templates" / "external"))
     return out
 
 
