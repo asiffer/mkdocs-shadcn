@@ -1,0 +1,76 @@
+# Translations template for mkdocs-shadcn.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the mkdocs-shadcn
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: mkdocs-shadcn 0.10.6\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-05-11 10:31+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: bottom_sidebar.html:14 header.html:22
+msgid "Menu"
+msgstr "Menu"
+
+#: copy_button.html:11
+msgid "Copy Page"
+msgstr "Copier la page"
+
+#: datetime.html:3
+msgid "last update (local time)"
+msgstr "Dernière mise à jour (heure locale)"
+
+#: footer.html:7
+msgid "Built by"
+msgstr "Ecrit par"
+
+#: footer.html:9
+msgid "provided by"
+msgstr "fourni par"
+
+#: header.html:20
+msgid "Toggle Menu"
+msgstr "Afficher/cacher le menu"
+
+#: header.html:65 header.html:66
+msgid "Toggle layout"
+msgstr "Changer de mise en page"
+
+#: header.html:80 header.html:91
+msgid "Toggle theme"
+msgstr "Changer de thème"
+
+#: new.html:2 new.html:4 new.html:6 new.html:8 sidebar_item.html:13
+msgid "New"
+msgstr "Nouveau"
+
+#: page.html:22
+msgid "Previous"
+msgstr "Précédent"
+
+#: page.html:29
+msgid "Next"
+msgstr "Suivant"
+
+#: search.html:3 search.html:20
+msgid "Search documentation..."
+msgstr "Rechercher dans la documentation..."
+
+#: search.html:4
+msgid "Search..."
+msgstr "Rechercher..."
+
+#: toc.html:3
+msgid "On This Page"
+msgstr "Sur cette page"
+

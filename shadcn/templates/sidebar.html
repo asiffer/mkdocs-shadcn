@@ -20,7 +20,7 @@
         <ul data-slot="sidebar-menu" data-sidebar="menu" class="flex w-full min-w-0 flex-col gap-0.5">
             {% for page in pages %}
             {% with sidebar_item = page %}
-            {% include "components/sidebar_item.html" %}
+            {% include "templates/sidebar_item.html" %}
             {% endwith %}
             {% endfor %}
         </ul>
@@ -38,9 +38,9 @@
         <ul data-slot="sidebar-menu" data-sidebar="menu" class="flex w-full min-w-0 flex-col gap-0.5">
             {% for sidebar_item in section.children %}
             {% if sidebar_item.children %}
-            {% include "components/sidebar_section.html" %}
+            {% include "templates/sidebar_section.html" %}
             {% else %}
-            {% include "components/sidebar_item.html" %}
+            {% include "templates/sidebar_item.html" %}
             {% endif %}
             {% endfor %}
         </ul>

@@ -4,6 +4,7 @@ from urllib.parse import urljoin
 
 from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.plugins import get_plugin_logger
+from mkdocs.structure.nav import Navigation
 from mkdocs.structure.pages import Page
 from mkdocs.utils.templates import TemplateContext
 
@@ -24,17 +25,13 @@ class MarkdownMixin(Mixin):
         context: TemplateContext,
         page: Page,
         config: MkDocsConfig,
-        nav,
+        nav: Navigation,
     ):
         src_path = NUMBER_PREFIX.sub(lambda m: m.group(1), page.file.src_path)
         self.raw_markdown[page.file.abs_src_path] = os.path.join(
             config.site_dir, src_path
         )
-        context.update(
-            {
-                "raw_markdown_url": urljoin(config.site_url or "/", src_path),
-            }
-        )
+        context["raw_markdown_url"] = urljoin(config.site_url or "/", src_path)  # type: ignore (need this to download markdown files)
         return super().on_page_context(context, page, config, nav)
 
     def on_post_build(self, config):

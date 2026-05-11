@@ -4,9 +4,9 @@
         <div class="flex h-(--footer-height) items-center justify-between">
             <div class="text-muted-foreground w-full text-center text-xs leading-loose sm:text-sm">
                 {% if config.site_author %}
-                Built by<!-- --> {{ config.site_author | parse_author}} &mdash;
+                {{ _("Built by") }}<!-- --> {{ config.site_author | parse_author}} &mdash;
                 {% endif %}
-                <a href="https://github.com/asiffer/mkdocs-shadcn">shadcn theme</a> provided by
+                <a href="https://github.com/asiffer/mkdocs-shadcn">shadcn theme</a> {{ _("provided by") }}
                 <a href="https://github.com/asiffer">@asiffer</a>
             </div>
         </div>

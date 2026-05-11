@@ -19,14 +19,14 @@
               <path d="M5 12l6 6"></path>
               <path d="M5 12l6 -6"></path>
             </svg>
-            <span class="sr-only">Previous</span>
+            <span class="sr-only">{{ _("Previous") }}</span>
           </a>
           {% endif %}
           {% if page.next_page %}
           <a data-slot="button" id="next-button"
             class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 extend-touch-target size-8 shadow-none md:size-7"
             href="{{ page.next_page.abs_url }}">
-            <span class="sr-only">Next</span>
+            <span class="sr-only">{{ _("Next") }}</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               class="tabler-icon tabler-icon-arrow-right">
@@ -61,10 +61,14 @@
         </a>
         {% endfor %}
       </div>
-      {% endif %} {% if page.meta.show_datetime == True %} {% include
-      "components/datetime.html" %} {% elif page.meta.show_datetime == False %}
-      {# do nothing #} {% elif config.theme.show_datetime == True %} {% include
-      "components/datetime.html" %} {% endif %}
+      {% endif %}
+      {% if page.meta.show_datetime == True %}
+      {% include "templates/datetime.html" %}
+      {% elif page.meta.show_datetime == False %}
+      {# do nothing #}
+      {% elif config.theme.show_datetime == True %}
+      {% include "templates/datetime.html" %}
+      {% endif %}
     </div>
   </div>
   <div class="typography w-full flex-1 *:data-[slot=alert]:first:mt-0">

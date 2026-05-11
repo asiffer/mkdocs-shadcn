@@ -23,7 +23,7 @@
 
             {% for sub_item in sidebar_item.children|selectattr("is_page") %}
             {% with sidebar_item=sub_item %}
-            {% include "components/sidebar_item.html" %}
+            {% include "templates/sidebar_item.html" %}
             {% endwith %}
             {% endfor %}
         </ul>

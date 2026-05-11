@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Any
 
 from jinja2 import Environment
@@ -13,6 +14,11 @@ mixin_logger = get_plugin_logger("mixins")
 
 class Mixin:
     """A base mixin class for MkDocs plugins."""
+
+    @property
+    def theme_root(self) -> Path:
+        """The root directory of the theme"""
+        return Path(__file__).parent.parent.parent
 
     def _super_method_or(
         self,

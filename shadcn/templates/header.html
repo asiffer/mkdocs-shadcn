@@ -17,15 +17,15 @@
                         </svg>
                     </div>
 
-                    <span class="sr-only">Toggle Menu</span>
+                    <span class="sr-only">{{ _("Toggle Menu") }}</span>
                 </div>
-                <span class="flex h-8 items-center text-lg leading-none font-medium">Menu</span>
+                <span class="flex h-8 items-center text-lg leading-none font-medium">{{ _("Menu") }}</span>
             </button>
             <a data-slot="button"
                 class="items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-5 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 hidden h-8 lg:flex"
                 href="{{ config.site_url }}">
                 <span class="size-8 flex flex-row justify-center items-center">
-                    {% include "components/icon.html" %}
+                    {% include "templates/icon.html" %}
                 </span>
 
                 {% if config.theme.show_title %}
@@ -62,8 +62,8 @@
                 </div>
                 <button data-slot="button"
                     class="items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 size-8 3xl:flex hidden"
-                    title="Toggle layout" onclick="toggleLayout(event)">
-                    <span class="sr-only">Toggle layout</span>
+                    title="{{ _('Toggle layout') }}" onclick="toggleLayout(event)">
+                    <span class="sr-only">{{ _("Toggle layout") }}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="lucide lucide-gallery-horizontal">
@@ -77,7 +77,7 @@
                 </div>
                 <button data-slot="button"
                     class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 group/toggle extend-touch-target size-8"
-                    title="Toggle theme" onclick="onThemeSwitch(event)">
+                    title="{{ _('Toggle theme') }}" onclick="onThemeSwitch(event)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="size-4.5">
@@ -88,7 +88,7 @@
                         <path d="M12 14.3l7.37 -7.37"></path>
                         <path d="M12 19.6l8.85 -8.85"></path>
                     </svg>
-                    <span class="sr-only">Toggle theme</span>
+                    <span class="sr-only">{{ _("Toggle theme") }}</span>
                 </button>
             </div>
         </div>
