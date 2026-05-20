@@ -18,8 +18,9 @@
 <div data-slot="sidebar-group" data-sidebar="group" class="relative flex w-full min-w-0 flex-col p-2 pt-6">
     <div data-slot="sidebar-group-content" data-sidebar="group-content" class="w-full text-sm">
         <ul data-slot="sidebar-menu" data-sidebar="menu" class="flex w-full min-w-0 flex-col gap-0.5">
-            {% for page in pages %}
-            {% with sidebar_item = page %}
+            {% for p in pages %}
+            {# warning: do not use 'page' attribute to avoid conflicts. It is used for url filter notably #}
+            {% with sidebar_item = p %}
             {% include "templates/sidebar_item.html" %}
             {% endwith %}
             {% endfor %}
