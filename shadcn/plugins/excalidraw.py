@@ -21,6 +21,15 @@ def svg_handler_factory(directory: str):
     def handler():
         file = request.query.get("file")
         svg_file = os.path.join(directory, file.replace(".json", ".svg"))
+        svg_file = os.path.normpath(
+            svg_file
+        )  # remove any .. in the path to avoid security issues
+        if not svg_file.startswith(directory):
+            log.warning(
+                f"attempt to access file outside of directory: {svg_file}"
+            )
+            response.status = 403
+            return "Forbidden"
 
         if request.method == "POST":
             log.info(f"POST {request.path}?{request.query_string}")
@@ -47,6 +56,15 @@ def scene_handler_factory(directory: str):
     def handler():
         file = request.query.get("file")
         scene_file = os.path.join(directory, file)
+        scene_file = os.path.normpath(
+            scene_file
+        )  # remove any .. in the path to avoid security issues
+        if not scene_file.startswith(directory):
+            log.warning(
+                f"attempt to access file outside of directory: {scene_file}"
+            )
+            response.status = 403
+            return "Forbidden"
 
         if request.method == "POST":
             log.info(f"POST {request.path}?{request.query_string}")
