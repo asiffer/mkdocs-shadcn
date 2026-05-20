@@ -8,6 +8,9 @@ on:
       - "pages/**" # Ignore changes to the pages directory, as this is handled by the pages workflow.
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   wheel:
     runs-on: ubuntu-latest
