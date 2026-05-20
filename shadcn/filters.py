@@ -26,7 +26,10 @@ def iconify(key: str, height: str = "20px", **kwargs) -> str:
     url = f"{base_url}/{provider}/{name}.svg?{urllib.parse.urlencode({'height': height, **kwargs})}"
 
     # need to provide a user-agent to fix cloudlfare 403 error
-    req = urllib.request.Request(url, headers={"User-Agent": "mkdocs-shadcn"})
+    req = urllib.request.Request(
+        url,
+        headers={"User-Agent": "mkdocs-shadcn"},
+    )
     try:
         with urllib.request.urlopen(req) as response:
             return response.read().decode(
