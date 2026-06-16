@@ -54,7 +54,7 @@ async function toggleDropdown() {
     .map(
       (opt) => `
     <div
-      onclick="selectItem('${opt.value}')"
+      onclick="selectVersion('${opt.value}')"
       style="padding:8px 12px;cursor:pointer;"
       onmouseover="this.style.background='#f3f4f6'"
       onmouseout="this.style.background='#fff'"
@@ -68,9 +68,17 @@ async function toggleDropdown() {
   list.style.display = list.style.display === "none" ? "block" : "none";
 }
 
-function selectItem(value) {
-  document.getElementById("dropdownBtn").innerText = value;
+function buildVersionRoot(version) {
+  return "/" + version + "/";
+}
+
+function selectVersion(version) {
+  document.getElementById("dropdownBtn").innerText = version;
   document.getElementById("dropdownList").style.display = "none";
+
+  const segments = window.location.pathname.split("/").filter(Boolean);
+  const rest = segments.slice(1).join("/");
+  window.location.href = buildVersionRoot(version) + rest;
 }
 
 // Close dropdown when clicking outside

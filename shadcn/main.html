@@ -20,7 +20,7 @@
     {%- endif %}
 
     {% if config.theme.version_switcher %}
-    <script src="js/version-switcher.js"></script>
+    <script src="{{ 'js/version-switcher.js' | url }}" defer></script>
     {% endif %}
 
     <link href="{{ 'css/base.css' | url }}" rel="stylesheet"/>
