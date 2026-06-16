@@ -19,6 +19,10 @@
     <link href="{{ 'img/favicon.ico' | url }}" rel="icon"/>
     {%- endif %}
 
+    {% if config.theme.version_switcher %}
+    <script src="js/version-switcher.js"></script>
+    {% endif %}
+
     <link href="{{ 'css/base.css' | url }}" rel="stylesheet"/>
 <link href="{{ 'css/geist.css' | url }}" rel="stylesheet"/>
 
