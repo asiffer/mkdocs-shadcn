@@ -84,6 +84,7 @@ theme:
       "\\dx": "\\mathrm{d}x"
   show_datetime: false 
   accent: "oklch(64.5% 0.246 16.439)" # NEW!
+  version_switcher: false # Activation of the versioning as provided by mike.
 ```
 
 ### `show_title: bool` 
@@ -231,3 +232,9 @@ If you want to disable it for a specific page, you can set `show_datetime: false
 
 Defines an accent color. Currently it is only used for ["new" badges](./20_pages.md#extra).
 If not defined, the default shadcn color used (tailwind [blue-500](https://tailwindcss.com/docs/colors)).
+
+### `version_switcher: bool`
+
+Activates the versioning as provided by [mike](https://github.com/jimporter/mike). Defaults to `false` (no versioning).
+
+When activated, a version switcher is displayed at the top-right of the page, between the search bar and the theme toggle. It can be used to display different versions of the documentation, published by mike.
