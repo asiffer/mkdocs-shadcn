@@ -14,7 +14,9 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
 
+    {% if page %}
     {% include "templates/seo.html" %}
+    {% endif %}
 
     {%- if config.theme.favicon %}
     <link href="{{ config.theme.favicon | url }}" rel="icon" />
@@ -39,7 +41,7 @@
     <link href="{{ path | url }}" rel="stylesheet" />
     {%- endfor %}
 
-    {% if page.meta.extra_css %}
+    {% if page and page.meta.extra_css %}
     {%- for path in page.meta.extra_css %}
     <link href="{{ path | url }}" rel="stylesheet" />
     {%- endfor %}
@@ -89,21 +91,33 @@
                         <div class="flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden mx-auto no-scrollbar w-(--sidebar-menu-width) overflow-x-hidden px-2"
                             data-sidebar="content" data-slot="sidebar-content" view-transition-name="sidebar">
                             {% include "templates/sidebar.html" %}
+
                         </div>
                     </div>
                     <div class="h-full w-full">
                         <div class="flex items-stretch text-[1.05rem] sm:text-[15px] xl:w-full" data-slot="docs">
+
                             <div class="flex min-w-0 flex-1 flex-col">
                                 <div class="h-(--top-spacing) shrink-0"></div>
+                                {% block page %}
+                                {% if page %}
                                 {% include "templates/page.html" %}
                                 {% include "templates/bottom_navigation.html" %}
-                                {% include "templates/bottom_sidebar.html" %}
+                                {% endif %}
+                                {% endblock page %}
                             </div>
+                            {# burger menu (phone) #}
+                            {% include "templates/bottom_sidebar.html" %}
                             <div
                                 class="sticky top-[calc(var(--header-height)+1px)] ml-auto hidden h-[calc(100svh-var(--header-height)-var(--footer-height))] w-72 flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
                                 <div class="h-(--top-spacing) shrink-0"></div>
+                                {% block toc %}
+                                {% if page %}
                                 {% include "templates/toc.html" %}
+                                {% endif %}
+                                {% endblock toc %}
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -117,7 +131,7 @@
     {% include "templates/script.html" %}
     {%- endfor %}
 
-    {% if page.meta.extra_javascript %}
+    {% if page and page.meta.extra_javascript %}
     {%- for script in page.meta.extra_javascript %}
     {% include "templates/script.html" %}
     {%- endfor %}
