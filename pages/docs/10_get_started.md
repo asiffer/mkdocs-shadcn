@@ -231,3 +231,4 @@ If you want to disable it for a specific page, you can set `show_datetime: false
 
 Defines an accent color. Currently it is only used for ["new" badges](./20_pages.md#extra).
 If not defined, the default shadcn color used (tailwind [blue-500](https://tailwindcss.com/docs/colors)).
+
