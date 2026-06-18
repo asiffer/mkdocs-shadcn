@@ -1,7 +1,7 @@
 from functools import wraps
 from typing import Callable, List, Union
 
-from bottle import Bottle
+from bottle import Bottle, HTTPError
 from mkdocs.livereload import LiveReloadServer
 
 
@@ -34,6 +34,14 @@ class RouterMixin:
             result = original(environ, start_response)
             if result is not None:
                 return result
+            # Only delegate to our bottle routes when one actually matches.
+            # Otherwise return None (as mkdocs expects) so the dev server falls
+            # back to its error handler and serves the custom 404.html, instead
+            # of bottle answering with its own generic 404 page.
+            try:
+                self.bottle.router.match(environ)
+            except HTTPError:
+                return None
             # run our extra route handler
             return self.bottle.wsgi(environ, start_response)
 
