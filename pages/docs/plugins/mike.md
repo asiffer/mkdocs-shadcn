@@ -11,6 +11,14 @@ The purpose of mike is to deploy multiple versions of your documentation, that w
 !!! warning ""
     Using `mike` is relevant only if you **deploy docs through a branch** (default to `gh-pages`) as it uses `git` mechanisms in backstage.
 
+When using `mike` to deploy docs, the `shadcn` theme automatically adds a version switcher in the top bar.
+
+<select>
+    <option selected>3.0 (latest)</option>
+    <option>2.0</option>
+    <option>1.0</option>
+</select>
+
 ## Installation
 
 /// tab | pip
