@@ -8,4 +8,4 @@ topbar_sections: false
 katex_options: null
 show_datetime: false
 accent: null
-version_switcher: false
+version_select: false

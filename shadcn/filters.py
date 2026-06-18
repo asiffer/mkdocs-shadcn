@@ -86,6 +86,7 @@ def first_page(section: Section) -> Union[Page, None]:
     return None
 
 
+# config is provided by shadcn/plugins/search.py
 def file_exists(path: str, config: MkDocsConfig) -> bool:
     """Check if a file exists at the given path, from docs_dir"""
     p: Path = Path(config.docs_dir) / Path(path)
