@@ -1,12 +1,15 @@
 ---
 title: Mike
-alpha: true
+new: true
 summary: Versioning tool
 external_links:
     Reference: https://github.com/jimporter/mike
 ---
 
+The purpose of mike is to deploy multiple versions of your documentation, that won't be touched anymore.
 
+!!! warning ""
+    Using `mike` is relevant only if you **deploy docs through a branch** (default to `gh-pages`) as it uses `git` mechanisms in backstage.
 
 ## Installation
 
@@ -30,6 +33,8 @@ external_links:
 
 ## Configuration
 
+You can include the `mike` plugin but it is automatically injected when using the `mike` command (like `mike deploy` for example).
+
 ```yaml
 # mkdocs.yml
 
@@ -37,28 +42,8 @@ plugins:
   - mike
 ```
 
-The purpose of mike is to deploy multiple versions of your documentation, that won't be touched anymore. The documentation is built into a site, published into a branch in your repository. The management of this branch should be done with mike.
 
 ## Examples
-The commands presented in this section can be run with pip, uv or poetry.
-
-/// tab | pip
-
-    :::bash
-    mike ...
-///
-
-/// tab | uv
-
-    :::bash
-    uv run mike ...
-///
-
-/// tab | poetry
-
-    :::bash
-    poetry run mike ...
-///
 
 ### Add version to documentation site
 

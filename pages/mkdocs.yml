@@ -18,6 +18,7 @@ theme:
       "\\NN": "\\mathbb{N}"
   # show_datetime: true
   # accent: "oklch(64.5% 0.246 16.439)"
+  # version_select: true
 
 plugins:
   - search
