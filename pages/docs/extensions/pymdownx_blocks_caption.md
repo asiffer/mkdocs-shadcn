@@ -36,8 +36,7 @@ Here is a table:
 | **Total**  |         |               | **$2,500.00** |
 
 /// caption 
-A list of your recent invoices.
-
+{#tbl﹕invoices}. A list of your recent invoices.
 ///
 
 ```

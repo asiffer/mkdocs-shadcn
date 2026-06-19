@@ -15,3 +15,8 @@
 		@apply 3xl:max-w-[calc(var(--breakpoint-2xl)+2rem)] 3xl:px-0;
 	}
 }
+
+:target {
+	/* scroll the header height */
+	scroll-margin-top: 56px;
+}

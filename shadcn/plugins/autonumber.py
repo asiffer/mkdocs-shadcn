@@ -1,3 +1,4 @@
+import os
 import re
 from dataclasses import dataclass
 from typing import Dict
@@ -6,7 +7,8 @@ from mkdocs.config import config_options as c
 from mkdocs.config.base import Config
 from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.plugins import BasePlugin, get_plugin_logger
-from mkdocs.structure.files import Files
+from mkdocs.structure.files import File, Files
+from mkdocs.structure.nav import Navigation
 from mkdocs.structure.pages import Page
 
 logger = get_plugin_logger("autonumber")
@@ -14,10 +16,25 @@ logger = get_plugin_logger("autonumber")
 
 @dataclass
 class AutoNumberEntry:
-    page: Page
+    file: File
     anchor: str
     number: int
     prefix: str
+
+
+def relpath(dst: str, src: str) -> str:
+    r = os.path.relpath(dst, start=src)
+    if r == ".":
+        return ""
+    return r
+
+
+def replace_many(text: str, repl: Dict[str, str]):
+    # longest keys first: regex alternation is first-match, not longest-match
+    pattern = re.compile(
+        "|".join(map(re.escape, sorted(repl, key=len, reverse=True)))
+    )
+    return pattern.sub(lambda m: repl[m.group(0)], text)
 
 
 class AutoNumberPluginConfig(Config):
@@ -30,6 +47,8 @@ class AutoNumberPluginConfig(Config):
             "eq": "Equation",
         },
     )
+
+    __replace = {}
 
     def label_pattern(self) -> re.Pattern:
         pattern = (
@@ -51,8 +70,6 @@ class AutoNumberPluginConfig(Config):
 
 
 class AutoNumberPlugin(BasePlugin[AutoNumberPluginConfig]):
-    # autonumber: Autonumber
-
     def on_config(self, config: MkDocsConfig):
         self.registry: Dict[str, AutoNumberEntry] = {}
         # put fig and tbl by default if not provided
@@ -63,8 +80,51 @@ class AutoNumberPlugin(BasePlugin[AutoNumberPluginConfig]):
 
         self.label_pattern = self.config.label_pattern()
         self.reference_pattern = self.config.reference_pattern()
+        self.replace: Dict[str, str] = dict()
 
         return config
+
+    def on_nav(
+        self,
+        nav: Navigation,
+        /,
+        *,
+        config: MkDocsConfig,
+        files: Files,
+    ) -> Navigation:
+        counters = {prefix: 0 for prefix in self.config.prefixes.keys()}
+        for file in files:
+            if not file.is_documentation_page():
+                continue
+            for match in self.label_pattern.finditer(file.content_string):
+                full_match: str = match.group(0)
+                prefix: str = match.group(1)
+                id_: str = match.group(2)
+                logger.debug(
+                    f"Found label '{full_match}' with prefix '{prefix}' "
+                    f"and id '{id_}' in page '{file.src_path}'."
+                )
+                if id_ in self.registry:
+                    logger.warning(
+                        f"Duplicate ID '{id_}' found in page "
+                        f"'{file.src_path}'. Skipping."
+                    )
+                    continue
+                # Increment counter for this prefix
+                number = counters[prefix] + 1
+                counters[prefix] = number
+                anchor: str = f"{prefix}:{id_}"
+                self.registry[id_] = AutoNumberEntry(
+                    file=file,
+                    anchor=anchor,
+                    number=number,
+                    prefix=prefix,
+                )
+                self.replace[full_match] = (
+                    f'<span id="{anchor}" class="autonumber {prefix}">{self.config.prefixes[prefix]} {number}</span>'
+                )
+
+        return nav
 
     def on_page_markdown(
         self,
@@ -75,47 +135,10 @@ class AutoNumberPlugin(BasePlugin[AutoNumberPluginConfig]):
         config: MkDocsConfig,
         files: Files,
     ):
-
-        # init counters for this page
-        counters = {prefix: 0 for prefix in self.config.prefixes.keys()}
-        for match in self.label_pattern.finditer(markdown):
-            full_match: str = match.group(0)
-            prefix: str = match.group(1)
-            id_: str = match.group(2)
-            logger.debug(
-                f"Found label '{full_match}' with prefix '{prefix}' "
-                f"and id '{id_}' in page '{page.file.src_path}'."
-            )
-            if id_ in self.registry:
-                logger.warning(
-                    f"Duplicate ID '{id_}' found in page "
-                    f"'{page.file.src_path}'. Skipping."
-                )
-                continue
-            # Increment counter for this prefix
-            number = counters[prefix] + 1
-            counters[prefix] = number
-            anchor: str = f"{prefix}:{id_}"
-            self.registry[id_] = AutoNumberEntry(
-                page=page,
-                anchor=anchor,
-                number=number,
-                prefix=prefix,
-            )
-            # Replace {#fig:x} with <span id="fig:x" class="autonumber figure">Figure N</span>
-            replacement = f'<span id="{anchor}" class="autonumber {prefix}">{self.config.prefixes[prefix]} {number}</span>'
-            markdown = markdown.replace(full_match, replacement)
-            logger.debug(
-                f"Replaced label '{full_match}' with '{replacement}' in page "
-                f"'{page.file.src_path}'."
-            )
-        return markdown
-
-    def on_page_content(
-        self, html: str, page: Page, config: MkDocsConfig, files: Files
-    ):
-        # Pass 2: replace references with links and numbers
-        for match in self.reference_pattern.finditer(html):
+        # first replace all the labels
+        markdown = replace_many(markdown, self.replace)
+        # then look at the references
+        for match in self.reference_pattern.finditer(markdown):
             full_match: str = match.group(0)
             prefix: str = match.group(1)
             is_capitalized: bool = prefix[0].isupper()
@@ -147,13 +170,15 @@ class AutoNumberPlugin(BasePlugin[AutoNumberPluginConfig]):
                 else self.config.prefixes[prefix].lower()
             )
             # Replace fig:x with <a href="page#anchor">Figure N</a>
+            # -> use relative path
+            href = relpath(entry.file.url, page.url)
             replacement = (
-                f'<a href="{entry.page.canonical_url}#{entry.anchor}" class="autonumber {prefix}">'
+                f'<a href="{href}#{entry.anchor}" class="autonumber {prefix}">'
                 f"{p} {entry.number}</a>"
             )
-            html = html.replace(full_match, replacement)
+            markdown = markdown.replace(full_match, replacement)
             logger.debug(
                 f"Replaced reference '{full_match}' with '{replacement}' in page "
                 f"'{page.file.src_path}'."
             )
-        return html
+        return markdown
