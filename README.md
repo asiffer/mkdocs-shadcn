@@ -67,9 +67,10 @@ The theme tries to support the built-in extensions along with some `pymdownx` on
 
 ## Plugins
 
-- [x] builtin [`excalidraw`](https://excalidraw.com/) - With this plugin, you can directly edit your excalidraw scene in dev mode (kind of WYSIWYG) while it is rendered as svg at build time.
+- [x] builtin [`excalidraw`](https://excalidraw.com/) - With this plugin, you can directly edit your excalidraw scene in dev mode (kind of WYSIWYG) while it is rendered as svg at build time
 - [x] [`mkdocstrings`](https://mkdocstrings.github.io/) - a MkDocs plugin for auto-generating API documentation from docstrings. (alpha)
 - [x] taylor-made `autonumber` plugin to automatically number and reference some elements (figures, tables, equations...)
+- [x] [`mike`](https://github.com/jimporter/mike) - A Python utility that makes it easy to deploy multiple versions of your MkDocs-powered docs to a Git branch.
 
 ## Developers
 
