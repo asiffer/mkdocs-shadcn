@@ -90,6 +90,7 @@ class KatexMixin(Mixin):
                         len(self.katex_mixin_labels) + 1
                     )  # starts with 1
 
+                    # WARNING: HERE WE USE ABS PATH WHILE WE SHOULD RATHER USE RELATIVE ONES
                     href = (
                         urljoin(config.site_url or "/", file.dest_uri)
                         + f"#{label}"

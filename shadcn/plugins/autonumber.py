@@ -1,3 +1,4 @@
+import os
 import re
 from dataclasses import dataclass
 from typing import Dict
@@ -18,6 +19,13 @@ class AutoNumberEntry:
     anchor: str
     number: int
     prefix: str
+
+
+def relpath(dst: str, src: str) -> str:
+    r = os.path.relpath(dst, start=src)
+    if r == ".":
+        return ""
+    return r
 
 
 class AutoNumberPluginConfig(Config):
@@ -112,7 +120,11 @@ class AutoNumberPlugin(BasePlugin[AutoNumberPluginConfig]):
         return markdown
 
     def on_page_content(
-        self, html: str, page: Page, config: MkDocsConfig, files: Files
+        self,
+        html: str,
+        page: Page,
+        config: MkDocsConfig,
+        files: Files,
     ):
         # Pass 2: replace references with links and numbers
         for match in self.reference_pattern.finditer(html):
@@ -147,8 +159,10 @@ class AutoNumberPlugin(BasePlugin[AutoNumberPluginConfig]):
                 else self.config.prefixes[prefix].lower()
             )
             # Replace fig:x with <a href="page#anchor">Figure N</a>
+            # -> use relative path
+            href = relpath(entry.page.url, page.url)
             replacement = (
-                f'<a href="{entry.page.canonical_url}#{entry.anchor}" class="autonumber {prefix}">'
+                f'<a href="{href}#{entry.anchor}" class="autonumber {prefix}">'
                 f"{p} {entry.number}</a>"
             )
             html = html.replace(full_match, replacement)
