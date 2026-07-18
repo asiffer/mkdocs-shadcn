@@ -19,6 +19,7 @@ dev = [
     "accessible-pygments>=0.0.4",
     "babel>=2.18.0",
     "beautifulsoup4>=4.14.3",
+    "mike>=2.2.0",
     "mkdocstrings[python]>=0.26.1",
     "mypy>=1.12.0",
     "pre-commit>=3.5.0; python_version >= '3.9'",
