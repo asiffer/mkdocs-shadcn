@@ -9,3 +9,4 @@ __pycache__
 pages/site
 tests/_site
 test.mkdocs.*
+.pytest

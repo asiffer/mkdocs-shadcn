@@ -47,9 +47,9 @@ def format_errors(errors_by_page: Dict[str, List[BrowserError]]) -> str:
 
 
 # fixtures: see https://playwright.dev/python/docs/test-runners#fixtures
-def test_all_pages_no_browser_errors(page: Page):
+def test_all_pages_no_browser_errors(page: Page, local_deployment: str):
     visited = set()
-    to_visit = [BASE + "/"]
+    to_visit = [local_deployment + "/"]
     errors_by_page: Dict[str, List[BrowserError]] = defaultdict(list)
 
     base_url = urlparse(BASE)
