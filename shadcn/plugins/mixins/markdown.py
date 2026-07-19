@@ -36,7 +36,7 @@ class MarkdownMixin(Mixin):
         return super().on_page_context(context, page, config, nav)
 
     def on_post_build(self, config):
-        if config.theme.get("show_copy_button"):
+        if config.theme.get("show_copy_button", True):
             # Copy raw markdown files to the build directory
             for src, dst in self.raw_markdown.items():
                 logger.debug(f"Copying raw markdown file {src} to {dst}")
