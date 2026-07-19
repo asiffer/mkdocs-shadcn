@@ -73,6 +73,7 @@ theme:
   name: shadcn
   show_title: true # show the title in the top bar
   show_stargazers: true # show the stargazers in the top bar
+  show_copy_button: true # show copy button along with the previous and next buttons
   pygments_style: # default styles 
         light: shadcn-light
         dark: github-dark
@@ -90,10 +91,13 @@ theme:
 
 If `false`, only the icon will be visible in the top bar (left-side). Default to `true`.
 
-
 ### `show_stargazers: bool`
 
 If `false`, hides the GitHub stargazers besides the repo icon in the top bar (right side). Default to `true`.
+
+### `show_copy_button: bool`
+
+If `false`, hides the copy button besides the previous and next buttons. Default to `true`.
 
 ### `pygments_style: str | dict`
 
