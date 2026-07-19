@@ -63,3 +63,7 @@ docstring-code-line-length = 79
 
 [tool.ty.environment]
 python-version = "3.8"
+
+[tool.pytest]
+log_cli = true
+log_cli_level = "INFO"
