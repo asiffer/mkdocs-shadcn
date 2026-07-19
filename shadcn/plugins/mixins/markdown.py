@@ -27,7 +27,7 @@ class MarkdownMixin(Mixin):
         config: MkDocsConfig,
         nav: Navigation,
     ):
-        if config.theme.get("show_copy_button"):    
+        if config.theme.get("show_copy_button", True):    
             src_path = NUMBER_PREFIX.sub(lambda m: m.group(1), page.file.src_path)
             self.raw_markdown[page.file.abs_src_path] = os.path.join(
                 config.site_dir, src_path
