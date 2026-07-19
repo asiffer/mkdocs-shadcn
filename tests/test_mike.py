@@ -1,4 +1,3 @@
-import time
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -32,8 +31,11 @@ class MikeDeployments:
             return self.version_url(self.versions.index(self.default_version))
 
 
-@pytest.fixture(scope="function")
-def mike_deployments(shadcn_project: Path, request: pytest.FixtureRequest):
+@pytest.fixture
+def mike_deployments(
+    shadcn_project: Path,
+    request: pytest.FixtureRequest,
+):
     versions: list[str] = request.param or ["1.0", "2.0"]
     if len(versions) == 0:
         raise pytest.UsageError(
@@ -72,7 +74,7 @@ def mike_deployments(shadcn_project: Path, request: pytest.FixtureRequest):
         cwd=shadcn_project,
     )
 
-    server = http_server(handler=FileHandler(shadcn_project))
+    server = http_server(port=5000, handler=FileHandler(shadcn_project))
 
     yield MikeDeployments(
         url=f"http://{server.server_address[0]}:{server.server_address[1]}",
@@ -95,44 +97,45 @@ def page_error_handler(err: Error):
 
 @pytest.mark.parametrize(
     "mike_deployments",
-    [["1.0", "2.0", "3.0"]],
+    [["0.1.0", "0.1.1", "2.0.0"]],
     indirect=True,
 )
 def test_mike_deployments(
     mike_deployments: MikeDeployments,
     browser: Browser,
+    random_upload_folder: Path,
 ):
-    page_wait_seconds = 2
+    logger.info(f"Versions to tests: {mike_deployments.versions}")
+    # page_wait_seconds = 2
     context = browser.new_context(
         screen=full_hd,
         viewport=full_hd,
-        record_video_dir="/tmp/videos",
-        record_video_size={"width": 1920, "height": 1080},
+        record_har_path=random_upload_folder / "records.har",
     )
     page = context.new_page()
 
-    logger.debug(f"versions: {mike_deployments.versions}")
-    page.on("pageerror", page_error_handler)
-    page.on("console", console_error_handler)
+    try:
+        logger.debug(f"versions: {mike_deployments.versions}")
+        page.on("pageerror", page_error_handler)
+        page.on("console", console_error_handler)
 
-    logger.info(f"Navigating to {mike_deployments.version_url(0)}")
-    page.goto(
-        mike_deployments.version_url(0),
-        wait_until="networkidle",
-    )
-    page.wait_for_load_state("networkidle")
-    assert mike_deployments.versions[0] in page.url, page.url
-    time.sleep(page_wait_seconds)
+        logger.info(f"Navigating to {mike_deployments.version_url(0)}")
+        page.goto(
+            mike_deployments.version_url(0),
+            wait_until="networkidle",
+        )
+        assert mike_deployments.versions[0] in page.url, page.url
 
-    for version in mike_deployments.versions[1:]:
-        with page.expect_navigation():
+        for version in mike_deployments.versions[1:]:
+            page.bring_to_front()
             logger.info(f"Selecting version {version}")
-            page.select_option("#version-selector", version)
+            with page.expect_navigation(wait_until="load"):
+                page.select_option("#version-selector", version)
 
-        page.wait_for_load_state("networkidle")
+            page.wait_for_selector("#version-selector")
+            expect(page.locator("#version-selector")).to_have_value(version)
+            assert version in page.url, page.url
 
-        expect(page.locator("#version-selector")).to_have_value(version)
-        assert version in page.url, page.url
-        time.sleep(page_wait_seconds)
-
-    context.close()
+    finally:
+        page.close()
+        context.close()
