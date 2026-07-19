@@ -5,6 +5,7 @@ import subprocess
 import threading
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
+from random import randbytes
 from socketserver import BaseRequestHandler
 from subprocess import CalledProcessError
 from typing import Any, Protocol
@@ -23,6 +24,20 @@ site_url_re = re.compile(r"^site_url:.*$", re.MULTILINE)
 
 
 logger = logging.getLogger(__name__)
+
+
+def upload_folder() -> Path:
+    up = Path(__file__).parent / ".pytest"
+    if not up.exists():
+        os.makedirs(up)
+    return up
+
+
+@pytest.fixture(scope="session")
+def random_upload_folder():
+    path = upload_folder() / randbytes(3).hex()
+    yield path
+    logger.warning(f"File stored in {path}")
 
 
 def _run(
@@ -80,13 +95,13 @@ def http_server(
     host: str = HOST,
     port: int = PORT,
 ) -> HTTPServer:
-    server = HTTPServer((HOST, PORT), handler)
+    server = HTTPServer((host, port), handler)
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
     return server
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture
 def local_deployment():
     """Build the current pages into a local site and serve them"""
     if not SITE_DIR.exists():
@@ -140,7 +155,6 @@ def shadcn_project(tmp_path: Path) -> Path:
     # it creates also git repo
     _run(["uv", "run", "mkdocs", "new", "."], cwd=project_dir)
 
-    print(THEME_PATH)
     with open(project_dir / "mkdocs.yml", "w") as config_file:
         config_file.write("site_name: Testing docs\n")
         config_file.write("theme:\n")
