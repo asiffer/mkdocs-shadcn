@@ -161,6 +161,12 @@ def shadcn_project(tmp_path: Path) -> Path:
         config_file.write("    name: null\n")
         config_file.write(f"    custom_dir: {THEME_PATH}\n")
 
+    _run(
+        ["git", "config", "user.email", "mkdocs-shadcn@github.com"],
+        cwd=project_dir,
+    )
+    _run(["git", "config", "user.name", "Mkdocs Shadcn"], cwd=project_dir)
+
     logger.info("First commit")
     _run(["git", "add", "-A"], cwd=project_dir)
     _run(["git", "commit", "-m", "chore: initial project"], cwd=project_dir)
