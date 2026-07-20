@@ -20,6 +20,8 @@
 
     {%- if config.theme.favicon %}
     <link href="{{ config.theme.favicon | url }}" rel="icon" />
+    {%- elif config.theme.icon %}
+    <link href="{{ config.theme.icon | url }}" rel="icon" />
     {%- else %}
     <link href="{{ 'img/favicon.ico' | url }}" rel="icon" />
     {%- endif %}
