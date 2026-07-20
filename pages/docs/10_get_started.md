@@ -73,7 +73,7 @@ theme:
   name: shadcn
   show_title: true # show the title in the top bar
   show_stargazers: true # show the stargazers in the top bar
-  show_copy_button: true # show copy button along with the previous and next buttons
+  hide_source_files: false # excludes markdown source files in output site and remove copy page button
   pygments_style: # default styles 
         light: shadcn-light
         dark: github-dark
@@ -95,9 +95,12 @@ If `false`, only the icon will be visible in the top bar (left-side). Default to
 
 If `false`, hides the GitHub stargazers besides the repo icon in the top bar (right side). Default to `true`.
 
-### `show_copy_button: bool`
+### `hide_source_files: bool`
 
-If `false`, hides the copy button besides the previous and next buttons. Default to `true`.
+If `true`, excludes the source markdown files in output, and removes the copy button besides the previous and next buttons. Default to `false`.
+
+> [!IMPORTANT]  
+> By default, the markdown source files are exposed. By setting `hide_source_files: true`, markdown files are not shipped with the final build and the copy button disappears.
 
 ### `pygments_style: str | dict`
 
