@@ -103,3 +103,17 @@ def is_http_url(path: str) -> bool:
     if parsed.scheme not in ("http", "https", "data"):
         return False
     return True
+
+def read_svg(path: str, config: MkDocsConfig) -> str:
+    """Read raw SVG content from a file, resolved from docs_dir"""
+    p: Path = Path(config.docs_dir) / Path(path)
+    try:
+        return p.read_text(encoding="utf-8")
+    except OSError as err:
+        logger.error(f"failed to read svg file: {err} ({p})")
+        return "<svg></svg>"
+
+
+def is_svg(path: str) -> bool:
+    """Check if a path points to an SVG file, based on extension"""
+    return Path(path).suffix.lower() == ".svg"

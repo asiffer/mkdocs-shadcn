@@ -1,6 +1,10 @@
 {% if config.theme.icon %}
 {% if (config.theme.icon | file_exists) or (config.theme.icon | is_http_url) %}
+{% if (config.theme.icon | is_svg) and not (config.theme.icon | is_http_url) %}
+{{ config.theme.icon | read_svg | safe }}
+{% else %}
 <img class="size-5" src="{{ config.theme.icon | url }}" alt="icon">
+{% endif %}
 {% else %}
 {{ config.theme.icon | iconify }}
 {% endif %}
