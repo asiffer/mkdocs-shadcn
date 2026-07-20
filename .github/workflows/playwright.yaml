@@ -40,3 +40,9 @@ jobs:
         with:
           name: playwright-traces
           path: test-results/
+
+      - name: Upload pytest artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-artifacts
+          path: tests/.pytest/
