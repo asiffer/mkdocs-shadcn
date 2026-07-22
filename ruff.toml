@@ -1,0 +1,6 @@
+target-version = "py38"
+line-length = 79
+
+[format]
+docstring-code-format = true
+docstring-code-line-length = 79
