@@ -13,7 +13,9 @@ from shadcn.filters import (
     first_page,
     iconify,
     is_http_url,
+    is_svg,
     parse_author,
+    read_file,
     setattribute,
 )
 from shadcn.plugins.mixins.dev import DevServerMixin
@@ -61,6 +63,8 @@ class SearchPlugin(
         env.filters["first_page"] = first_page
         env.filters["file_exists"] = partial(file_exists, config=config)
         env.filters["is_http_url"] = is_http_url
+        env.filters["read_file"] = partial(read_file, config=config)
+        env.filters["is_svg"] = is_svg
         return super().on_env(env, config=config, files=files)
 
     def on_page_markdown(
