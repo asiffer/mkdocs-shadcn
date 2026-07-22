@@ -7,7 +7,7 @@
         </h1>
 
         <div class="flex items-center gap-2 pt-1.5">
-          {% if config.theme.show_copy_button %}
+          {% if not config.theme.hide_source_files %}
           {% include "templates/copy_button.html" %}
           {% endif %}
           {% if page.previous_page %}
