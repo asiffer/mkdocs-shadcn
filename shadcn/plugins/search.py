@@ -5,7 +5,9 @@ from jinja2 import Environment
 from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.contrib.search import SearchPlugin as BaseSearchPlugin
 from mkdocs.structure.files import Files
+from mkdocs.structure.nav import Navigation
 from mkdocs.structure.pages import Page
+from mkdocs.utils.templates import TemplateContext
 
 from shadcn.filters import (
     active_section,
@@ -78,3 +80,15 @@ class SearchPlugin(
             config=config,
             files=files,
         )
+
+    def on_page_context(
+        self,
+        context: TemplateContext,
+        page: Page,
+        config: MkDocsConfig,
+        nav: Navigation,
+    ):
+        return super().on_page_context(context, page, config=config, nav=nav)
+
+    def on_post_build(self, config: MkDocsConfig):
+        return super().on_post_build(config=config)

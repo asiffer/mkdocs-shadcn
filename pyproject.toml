@@ -64,6 +64,9 @@ docstring-code-line-length = 79
 [tool.ty.environment]
 python-version = "3.8"
 
+[tool.ty.rules]
+invalid-method-override = "warn"
+
 [tool.pytest]
 log_cli = true
 log_cli_level = "INFO"

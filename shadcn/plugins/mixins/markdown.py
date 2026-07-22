@@ -34,7 +34,7 @@ class MarkdownMixin(Mixin):
         context["raw_markdown_url"] = urljoin(config.site_url or "/", src_path)  # type: ignore (need this to download markdown files)
         return super().on_page_context(context, page, config, nav)
 
-    def on_post_build(self, config):
+    def on_post_build(self, config):  # type: ignore[invalid-method-override]
         # Copy raw markdown files to the build directory
         for src, dst in self.raw_markdown.items():
             logger.debug(f"Copying raw markdown file {src} to {dst}")

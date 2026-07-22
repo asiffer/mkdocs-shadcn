@@ -1,3 +1,5 @@
+from typing import Optional
+
 from jinja2 import Environment
 from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.plugins import get_plugin_logger
@@ -8,7 +10,7 @@ from shadcn.plugins.mixins.base import Mixin
 logger = get_plugin_logger("mixins/dev")
 
 
-def top_level_package(obj) -> str | None:
+def top_level_package(obj) -> Optional[str]:
     module = getattr(obj, "__module__", None)
     if module is None:
         return None
