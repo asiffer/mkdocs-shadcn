@@ -53,19 +53,6 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["shadcn"]
 
-[tool.ruff]
-target-version = "py38"
-line-length = 79
-
-[tool.ruff.format]
-docstring-code-format = true
-docstring-code-line-length = 79
-
-[tool.ty.environment]
-python-version = "3.8"
-
-[tool.ty.rules]
-invalid-method-override = "warn"
 
 [tool.pytest]
 log_cli = true

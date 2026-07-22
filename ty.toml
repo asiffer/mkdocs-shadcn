@@ -1,0 +1,5 @@
+[rules]
+invalid-method-override = "warn"
+
+[environment]
+python-version = "3.8"
