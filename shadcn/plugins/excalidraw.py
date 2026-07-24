@@ -1,7 +1,7 @@
 import json
 import os
 
-from bottle import request, response  # type: ignore
+from bottle import request, response
 from mkdocs.config import config_options as c
 from mkdocs.config.base import Config
 from mkdocs.config.defaults import MkDocsConfig

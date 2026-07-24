@@ -1,25 +1,25 @@
-#mkdocs-search-results {
+:where(#mkdocs-search-results, #properdocs-search-results) {
 	@apply max-h-[300px] overflow-y-auto overflow-x-hidden flex flex-col items-stretch gap-2;
 }
 
-#mkdocs-search-results:has(article) {
+:where(#mkdocs-search-results, #properdocs-search-results):has(article) {
 	@apply p-3;
 }
 
-#mkdocs-search-results > p:first-child {
+:where(#mkdocs-search-results, #properdocs-search-results) > p:first-child {
 	/* not found */
 	@apply px-2 py-1.5 text-muted-foreground text-sm;
 }
 
-#mkdocs-search-results article {
+:where(#mkdocs-search-results, #properdocs-search-results) article {
 	@apply relative flex flex-col hover:bg-accent gap-2 items-start rounded px-2 py-1.5 outline-none;
 }
 
-#mkdocs-search-results article > h3 {
+:where(#mkdocs-search-results, #properdocs-search-results) article > h3 {
 	@apply font-medium text-foreground;
 }
 
-#mkdocs-search-results article > p {
+:where(#mkdocs-search-results, #properdocs-search-results) article > p {
 	@apply text-muted-foreground text-sm mt-0;
 }
 

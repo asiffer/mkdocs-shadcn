@@ -137,7 +137,7 @@ class CodexecBlock(Block):
         result.set("class", "codexec-result")
         etree.SubElement(result, "pre")
 
-    def on_markdown(self) -> str:  # type: ignore
+    def on_markdown(self) -> str:
         #     """Check how element should be treated by the Markdown parser."""
         return "block"
 

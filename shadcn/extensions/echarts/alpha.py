@@ -5,8 +5,8 @@ import xml.etree.ElementTree as etree
 from typing import Literal
 
 from markdown import Markdown
-from pymdownx.blocks import BlocksExtension, BlocksProcessor  # type: ignore
-from pymdownx.blocks.block import Block, type_string_in  # type: ignore
+from pymdownx.blocks import BlocksExtension, BlocksProcessor
+from pymdownx.blocks.block import Block, type_string_in
 
 log = logging.getLogger(f"mkdocs.extensions.{__name__}")
 
@@ -44,7 +44,7 @@ class EchartsBlock(Block):
     def renderer(self) -> Literal["svg", "canvas"]:
         return self.options.get("renderer", "svg")
 
-    def on_create(self, parent: etree.Element):  # type: ignore
+    def on_create(self, parent: etree.Element) -> etree.Element:
         """Called when a block is initially found and initialized.
         The on_create method should create the container for the
         block under the parent element. Other child elements can
@@ -124,7 +124,7 @@ class EchartsBlock(Block):
         self.echarts_options = ""
         self.div_id = ""
 
-    def on_markdown(self) -> str:  # type: ignore
+    def on_markdown(self) -> str:
         """Check how element should be treated by the Markdown parser."""
         return "raw"
 
