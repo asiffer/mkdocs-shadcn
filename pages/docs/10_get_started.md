@@ -99,8 +99,8 @@ If `false`, hides the GitHub stargazers besides the repo icon in the top bar (ri
 
 If `true`, excludes the source markdown files in output, and removes the copy button besides the previous and next buttons. Default to `false`.
 
-> [!IMPORTANT]  
-> By default, the markdown source files are exposed. By setting `hide_source_files: true`, markdown files are not shipped with the final build and the copy button disappears.
+!!! warning "Important "
+    By default, the markdown source files are exposed. By setting `hide_source_files: true`, markdown files are not shipped with the final build and the copy button disappears.
 
 ### `pygments_style: str | dict`
 
