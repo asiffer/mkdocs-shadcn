@@ -1560,7 +1560,7 @@ wheels = [
 
 [[package]]
 name = "mkdocs-shadcn"
-version = "0.11.0"
+version = "0.12.0"
 source = { editable = "." }
 dependencies = [
     { name = "bottle" },
@@ -1591,6 +1591,7 @@ dev = [
     { name = "mypy", version = "2.3.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
     { name = "pre-commit", version = "4.3.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
     { name = "pre-commit", version = "4.6.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
+    { name = "properdocs", marker = "python_full_version >= '3.9'" },
     { name = "pygithub", marker = "python_full_version >= '3.9'" },
     { name = "pygments", version = "2.19.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
     { name = "pygments", version = "2.20.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.9'" },
@@ -1633,6 +1634,7 @@ dev = [
     { name = "mkdocstrings", extras = ["python"], specifier = ">=0.26.1" },
     { name = "mypy", specifier = ">=1.12.0" },
     { name = "pre-commit", marker = "python_full_version >= '3.9'", specifier = ">=3.5.0" },
+    { name = "properdocs", marker = "python_full_version >= '3.9'", specifier = ">=1.6.7" },
     { name = "pygithub", marker = "python_full_version >= '3.9'", specifier = ">=2.9.1" },
     { name = "pygments", specifier = ">=2.19.1" },
     { name = "pymdown-extensions", specifier = ">=10.14.2" },
