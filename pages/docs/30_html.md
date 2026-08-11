@@ -52,7 +52,7 @@ Four sizes are available: `xs`, `sm`, default (no class), and `lg`. Sizes can be
 <button class="outline">Default</button>
 <button class="outline lg">Large</button>
 
-The `icon` class forces a square aspect ratio, useful for icon-only buttons (the icon syntax `+pack:icon-name+` is provided by the [Iconify extension](extensions/iconify.md)).
+The `icon` class forces a square aspect ratio, useful for icon-only buttons (the icon syntax `+pack:icon-name+` is provided by the [Iconify extension](20_extensions/iconify.md)).
 
 ```html
 <button class="icon xs">+heroicons:bolt-solid+</button>
