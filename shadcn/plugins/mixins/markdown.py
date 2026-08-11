@@ -9,7 +9,7 @@ from mkdocs.structure.pages import Page
 from mkdocs.utils.templates import TemplateContext
 
 from shadcn.plugins.mixins.base import Mixin
-from shadcn.plugins.mixins.order import NUMBER_PREFIX
+from shadcn.plugins.mixins.prefix import NUMBER_PREFIX
 
 logger = get_plugin_logger("mixins/markdown")
 
@@ -27,12 +27,14 @@ class MarkdownMixin(Mixin):
         config: MkDocsConfig,
         nav: Navigation,
     ):
-        if config.theme.get("hide_source_files", False):    
+        if config.theme.get("hide_source_files", False):
             src_path = NUMBER_PREFIX.sub(lambda m: m.group(1), page.file.src_path)
             self.raw_markdown[page.file.abs_src_path] = os.path.join(
                 config.site_dir, src_path
             )
-            context["raw_markdown_url"] = urljoin(config.site_url or "/", src_path)  # type: ignore (need this to download markdown files)
+            context["raw_markdown_url"] = urljoin(  # type: ignore (need this to download markdown files)
+                config.site_url or "/", src_path
+            )
         return super().on_page_context(context, page, config, nav)
 
     def on_post_build(self, config):

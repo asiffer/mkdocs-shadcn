@@ -1,4 +1,3 @@
-import re
 from functools import partial
 
 from jinja2 import Environment
@@ -27,10 +26,12 @@ from shadcn.plugins.mixins.katex import KatexMixin
 from shadcn.plugins.mixins.markdown import MarkdownMixin
 from shadcn.plugins.mixins.mkdocstrings import MkdocstringsMixin
 from shadcn.plugins.mixins.order import OrderMixin
+from shadcn.plugins.mixins.prefix import PrefixMixin
 from shadcn.plugins.mixins.table import TableMixin
 
 
 class SearchPlugin(
+    PrefixMixin,
     I18nMixin,
     GitTimestampsMixin,
     DevServerMixin,
@@ -76,8 +77,6 @@ class SearchPlugin(
         config: MkDocsConfig,
         files: Files,
     ):
-        # remove first plain h1 if provided
-        markdown = re.sub(r"^#\s+(.+)", r"", markdown, count=1)
         return super().on_page_markdown(
             markdown,
             page=page,
