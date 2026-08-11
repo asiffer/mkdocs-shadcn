@@ -26,9 +26,7 @@ class MkdocstringsMixin(Mixin):
         if plugin:
             logger.info("Mkdocstrings mixin activated.")
             options = (
-                plugin.config.get("handlers", {})
-                .get("python", {})
-                .get("options", {})
+                plugin.config.get("handlers", {}).get("python", {}).get("options", {})
             )
             show_root_heading = options.get("show_root_heading", None)
             if show_root_heading is None:

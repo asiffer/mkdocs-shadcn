@@ -25,9 +25,7 @@ def svg_handler_factory(directory: str):
             svg_file
         )  # remove any .. in the path to avoid security issues
         if not svg_file.startswith(directory):
-            log.warning(
-                f"attempt to access file outside of directory: {svg_file}"
-            )
+            log.warning(f"attempt to access file outside of directory: {svg_file}")
             response.status = 403
             return "Forbidden"
 
@@ -60,9 +58,7 @@ def scene_handler_factory(directory: str):
             scene_file
         )  # remove any .. in the path to avoid security issues
         if not scene_file.startswith(directory):
-            log.warning(
-                f"attempt to access file outside of directory: {scene_file}"
-            )
+            log.warning(f"attempt to access file outside of directory: {scene_file}")
             response.status = 403
             return "Forbidden"
 
@@ -138,9 +134,7 @@ class ExcalidrawPlugin(RouterMixin, BasePlugin[ExcalidrawPluginConfig]):
             f"with configuration: {extension_config}"
         )
         config["markdown_extensions"].append("shadcn.extensions.excalidraw")
-        config["mdx_configs"]["shadcn.extensions.excalidraw"] = (
-            extension_config
-        )
+        config["mdx_configs"]["shadcn.extensions.excalidraw"] = extension_config
         # create directory
         log.debug(f"creating excalidraw directory: {excalidraw_path}")
         os.makedirs(excalidraw_path, exist_ok=True)

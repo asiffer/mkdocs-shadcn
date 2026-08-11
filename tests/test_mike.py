@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -20,9 +22,7 @@ class MikeDeployments:
     default_version: str
     versions: list[str]
 
-    def version_url(
-        self, index: int | None = None, version: str | None = None
-    ):
+    def version_url(self, index: int | None = None, version: str | None = None):
         if index is not None:
             return f"{self.url}/{self.versions[0]}/"
         elif version is not None:
