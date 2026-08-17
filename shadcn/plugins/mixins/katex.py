@@ -1,5 +1,6 @@
+from __future__ import annotations
+
 import re
-from typing import Dict
 from urllib.parse import urljoin
 
 from mkdocs.config.defaults import MkDocsConfig
@@ -19,8 +20,13 @@ class KatexMixin(Mixin):
 
     katex_mixin_activated = False
     katex_mixin_use_links = False
-    katex_mixin_labels: Dict[str, int] = {}
-    katex_mixin_translations: Dict[str, str] = {}
+    katex_mixin_labels: dict[str, int]
+    katex_mixin_translations: dict[str, str]
+
+    def on_startup(self, *, command, dirty):
+        self.katex_mixin_labels = {}
+        self.katex_mixin_translations = {}
+        super().on_startup(command=command, dirty=dirty)
 
     def on_config(self, config: MkDocsConfig):
         if "pymdownx.arithmatex" in config.markdown_extensions:
@@ -65,17 +71,13 @@ class KatexMixin(Mixin):
             return super().on_files(files, config)
 
         for file in files:
-            if not (
-                file.is_documentation_page and file.src_path.endswith(".md")
-            ):
+            if not (file.is_documentation_page and file.src_path.endswith(".md")):
                 continue
 
             try:
                 markdown = file.content_string
-            except Exception as e:
-                logger.warning(
-                    f"Could not read content of file '{file.src_path}': {e}"
-                )
+            except UnicodeDecodeError as e:
+                logger.warning(f"Could not read content of file '{file.src_path}': {e}")
                 continue
 
             for match in LABEL_PATTERN.finditer(markdown):
@@ -91,24 +93,21 @@ class KatexMixin(Mixin):
                     )  # starts with 1
 
                     # WARNING: HERE WE USE ABS PATH WHILE WE SHOULD RATHER USE RELATIVE ONES
-                    href = (
-                        urljoin(config.site_url or "/", file.dest_uri)
-                        + f"#{label}"
-                    )
+                    href = urljoin(config.site_url or "/", file.dest_uri) + f"#{label}"
                     if self.katex_mixin_use_links:
                         self.katex_mixin_translations[f"\\ref{{{label}}}"] = (
                             f"(\\href{{{href}}}{{{self.katex_mixin_labels[label]}}})"
                         )
-                        self.katex_mixin_translations[
-                            f"\\label{{{label}}}"
-                        ] = f"\\htmlId{{{label}}}{{\\tag{{{self.katex_mixin_labels[label]}}}}}"
+                        self.katex_mixin_translations[f"\\label{{{label}}}"] = (
+                            f"\\htmlId{{{label}}}{{\\tag{{{self.katex_mixin_labels[label]}}}}}"
+                        )
                     else:
                         self.katex_mixin_translations[f"\\ref{{{label}}}"] = (
                             f"({self.katex_mixin_labels[label]})"
                         )
-                        self.katex_mixin_translations[
-                            f"\\label{{{label}}}"
-                        ] = f"\\tag{{{self.katex_mixin_labels[label]}}}"
+                        self.katex_mixin_translations[f"\\label{{{label}}}"] = (
+                            f"\\tag{{{self.katex_mixin_labels[label]}}}"
+                        )
 
         return super().on_files(
             files=files,

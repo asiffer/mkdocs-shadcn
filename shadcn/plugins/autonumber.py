@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 import os
 import re
 from dataclasses import dataclass
-from typing import Dict
+from typing import ClassVar
 
 from mkdocs.config import config_options as c
 from mkdocs.config.base import Config
@@ -29,17 +31,15 @@ def relpath(dst: str, src: str) -> str:
     return r
 
 
-def replace_many(text: str, repl: Dict[str, str]):
+def replace_many(text: str, repl: dict[str, str]):
     # longest keys first: regex alternation is first-match, not longest-match
-    pattern = re.compile(
-        "|".join(map(re.escape, sorted(repl, key=len, reverse=True)))
-    )
+    pattern = re.compile("|".join(map(re.escape, sorted(repl, key=len, reverse=True))))
     return pattern.sub(lambda m: repl[m.group(0)], text)
 
 
 class AutoNumberPluginConfig(Config):
     numbering = c.Choice(["flat"], default="flat")
-    prefixes: c.Type[Dict[str, str]] = c.Type(
+    prefixes: c.Type[dict[str, str]] = c.Type(
         dict,
         default={
             "fig": "Figure",
@@ -48,20 +48,17 @@ class AutoNumberPluginConfig(Config):
         },
     )
 
-    __replace = {}
+    __replace: ClassVar[dict] = {}
 
     def label_pattern(self) -> re.Pattern:
-        pattern = (
-            f"[{{]#({'|'.join(self.prefixes.keys())}):([a-zA-Z0-9._-]+)[}}]"
-        )
+        pattern = f"[{{]#({'|'.join(self.prefixes.keys())}):([a-zA-Z0-9._-]+)[}}]"
         return re.compile(pattern)
 
     def reference_pattern(self) -> re.Pattern:
         up_lo_prefixes = (
             "("
             + "|".join(
-                list(self.prefixes.keys())
-                + [k.capitalize() for k in self.prefixes.keys()]
+                list(self.prefixes.keys()) + [k.capitalize() for k in self.prefixes]
             )
             + ")"
         )
@@ -71,7 +68,7 @@ class AutoNumberPluginConfig(Config):
 
 class AutoNumberPlugin(BasePlugin[AutoNumberPluginConfig]):
     def on_config(self, config: MkDocsConfig):
-        self.registry: Dict[str, AutoNumberEntry] = {}
+        self.registry: dict[str, AutoNumberEntry] = {}
         # put fig and tbl by default if not provided
         if "fig" not in self.config.prefixes:
             self.config.prefixes["fig"] = "Figure"
@@ -80,7 +77,7 @@ class AutoNumberPlugin(BasePlugin[AutoNumberPluginConfig]):
 
         self.label_pattern = self.config.label_pattern()
         self.reference_pattern = self.config.reference_pattern()
-        self.replace: Dict[str, str] = dict()
+        self.replace: dict[str, str] = {}
 
         return config
 
@@ -92,7 +89,7 @@ class AutoNumberPlugin(BasePlugin[AutoNumberPluginConfig]):
         config: MkDocsConfig,
         files: Files,
     ) -> Navigation:
-        counters = {prefix: 0 for prefix in self.config.prefixes.keys()}
+        counters = {prefix: 0 for prefix in self.config.prefixes}
         for file in files:
             if not file.is_documentation_page():
                 continue

@@ -7,7 +7,7 @@ new: true
 The `autonumber` plugin automatically numbers labeled elements (figures, tables, equations...) across your documentation and replaces references to them with clickable links. It supports cross-page references.
 
 !!! info "Info"
-    While it may be similar to [`pymdownx.blocks.caption`](../extensions/pymdownx_blocks_caption.md), it goes further by enabling referencing.
+    While it may be similar to [`pymdownx.blocks.caption`](../20_extensions/pymdownx_blocks_caption.md), it goes further by enabling referencing.
 
 ## Configuration
 
@@ -85,7 +85,7 @@ This will be replaced by an `<a>` tag as follows:
 
 ### Figures
 
-For tables and figures, you can pair with [`pymdownx.blocks.caption`](../extensions/pymdownx_blocks_caption.md) extension.
+For tables and figures, you can pair with [`pymdownx.blocks.caption`](../20_extensions/pymdownx_blocks_caption.md) extension.
 
 ```md
 ![Mountain](https://images.unsplash.com/photo-1554629947-334ff61d85dc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&h=666&q=80)
@@ -135,7 +135,7 @@ For tables and figures, you can pair with [`pymdownx.blocks.caption`](../extensi
 
 ### Math
 
-It can be paired with [admonitions](../extensions/admonition.md) to get a latex-like experience.
+It can be paired with [admonitions](../20_extensions/admonition.md) to get a latex-like experience.
 
 ```md
 !!! note "{#th﹕dominated_convergence} (Lebesgue's dominated convergence theorem)"

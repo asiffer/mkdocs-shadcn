@@ -86,9 +86,15 @@ git clone https://github.com/asiffer/mkdocs-shadcn
 cd mkdocs-shadcn
 ```
 
-Then you can install python dependencies ([`uv`](https://docs.astral.sh/uv/) required):
+Then you can install python dependencies ([`uv`](https://docs.astral.sh/uv/) required),
 ```shell
 uv sync --all-extras
+```
+
+and pre-commits:
+
+```shell
+uv run pre-commit install
 ```
 
 Finally, you can install tailwind with your favourite package manager (npm, yarn, bun, etc.):
@@ -114,6 +120,14 @@ bun dev
 
 ### Testing
 
-Tests are managed by [`pytest`](https://docs.pytest.org/en/stable/) and are located in the [tests/](./tests/) folder.
+Tests are managed by [`pytest`](https://docs.pytest.org/en/stable/) and are located in the [tests/](https://github.com/asiffer/mkdocs-shadcn/tree/master/tests) folder.
 
-Currently we only test that there is no browser issue through [playwright](https://playwright.dev/).
+Currently we test:
+- browser issue through [playwright](https://playwright.dev/)
+- [mike](https://github.com/jimporter/mike) integration
+
+
+You can run them as follows.
+```shell
+uv run pytest -xvs .
+```

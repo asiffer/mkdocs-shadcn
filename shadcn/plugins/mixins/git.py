@@ -1,6 +1,6 @@
-from typing import Union
+from __future__ import annotations
 
-from git import Repo
+from git import InvalidGitRepositoryError, NoSuchPathError, Repo
 from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.plugins import get_plugin_logger
 from mkdocs.structure.files import Files
@@ -16,14 +16,14 @@ UPDATED_AT_META_KEY = "updated_at"
 logger = get_plugin_logger("mixins/git")
 
 
-def find_repo(abs_src_file: str) -> Union[Repo, None]:
+def find_repo(abs_src_file: str) -> Repo | None:
     """
     Find the git repository for the given source file.
     Returns None if no repository is found.
     """
     try:
         return Repo(abs_src_file, search_parent_directories=True)
-    except Exception:
+    except (InvalidGitRepositoryError, NoSuchPathError):
         print(f"Could not find git repository starting from {abs_src_file}")
         return None
 
@@ -62,14 +62,10 @@ class GitTimestampsMixin(Mixin):
             if isinstance(repo, Repo) and page.file.abs_src_path:
                 dates = [
                     commit.committed_datetime
-                    for commit in repo.iter_commits(
-                        paths=page.file.abs_src_path
-                    )
+                    for commit in repo.iter_commits(paths=page.file.abs_src_path)
                 ]
                 if len(dates) > 0:
                     page.meta[CREATED_AT_META_KEY] = dates[-1]
                     page.meta[UPDATED_AT_META_KEY] = dates[0]
 
-        return super().on_page_markdown(
-            markdown, page=page, config=config, files=files
-        )
+        return super().on_page_markdown(markdown, page=page, config=config, files=files)

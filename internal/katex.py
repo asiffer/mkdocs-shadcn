@@ -1,9 +1,11 @@
+from __future__ import annotations
+
 import os
 import re
 import tarfile
 import tempfile
 from pathlib import Path
-from typing import Annotated, Union
+from typing import Annotated
 
 import requests
 import typer
@@ -59,12 +61,10 @@ def get_release(repo: Repository, tag: str) -> GitRelease:
 def download_tarball(release: GitRelease):
     for asset in release.assets:
         if asset.name.endswith(".tar.gz"):
-            tar = tempfile.NamedTemporaryFile(suffix=".tar.gz", delete=False)
+            tar = tempfile.NamedTemporaryFile(suffix=".tar.gz", delete=False)  # noqa: SIM115
             log(f"Downloading {asset.name} to {tar.name}")
             # asset.download_asset(path=tar.name)
-            response = requests.get(
-                asset.browser_download_url, allow_redirects=True
-            )
+            response = requests.get(asset.browser_download_url, allow_redirects=True)
             if response.status_code != 200:
                 raise RuntimeError(
                     f"Failed to download {asset.name} ({response.status_code})"
@@ -100,7 +100,7 @@ def extract_css_js(tarpath: str) -> str:
     return template
 
 
-def extract_fonts(tarpath: Union[str, Path]):
+def extract_fonts(tarpath: str | Path):
     FONTS_DIR.mkdir(parents=True, exist_ok=True)
     with tarfile.open(tarpath, "r:gz") as archive:
         for member in archive.getmembers():
@@ -112,9 +112,7 @@ def extract_fonts(tarpath: Union[str, Path]):
                     raise RuntimeError(f"Failed to extract {member.name}")
 
                 font_path = FONTS_DIR / os.path.basename(member.name)
-                log(
-                    f"Extracting {member.name} to {font_path.relative_to(THEME_PATH)}"
-                )
+                log(f"Extracting {member.name} to {font_path.relative_to(THEME_PATH)}")
                 with open(font_path, "wb") as target:
                     target.write(font.read())
 

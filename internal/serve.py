@@ -10,9 +10,7 @@ PAGES_CONFIG = PAGES_DIR / "mkdocs.yml"
 
 
 def runserver(
-    verbose: Annotated[
-        bool, typer.Option(help="Enable verbose output")
-    ] = False,
+    verbose: Annotated[bool, typer.Option(help="Enable verbose output")] = False,
 ):
     """Run the ProperDocs development server."""
     args = [f"--config-file={PAGES_CONFIG}", "--watch-theme", "--dirty"]

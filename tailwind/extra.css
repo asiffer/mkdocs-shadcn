@@ -20,3 +20,7 @@
 	/* scroll the header height */
 	scroll-margin-top: 56px;
 }
+
+html {
+  scrollbar-gutter: stable;
+}

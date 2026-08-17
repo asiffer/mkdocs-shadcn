@@ -3,9 +3,7 @@ from markdown.inlinepatterns import InlineProcessor
 
 from shadcn.filters import iconify
 
-ICONIFY_TAG_RE = (
-    r"[+]([a-z0-9\-]+:[a-z0-9\-]+)(?:[;][a-z]+[=][0-9a-zA-Z.#%]+)*[+]"
-)
+ICONIFY_TAG_RE = r"[+]([a-z0-9\-]+:[a-z0-9\-]+)(?:[;][a-z]+[=][0-9a-zA-Z.#%]+)*[+]"
 
 
 class IconifyInlinePattern(InlineProcessor):

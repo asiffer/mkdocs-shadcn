@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import logging
 import os
 import re
@@ -85,9 +87,7 @@ class FileHandler:
         self.directory = directory
 
     def __call__(self, *args, **kwargs):
-        return SimpleHTTPRequestHandler(
-            *args, directory=self.directory, **kwargs
-        )
+        return SimpleHTTPRequestHandler(*args, directory=self.directory, **kwargs)
 
 
 def http_server(
@@ -107,11 +107,10 @@ def local_deployment():
     if not SITE_DIR.exists():
         logger.info("Modifying mkdocs.yml...")
         # copy a modified mkdocs.yml with the correct site_url to the test directory and build the site
-        with open(PAGES_DIR / "test.mkdocs.yml", "w") as test:
-            with open(PAGES_DIR / "mkdocs.yml", "r") as original:
-                test.write(
-                    site_url_re.sub(f"site_url: {BASE}", original.read())
-                )
+        with open(PAGES_DIR / "test.mkdocs.yml", "w") as test, open(
+            PAGES_DIR / "mkdocs.yml", "r"
+        ) as original:
+            test.write(site_url_re.sub(f"site_url: {BASE}", original.read()))
 
         logger.info("Building site...")
         _run(

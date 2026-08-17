@@ -1,7 +1,7 @@
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
-    rev: v0.15.0
+    rev: v0.16.2
     hooks:
       # Run the linter.
       - id: ruff-check
@@ -11,7 +11,7 @@ repos:
         args: [--config=pyproject.toml]
   - repo: https://github.com/astral-sh/ty-pre-commit
     # ty version.
-    rev: v0.0.62
+    rev: v0.0.70
     hooks:
       - id: ty
   - repo: local

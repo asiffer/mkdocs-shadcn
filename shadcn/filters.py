@@ -1,8 +1,10 @@
+from __future__ import annotations
+
 import urllib.parse
 import urllib.request
 from functools import lru_cache
 from pathlib import Path
-from typing import Any, Union
+from typing import Any
 from urllib.error import URLError
 
 from mkdocs.config.defaults import MkDocsConfig
@@ -13,7 +15,7 @@ from mkdocs.structure.pages import Page
 logger = get_plugin_logger("filters")
 
 
-@lru_cache()
+@lru_cache
 def iconify(key: str, height: str = "20px", **kwargs) -> str:
     base_url = "https://api.iconify.design"
     icon = key.split(":")
@@ -32,16 +34,14 @@ def iconify(key: str, height: str = "20px", **kwargs) -> str:
     )
     try:
         with urllib.request.urlopen(req) as response:
-            return response.read().decode(
-                "utf-8"
-            )  # Convert to string if needed
+            return response.read().decode("utf-8")  # Convert to string if needed
     except URLError as err:
         logger.error(f"fail to call iconify api: {err} ({url})")
 
     return "<svg></svg>"
 
 
-def parse_author(site_author: str) -> Union[str, None]:
+def parse_author(site_author: str) -> str | None:
     """Returns the email address of the site author."""
     # parse thinks like "Alban Siffer <31479857+asiffer@users.noreply.github.com>"
     if "<" in site_author and ">" in site_author:
@@ -57,13 +57,13 @@ def parse_author(site_author: str) -> Union[str, None]:
     return f"<span>{name}</span>"
 
 
-def setattribute(value: Union[dict, object], k: str, v: Any):
+def setattribute(value: dict | object, k: str, v: Any):
     if hasattr(value, "__setattr__"):
         setattr(value, k, v)
     return value
 
 
-def active_section(nav: Navigation) -> Union[Section, None]:
+def active_section(nav: Navigation) -> Section | None:
     """Return the top-level active section"""
     for item in nav:
         if isinstance(item, Section) and item.is_section and item.active:
@@ -71,7 +71,7 @@ def active_section(nav: Navigation) -> Union[Section, None]:
     return None
 
 
-def first_page(section: Section) -> Union[Page, None]:
+def first_page(section: Section) -> Page | None:
     """Return the first page in a section"""
     for item in section.children:
         if isinstance(item, Page) and item.is_page:
@@ -97,12 +97,14 @@ def is_http_url(path: str) -> bool:
     """Check if a path is a valid URL (http, https and also data scheme)"""
     try:
         parsed = urllib.parse.urlparse(path)
-    except Exception:
+    except (ValueError, TypeError):
         return False
 
-    if parsed.scheme not in ("http", "https", "data"):
-        return False
-    return True
+    # if parsed.scheme not in ("http", "https", "data"):
+    #     return False
+    return parsed.scheme in ("http", "https", "data")
+    # return True
+
 
 def read_file(path: str, config: MkDocsConfig) -> str:
     """Read raw text content from a file, resolved from docs_dir"""
@@ -112,6 +114,7 @@ def read_file(path: str, config: MkDocsConfig) -> str:
     except OSError as err:
         logger.error(f"failed to read file: {err} ({p})")
         return ""
+
 
 def is_svg(path: str) -> bool:
     """Check if a path points to an SVG file, based on extension"""
