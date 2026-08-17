@@ -1,0 +1,74 @@
+# Translations template for mkdocs-shadcn.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the mkdocs-shadcn
+# project.
+# Marcelo Machado <uniqueduckinbox@duck.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: mkdocs-shadcn 0.12.0\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-08-13 09:11-0300\n"
+"PO-Revision-Date: 2026-08-13 09:17-0300\n"
+"Last-Translator: Marcelo Machado <uniqueduckinbox@duck.com>\n"
+"Language-Team: Portuguese (Brazil) <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: bottom_sidebar.html:14 header.html:221
+msgid "Menu"
+msgstr "Menu"
+
+#: copy_button.html:11
+msgid "Copy Page"
+msgstr "Copiar página"
+
+#: datetime.html:3
+msgid "last update (local time)"
+msgstr "última atualização (horário local)"
+
+#: footer.html:7
+msgid "Built by"
+msgstr "Criado por"
+
+#: footer.html:9
+msgid "provided by"
+msgstr "fornecido por"
+
+#: header.html:20
+msgid "Toggle Menu"
+msgstr "Abrir/fechar menu"
+
+#: header.html:71 header.html:72
+msgid "Toggle layout"
+msgstr "Alternar layout"
+
+#: header.html:86 header.html:97
+msgid "Toggle theme"
+msgstr "Alternar tema"
+
+#: new.html:2 new.html:4 new.html:6 new.html:8 sidebar_item.html:13
+msgid "New"
+msgstr "Novo"
+
+#: page.html:24
+msgid "Previous"
+msgstr "Anterior"
+
+#: page.html:31
+msgid "Next"
+msgstr "Próximo"
+
+#: search.html:5 search.html:22
+msgid "Search documentation..."
+msgstr "Pesquisar na documentação..."
+
+#: search.html:6
+msgid "Search..."
+msgstr "Pesquisar..."
+
+#: toc.html:3
+msgid "On This Page"
+msgstr "Nesta página"
