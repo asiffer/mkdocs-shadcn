@@ -21,10 +21,16 @@
         <ul data-slot="sidebar-menu-sub" data-sidebar="menu-sub"
             class="overflow-hidden ml-3.5 flex flex-col gap-0.5 border-l border-sidebar-border pl-2.5">
 
-            {% for sub_item in sidebar_item.children|selectattr("is_page") %}
+            {% for sub_item in sidebar_item.children %}
+            {% if sub_item.children %}
+            {% with sidebar_item=sub_item %}
+            {% include "templates/sidebar_section.html" %}
+            {% endwith %}
+            {% elif sub_item.is_page %}
             {% with sidebar_item=sub_item %}
             {% include "templates/sidebar_item.html" %}
             {% endwith %}
+            {% endif %}
             {% endfor %}
         </ul>
     </div>
