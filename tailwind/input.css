@@ -6,6 +6,9 @@ article a.button {
   @apply no-underline;
 }
 
+header input[type="button"],
+header a.button,
+header button, 
 article input[type="button"],
 article a.button,
 article button {
@@ -24,6 +27,10 @@ article button {
     rounded-lg text-sm h-8 gap-1.5 px-2.5
     has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2
     [&_svg:not([class*='size-'])]:size-4;
+}
+
+header button#burger-button {
+  @apply flex justify-start gap-2.5 p-0! lg:hidden touch-manipulation;
 }
 
 /* Primary (default — applied when no other variant class is present) */
@@ -57,6 +64,9 @@ article button.secondary {
     focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50;
 }
 
+header input[type="button"].ghost,
+header a.button.ghost,
+header button.ghost,
 article input[type="button"].ghost,
 article a.button.ghost,
 article button.ghost {
@@ -110,6 +120,9 @@ article button.lg {
 }
 
 /* Icon: square, no horizontal padding — combine with a variant for colors */
+header input[type="button"].icon,
+header a.button.icon,
+header button.icon,
 article input[type="button"].icon,
 article a.button.icon,
 article button.icon {

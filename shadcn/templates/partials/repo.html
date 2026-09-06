@@ -1,0 +1,7 @@
+<a href="{{ config.repo_url }}" class="button ghost">
+    {% include "templates/icons/github.svg" %}
+    {% if config and config.theme.show_stargazers %}
+    <span id="stargazers" class="text-muted-foreground w-fit text-xs tabular-nums" onload="fetchStargazers()">
+    </span>
+    {% endif %}
+</a>
