@@ -40,3 +40,8 @@ article h6:has(.headerlink.leading) {
 article .headerlink.leading {
     @apply absolute left-0 -translate-x-full ml-0 pr-2;
 }
+
+/* on this page */
+div#toc a {
+    @apply text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6;
+}

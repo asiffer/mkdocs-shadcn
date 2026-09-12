@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="{{ config.theme.locale or 'en' }}">
 
 <head>
     <script>
-        /* const base_url = "{{ config.site_url }}"; */
         const base_url = (new URL("{{ '.' | url }}", window.location)).href.replace(/\/+$/, ""); /* for search plugin notably */
-        /* const root_relative_url = "{{ '.' | url }}"; */
     </script>
     {% include "templates/dark.html" %}
 
@@ -49,8 +47,10 @@
     {%- endfor %}
     {% endif %}
 
-    <script integrity="sha384-V2jkXRy811qODUbfkLlkVJYBbf4h6XHAEjcU6ReASBPrJvTrlYh4GrI4t6GCju6n"
+    <script integrity="sha384-2hn3q9jeDV70Gb3DuyWPKgeRxkowIjEpcHeOXSvWCEq2uHJHvXiVer7rbM8HYzYz"
         src="{{ 'js/callbacks.js' | url }}"></script>
+    <script defer="" integrity="sha384-ljmRPFWw/c4kKFaKY5DIe8bgppHI9VBBrg7WZa8UPd23U9dEFesxZ1Ng8Hzjq2WB"
+        src="{{ 'js/toc.js' | url }}"></script>
 
     {% if "pymdownx.arithmatex" in config.markdown_extensions %}
     {% include "templates/external/katex.html" %}
@@ -98,7 +98,6 @@
                     </div>
                     <div class="h-full w-full">
                         <div class="flex items-stretch text-[1.05rem] sm:text-[15px] xl:w-full" data-slot="docs">
-
                             <div class="flex min-w-0 flex-1 flex-col">
                                 <div class="h-(--top-spacing) shrink-0"></div>
                                 {% block page %}
@@ -119,7 +118,6 @@
                                 {% endif %}
                                 {% endblock toc %}
                             </div>
-
                         </div>
                     </div>
                 </div>

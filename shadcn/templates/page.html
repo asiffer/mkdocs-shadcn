@@ -76,10 +76,4 @@
   <div class="typography w-full flex-1 *:data-[slot=alert]:first:mt-0">
     {{ page.content }}
   </div>
-  {# TOC #}
-  <script>
-    document.querySelectorAll('article h2, article h3').forEach((header) => {
-      toc.observer.observe(header);
-    });
-  </script>
 </article>

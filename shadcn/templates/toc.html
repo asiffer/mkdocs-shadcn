@@ -5,16 +5,12 @@
         {% with roottoc = page.toc | list %}
         {% with toc = roottoc if roottoc | length > 1 else roottoc[0].children %}
         {% for h2 in toc %}
-        <a href="{{ h2.url }}"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="2" onClick="deferSetActiveTocLink('{{ h2.url }}');">
+        <a href="{{ h2.url }}" data-active="false" data-depth="2">
             {{ h2.title }}
         </a>
         {% if h2.children %}
         {% for h3 in h2.children %}
-        <a href="{{ h3.url }}"
-            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-            data-active="false" data-depth="3" onClick="deferSetActiveTocLink('{{ h3.url }}');">
+        <a href="{{ h3.url }}" data-active="false" data-depth="3">
             {{ h3.title }}
         </a>
         {% endfor %}
