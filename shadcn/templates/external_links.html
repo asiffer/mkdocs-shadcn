@@ -1,0 +1,8 @@
+<div class="grow flex items-center space-x-2 pt-4 external_links">
+    {% for link_name, href in page.meta.external_links.items() %}
+    <a target="_blank" rel="noreferrer" class="button secondary xs" href="{{ href }}">
+        {{ link_name }}
+        {% include "templates/icons/tabler_icon_arrow_up_right.svg" %}
+    </a>
+    {% endfor %}
+</div>

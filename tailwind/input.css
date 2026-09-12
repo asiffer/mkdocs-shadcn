@@ -6,11 +6,12 @@ article a.button {
   @apply no-underline;
 }
 
-header input[type="button"],
+
 header a.button,
 header button, 
 article input[type="button"],
 article a.button,
+#bottom-navigation a.button,
 article button {
   @apply inline-flex shrink-0 items-center justify-center bg-clip-padding
     font-medium whitespace-nowrap transition-all outline-none select-none
@@ -57,6 +58,7 @@ article button.outline {
 
 article input[type="button"].secondary,
 article a.button.secondary,
+#bottom-navigation a.button.secondary,
 article button.secondary {
   @apply border border-transparent
     bg-secondary text-secondary-foreground hover:bg-secondary/80
