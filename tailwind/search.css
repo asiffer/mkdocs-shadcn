@@ -26,3 +26,7 @@
 #search-dialog::backdrop {
 	@apply bg-black/50;
 }
+
+button.search {
+	@apply relative w-full justify-start gap-2 pl-3 pr-4 md:w-48 lg:w-40 xl:w-64;
+}
