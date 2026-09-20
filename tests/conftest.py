@@ -95,10 +95,17 @@ def http_server(
     host: str = HOST,
     port: int = PORT,
 ) -> HTTPServer:
-    server = HTTPServer((host, port), handler)
-    thread = threading.Thread(target=server.serve_forever, daemon=True)
-    thread.start()
-    return server
+    try:
+        server = HTTPServer((host, port), handler)
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        return server
+    except OSError as e:
+        if port > PORT + 10:
+            raise RuntimeError(
+                f"Failed to start HTTP server on {host}:{port}: {e}"
+            ) from e
+        return http_server(handler, host, port + 1)  # try next port
 
 
 @pytest.fixture
@@ -140,7 +147,11 @@ def local_deployment():
 
 
 @pytest.fixture
-def shadcn_project(tmp_path: Path) -> Path:
+def shadcn_project(
+    tmp_path: Path,
+    mkdocs_extra_config: dict | None = None,
+    theme_extra_config: dict | None = None,
+) -> Path:
     """A fresh uv-managed python project with mkdocs, shadcn theme (local)
     and git-initialized."""
     project_dir = tmp_path / "docsite"
@@ -156,9 +167,17 @@ def shadcn_project(tmp_path: Path) -> Path:
 
     with open(project_dir / "mkdocs.yml", "w") as config_file:
         config_file.write("site_name: Testing docs\n")
+        if isinstance(mkdocs_extra_config, dict):
+            config_file.writelines(
+                f"{key}: {value}\n" for key, value in mkdocs_extra_config.items()
+            )
         config_file.write("theme:\n")
         config_file.write("    name: null\n")
         config_file.write(f"    custom_dir: {THEME_PATH}\n")
+        if isinstance(theme_extra_config, dict):
+            config_file.writelines(
+                f"    {key}: {value}\n" for key, value in theme_extra_config.items()
+            )
 
     _run(
         ["git", "config", "user.email", "mkdocs-shadcn@github.com"],
