@@ -7,7 +7,7 @@ import subprocess
 import threading
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
-from random import randbytes
+from random import randbytes, randint
 from socketserver import BaseRequestHandler
 from subprocess import CalledProcessError
 from typing import Any, Protocol
@@ -186,3 +186,8 @@ def shadcn_project(
     _run(["uv", "run", "mkdocs", "build"], cwd=project_dir)
 
     return project_dir
+
+
+@pytest.fixture
+def random_port() -> int:
+    return randint(20000, 40000)
