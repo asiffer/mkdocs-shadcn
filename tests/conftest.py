@@ -7,7 +7,7 @@ import subprocess
 import threading
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
-from random import randbytes
+from random import randbytes, randint
 from socketserver import BaseRequestHandler
 from subprocess import CalledProcessError
 from typing import Any, Protocol
@@ -140,7 +140,11 @@ def local_deployment():
 
 
 @pytest.fixture
-def shadcn_project(tmp_path: Path) -> Path:
+def shadcn_project(
+    tmp_path: Path,
+    mkdocs_extra_config: dict | None = None,
+    theme_extra_config: dict | None = None,
+) -> Path:
     """A fresh uv-managed python project with mkdocs, shadcn theme (local)
     and git-initialized."""
     project_dir = tmp_path / "docsite"
@@ -156,9 +160,17 @@ def shadcn_project(tmp_path: Path) -> Path:
 
     with open(project_dir / "mkdocs.yml", "w") as config_file:
         config_file.write("site_name: Testing docs\n")
+        if isinstance(mkdocs_extra_config, dict):
+            config_file.writelines(
+                f"{key}: {value}\n" for key, value in mkdocs_extra_config.items()
+            )
         config_file.write("theme:\n")
         config_file.write("    name: null\n")
         config_file.write(f"    custom_dir: {THEME_PATH}\n")
+        if isinstance(theme_extra_config, dict):
+            config_file.writelines(
+                f"    {key}: {value}\n" for key, value in theme_extra_config.items()
+            )
 
     _run(
         ["git", "config", "user.email", "mkdocs-shadcn@github.com"],
@@ -174,3 +186,8 @@ def shadcn_project(tmp_path: Path) -> Path:
     _run(["uv", "run", "mkdocs", "build"], cwd=project_dir)
 
     return project_dir
+
+
+@pytest.fixture
+def random_port() -> int:
+    return randint(20000, 40000)
