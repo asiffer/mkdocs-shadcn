@@ -95,17 +95,10 @@ def http_server(
     host: str = HOST,
     port: int = PORT,
 ) -> HTTPServer:
-    try:
-        server = HTTPServer((host, port), handler)
-        thread = threading.Thread(target=server.serve_forever, daemon=True)
-        thread.start()
-        return server
-    except OSError as e:
-        if port > PORT + 10:
-            raise RuntimeError(
-                f"Failed to start HTTP server on {host}:{port}: {e}"
-            ) from e
-        return http_server(handler, host, port + 1)  # try next port
+    server = HTTPServer((host, port), handler)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    return server
 
 
 @pytest.fixture
