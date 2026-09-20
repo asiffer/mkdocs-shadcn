@@ -27,18 +27,20 @@ class MarkdownMixin(Mixin):
         config: MkDocsConfig,
         nav: Navigation,
     ):
-        if config.theme.get("hide_source_files", False):
+        if not config.theme.get("hide_source_files", False):
             src_path = NUMBER_PREFIX.sub(lambda m: m.group(1), page.file.src_path)
             self.raw_markdown[page.file.abs_src_path] = os.path.join(
                 config.site_dir, src_path
             )
+            site_url = (config.site_url or "/").rstrip("/") + "/"
             context["raw_markdown_url"] = urljoin(  # type: ignore (need this to download markdown files)
-                config.site_url or "/", src_path
+                site_url,
+                src_path,
             )
         return super().on_page_context(context, page, config, nav)
 
     def on_post_build(self, config):
-        if config.theme.get("hide_source_files", False):
+        if not config.theme.get("hide_source_files", False):
             # Copy raw markdown files to the build directory
             for src, dst in self.raw_markdown.items():
                 logger.debug(f"Copying raw markdown file {src} to {dst}")
