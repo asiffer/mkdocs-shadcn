@@ -44,7 +44,7 @@ theme:
 ```
 
 > [!NOTE]  
-> [MkDocs is stale](https://fpgmaas.com/blog/collapse-of-mkdocs/). You can use [ProperDocs](github.com/ProperDocs/properdocs) as a drop-in replacement.
+> [MkDocs is stale](https://fpgmaas.com/blog/collapse-of-mkdocs/). You can use [ProperDocs](https://github.com/ProperDocs/properdocs) as a drop-in replacement.
 
 ## Extensions
 
