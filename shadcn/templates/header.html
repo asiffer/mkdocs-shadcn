@@ -22,9 +22,11 @@
                 {% include "templates/version_select.html" %}
                 {% endif %}
 
-                {% include "templates/partials/header_vertical_separator.html" %}
-                {% include "templates/partials/toggle_layout.html" %}
-                {% include "templates/partials/header_vertical_separator.html" %}
+                <div class="flex items-center gap-2 max-3xl:hidden">
+                    {% include "templates/partials/header_vertical_separator.html" %}
+                    {% include "templates/partials/toggle_layout.html" %}
+                    {% include "templates/partials/header_vertical_separator.html" %}
+                </div>
                 {% include "templates/partials/theme_switch.html" %}
             </div>
         </div>
