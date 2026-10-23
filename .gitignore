@@ -2,6 +2,7 @@ dev
 _dev
 .dev
 yarn.lock
+bun.lock
 node_modules
 dist
 .venv

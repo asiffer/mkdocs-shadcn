@@ -22,8 +22,13 @@
                 {% include "templates/version_select.html" %}
                 {% endif %}
 
-                {% include "templates/partials/header_vertical_separator.html" %}
-                {% include "templates/partials/toggle_layout.html" %}
+                {# The layout styles (layout-fixed / layout-full) only apply from the 3xl breakpoint (1600px) #}
+                {# so the toggle is hidden below it. The wrapper is needed because the button styles are unlayered #}
+                {# and would override a `hidden` utility set directly on the button. #}
+                <div class="hidden 3xl:flex items-center gap-2">
+                    {% include "templates/partials/header_vertical_separator.html" %}
+                    {% include "templates/partials/toggle_layout.html" %}
+                </div>
                 {% include "templates/partials/header_vertical_separator.html" %}
                 {% include "templates/partials/theme_switch.html" %}
             </div>
