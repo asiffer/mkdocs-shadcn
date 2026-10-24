@@ -6,6 +6,24 @@ html {
 	scrollbar-width: thin;
 }
 
+[data-sidebar="content"] {
+	scrollbar-width: thin;
+	scrollbar-color: color-mix(in oklab, var(--color-foreground) 35%, transparent) transparent;
+}
+
+[data-sidebar="content"]::-webkit-scrollbar-thumb {
+	background-color: color-mix(in oklab, var(--color-foreground) 35%, transparent);
+	border-radius: 999px;
+}
+
+[data-sidebar="content"]:hover {
+	scrollbar-color: color-mix(in oklab, var(--color-foreground) 55%, transparent) transparent;
+}
+
+[data-sidebar="content"]:hover::-webkit-scrollbar-thumb {
+	background-color: color-mix(in oklab, var(--color-foreground) 55%, transparent);
+}
+
 /* thin scroll bars  */
 @supports (scrollbar-width: thin) {
 	html,
