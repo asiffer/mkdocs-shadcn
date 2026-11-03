@@ -62,7 +62,9 @@ class AutoNumberPluginConfig(Config):
             )
             + ")"
         )
-        pattern = f"@{up_lo_prefixes}:([a-zA-Z0-9._-]+)"
+        # Allow dots inside ids (e.g. my.figure) but not a trailing dot so
+        # sentence punctuation after a ref like `@fig:name.` is left alone (#129).
+        pattern = f"@{up_lo_prefixes}:([a-zA-Z0-9_-]+(?:\\.[a-zA-Z0-9_-]+)*)"
         return re.compile(pattern)
 
 
