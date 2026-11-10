@@ -14,7 +14,7 @@ Look at the [README](https://github.com/asiffer/mkdocs-shadcn#developers) or at 
 
 Note: contributions are licensed under the [project's license](https://github.com/asiffer/mkdocs-shadcn/blob/master/LICENSE).
 
-## AI
+## AI
 
 Do not use AI just to fill blanks with slop. 
 You can use it in many cases without flooding the project:
@@ -23,3 +23,8 @@ You can use it in many cases without flooding the project:
 - making the codebase as homogenous as possible
 - creating translations
 - writing tests
+
+## Good first issues
+
+Issues tagged as `good first issue` aim to help human contributors to enter the project. 
+Tackling them automatically with AI goes against these contributing guidelines.
