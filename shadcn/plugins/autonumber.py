@@ -15,6 +15,14 @@ from mkdocs.structure.pages import Page
 
 logger = get_plugin_logger("autonumber")
 
+REFERENCE_PATTERN = r"[a-zA-Z0-9_-]+"
+
+DEFAULT_PREFIXES = {
+    "fig": "Figure",
+    "tbl": "Table",
+    "eq": "Equation",
+}
+
 
 @dataclass
 class AutoNumberEntry:
@@ -32,8 +40,12 @@ def relpath(dst: str, src: str) -> str:
 
 
 def replace_many(text: str, repl: dict[str, str]):
+    if len(repl) == 0:
+        return text
     # longest keys first: regex alternation is first-match, not longest-match
-    pattern = re.compile("|".join(map(re.escape, sorted(repl, key=len, reverse=True))))
+    pattern = re.compile(
+        "|".join(map(re.escape, sorted(repl, key=len, reverse=True)))
+    )
     return pattern.sub(lambda m: repl[m.group(0)], text)
 
 
@@ -41,39 +53,35 @@ class AutoNumberPluginConfig(Config):
     numbering = c.Choice(["flat"], default="flat")
     prefixes: c.Type[dict[str, str]] = c.Type(
         dict,
-        default={
-            "fig": "Figure",
-            "tbl": "Table",
-            "eq": "Equation",
-        },
+        default=DEFAULT_PREFIXES,
     )
 
     __replace: ClassVar[dict] = {}
 
     def label_pattern(self) -> re.Pattern:
-        pattern = f"[{{]#({'|'.join(self.prefixes.keys())}):([a-zA-Z0-9._-]+)[}}]"
+        pattern = f"[{{]#({'|'.join(self.prefixes.keys())}):({REFERENCE_PATTERN})[}}]"
         return re.compile(pattern)
 
     def reference_pattern(self) -> re.Pattern:
         up_lo_prefixes = (
             "("
             + "|".join(
-                list(self.prefixes.keys()) + [k.capitalize() for k in self.prefixes]
+                list(self.prefixes.keys())
+                + [k.capitalize() for k in self.prefixes]
             )
             + ")"
         )
-        pattern = f"@{up_lo_prefixes}:([a-zA-Z0-9._-]+)"
+        pattern = f"@{up_lo_prefixes}:({REFERENCE_PATTERN})"
         return re.compile(pattern)
 
 
 class AutoNumberPlugin(BasePlugin[AutoNumberPluginConfig]):
     def on_config(self, config: MkDocsConfig):
         self.registry: dict[str, AutoNumberEntry] = {}
-        # put fig and tbl by default if not provided
-        if "fig" not in self.config.prefixes:
-            self.config.prefixes["fig"] = "Figure"
-        if "tbl" not in self.config.prefixes:
-            self.config.prefixes["tbl"] = "Table"
+        # put eq fig and tbl by default if not provided
+        for k, v in DEFAULT_PREFIXES.items():
+            if k not in self.config.prefixes:
+                self.config.prefixes[k] = v
 
         self.label_pattern = self.config.label_pattern()
         self.reference_pattern = self.config.reference_pattern()

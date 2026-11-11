@@ -13,6 +13,7 @@ from subprocess import CalledProcessError
 from typing import Any, Protocol
 
 import pytest
+import yaml
 
 from internal.common import THEME_PATH
 
@@ -33,6 +34,31 @@ def upload_folder() -> Path:
     if not up.exists():
         os.makedirs(up)
     return up
+
+
+def find_mkdocs_config(root: str | Path) -> Path:
+    """Find the mkdocs.yml file in the given directory or its parents"""
+    root = Path(root)
+    for parent in [root] + list(root.parents):
+        for file in ["mkdocs.yml", "mkdocs.yaml"]:
+            mkdocs_file = parent / file
+            if mkdocs_file.exists():
+                return mkdocs_file
+
+    raise FileNotFoundError(f"mkdocs.yml not found in {root} or its parents")
+
+
+def update_mkdocs_config(cwd: str | Path, extra_config: dict):
+    """Update the mkdocs.yml file in the given directory with the extra config"""
+    mkdocs_file = find_mkdocs_config(cwd)
+    # Ouvrir le fichier YAML en mode lecture
+    with open(mkdocs_file, "r") as file:
+        # Charger le contenu du fichier en tant que dictionnaire Python
+        config = yaml.safe_load(file)
+        config.update(extra_config)
+
+    with open(mkdocs_file, "w") as file:
+        yaml.dump(config, file)
 
 
 @pytest.fixture(scope="session")
@@ -87,7 +113,9 @@ class FileHandler:
         self.directory = directory
 
     def __call__(self, *args, **kwargs):
-        return SimpleHTTPRequestHandler(*args, directory=self.directory, **kwargs)
+        return SimpleHTTPRequestHandler(
+            *args, directory=self.directory, **kwargs
+        )
 
 
 def http_server(
@@ -145,6 +173,7 @@ def shadcn_project(
     mkdocs_extra_config: dict | None = None,
     theme_extra_config: dict | None = None,
 ) -> Path:
+    # print(f"mkdocs_extra_config: {mkdocs_extra_config}")
     """A fresh uv-managed python project with mkdocs, shadcn theme (local)
     and git-initialized."""
     project_dir = tmp_path / "docsite"
@@ -154,22 +183,27 @@ def shadcn_project(
     _run(["uv", "init", "--no-readme", "."], cwd=project_dir)
     _run(["uv", "add", "mkdocs[i18n]"], cwd=project_dir)
 
+    logger.info("Install shadcn theme from local path")
+    _run(["uv", "add", str(THEME_PATH.parent)], cwd=project_dir)
+
     logger.info("Init mkdocs project")
     # it creates also git repo
-    _run(["uv", "run", "mkdocs", "new", "."], cwd=project_dir)
+    _uv_run(["mkdocs", "new", "."], cwd=project_dir)
 
     with open(project_dir / "mkdocs.yml", "w") as config_file:
         config_file.write("site_name: Testing docs\n")
         if isinstance(mkdocs_extra_config, dict):
             config_file.writelines(
-                f"{key}: {value}\n" for key, value in mkdocs_extra_config.items()
+                f"{key}: {value}\n"
+                for key, value in mkdocs_extra_config.items()
             )
         config_file.write("theme:\n")
-        config_file.write("    name: null\n")
-        config_file.write(f"    custom_dir: {THEME_PATH}\n")
+        config_file.write("    name: shadcn\n")
+        # config_file.write(f"    custom_dir: {THEME_PATH}\n")
         if isinstance(theme_extra_config, dict):
             config_file.writelines(
-                f"    {key}: {value}\n" for key, value in theme_extra_config.items()
+                f"    {key}: {value}\n"
+                for key, value in theme_extra_config.items()
             )
 
     _run(
