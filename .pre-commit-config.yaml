@@ -5,10 +5,10 @@ repos:
     hooks:
       # Run the linter.
       - id: ruff-check
-        args: [--fix, --config=pyproject.toml]
+        args: [--fix, --config=ruff.toml]
       # Run the formatter.
       - id: ruff-format
-        args: [--config=pyproject.toml]
+        args: [--config=ruff.toml]
   - repo: https://github.com/astral-sh/ty-pre-commit
     # ty version.
     rev: v0.0.70
