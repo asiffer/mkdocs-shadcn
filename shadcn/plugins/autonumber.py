@@ -49,6 +49,10 @@ def replace_many(text: str, repl: dict[str, str]):
     return pattern.sub(lambda m: repl[m.group(0)], text)
 
 
+# Any label-shaped token, including ones whose prefix is not configured.
+ANY_LABEL_PATTERN = re.compile(r"\{#([a-zA-Z0-9_-]+):([a-zA-Z0-9._-]+)\}")
+
+
 class AutoNumberPluginConfig(Config):
     numbering = c.Choice(["flat"], default="flat")
     prefixes: c.Type[dict[str, str]] = c.Type(
@@ -101,6 +105,19 @@ class AutoNumberPlugin(BasePlugin[AutoNumberPluginConfig]):
         for file in files:
             if not file.is_documentation_page():
                 continue
+            warned: set[str] = set()
+            for match in ANY_LABEL_PATTERN.finditer(file.content_string):
+                prefix: str = match.group(1)
+                if prefix in self.config.prefixes or prefix in warned:
+                    continue
+                warned.add(prefix)
+                logger.warning(
+                    f"Unsupported prefix '{prefix}' in label '{match.group(0)}' "
+                    f"in page '{file.src_path}'. The label will not be numbered. "
+                    f"Supported prefixes are: "
+                    f"{', '.join(sorted(self.config.prefixes))}. Add '{prefix}' "
+                    f"to the autonumber 'prefixes' option to use it."
+                )
             for match in self.label_pattern.finditer(file.content_string):
                 full_match: str = match.group(0)
                 prefix: str = match.group(1)
