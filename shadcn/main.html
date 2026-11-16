@@ -92,8 +92,9 @@
                         </div>
                         <div class="flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden mx-auto no-scrollbar w-(--sidebar-menu-width) overflow-x-hidden px-2"
                             data-sidebar="content" data-slot="sidebar-content" view-transition-name="sidebar">
+                            {% if not (page and page.meta.hide_sidebar == true) %}
                             {% include "templates/sidebar.html" %}
-
+                            {% endif %}
                         </div>
                     </div>
                     <div class="h-full w-full">

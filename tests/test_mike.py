@@ -4,7 +4,14 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import pytest
-from conftest import FileHandler, _run, _uv_run, http_server, logger
+from conftest import (
+    FileHandler,
+    ShadcnProject,
+    _run,
+    _uv_run,
+    http_server,
+    logger,
+)
 from playwright.sync_api import (
     Browser,
     ConsoleMessage,
@@ -22,7 +29,9 @@ class MikeDeployments:
     default_version: str
     versions: list[str]
 
-    def version_url(self, index: int | None = None, version: str | None = None):
+    def version_url(
+        self, index: int | None = None, version: str | None = None
+    ):
         if index is not None:
             return f"{self.url}/{self.versions[0]}/"
         elif version is not None:
@@ -33,7 +42,7 @@ class MikeDeployments:
 
 @pytest.fixture
 def mike_deployments(
-    shadcn_project: Path,
+    shadcn_project: ShadcnProject,
     request: pytest.FixtureRequest,
 ):
     versions: list[str] = request.param or ["1.0", "2.0"]
@@ -45,36 +54,38 @@ def mike_deployments(
     initial_version = versions.pop(0)
     default_version = initial_version
 
-    _run(["uv", "add", "mike"], cwd=shadcn_project)
-    _run(["git", "add", "-u"], cwd=shadcn_project)
-    _run(["git", "commit", "-m", "add mike"], cwd=shadcn_project)
+    _run(["uv", "add", "mike"], cwd=shadcn_project.path)
+    _run(["git", "add", "-u"], cwd=shadcn_project.path)
+    _run(["git", "commit", "-m", "add mike"], cwd=shadcn_project.path)
 
     _uv_run(
         ["mike", "deploy", initial_version, "latest"],
-        cwd=shadcn_project,
+        cwd=shadcn_project.path,
     )
-    _uv_run(["mike", "set-default", "latest"], cwd=shadcn_project)
+    _uv_run(["mike", "set-default", "latest"], cwd=shadcn_project.path)
 
     for version in versions:
-        with open(shadcn_project / "docs" / "index.md", "a") as index:
-            index.write("\n\n")
-            index.write(f"## What's new in v{version}\n")
+        index_path = shadcn_project.path / "docs" / "index.md"
+        shadcn_project.write_file(
+            "index.md",
+            index_path.read_text() + f"\n\n## What's new in v{version}\n",
+        )
 
-        _run(["git", "add", "docs/index.md"], cwd=shadcn_project)
-        _run(["git", "commit", "-m", f"v{version}"], cwd=shadcn_project)
+        _run(["git", "add", "docs/index.md"], cwd=shadcn_project.path)
+        _run(["git", "commit", "-m", f"v{version}"], cwd=shadcn_project.path)
 
         _uv_run(
             ["mike", "deploy", "-u", version, "latest"],
-            cwd=shadcn_project,
+            cwd=shadcn_project.path,
         )
         default_version = version
 
     _run(
         ["git", "checkout", "gh-pages"],
-        cwd=shadcn_project,
+        cwd=shadcn_project.path,
     )
 
-    server = http_server(port=5000, handler=FileHandler(shadcn_project))
+    server = http_server(port=5000, handler=FileHandler(shadcn_project.path))
 
     yield MikeDeployments(
         url=f"http://{server.server_address[0]}:{server.server_address[1]}",
