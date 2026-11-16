@@ -226,6 +226,9 @@ class ShadcnProject:
     def get_built_file(self, relpath: str | Path) -> Path:
         if isinstance(relpath, str):
             relpath = Path(relpath)
+
+        if relpath.name in {"index.md", "index.html"}:
+            return self.path / "site" / relpath.with_suffix(".html")
         return self.path / "site" / relpath.with_suffix("") / "index.html"
 
 
