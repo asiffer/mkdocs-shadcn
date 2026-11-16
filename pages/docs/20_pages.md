@@ -15,11 +15,15 @@ You can also define your page title directly with `# Page title` in the markdown
 
 ## Navigation
 
+### Default behavior
+
 The navigation follows bare mkdocs. You should just notice that folders will create categories in the sidebar (or in the top bar when `topbar_sections: true`).
-To sort the sections, you can use the common `00_section_title/` hack. The first numbers sort the folders in the filesystem (so the sections). They are removed by the theme at compile time. 
+To sort the sections, you can use the common `00_section_title/` hack. The first numbers sort the folders in the filesystem (so the sections). **They are removed by the theme at compile time**. 
 
 !!! warning "Important"
     `mkdocs-shadcn` has not been extensively tested with highly nested documentation (`d>2`, i.e. `root / folder / folder`). When subfolders are used, we may recommend to activate the [`topbar_sections`](./10_get_started.md#topbar_sections-bool) option in the theme configuration. This will display the top level sections in the top bar.
+
+### Sidebar customization
 
 In addition, two other attributes may help to configure pages within the sidebar.
 
@@ -50,6 +54,14 @@ So in the sidebar we will get `a.md`, `c.md`, `d.md` and `b.md`.
 
 !!! danger "Caveat"
     The sidebar order does not change the internal navigation order. It implies that `previous` and `next` pages are unlikely to match a custom order. To prevent that, either use the classical `00_page.md`, `01_page.md`, `02_page.md` ... file pattern in your folder or set the navigation in `mkdocs.yml`.
+
+### Hiding sidebar
+
+Finally you can hide the navigation sidebar for a given page (relevant if you have [`topbar_sections`](./10_get_started.md#topbar_sections-bool) enabled and a single page within a top-level section).
+
+```yaml
+hide_sidebar: true
+```
 
 ## External links
 
