@@ -1,37 +1,36 @@
 import pytest
 from bs4 import BeautifulSoup
-from conftest import _uv_run, update_mkdocs_config
+from conftest import ShadcnProject
 
 from shadcn.plugins.autonumber import DEFAULT_PREFIXES
 
 
 @pytest.fixture
-def project_with_autonumber_plugin(shadcn_project: str):
-    update_mkdocs_config(
-        shadcn_project,
-        {"plugins": ["autonumber"]},
-    )
+def project_with_autonumber_plugin(
+    shadcn_project: ShadcnProject,
+) -> ShadcnProject:
+    shadcn_project.update_config({"plugins": ["autonumber"]})
     return shadcn_project
 
 
-def test_base_reference_in_html(project_with_autonumber_plugin: str):
+def test_base_reference_in_html(project_with_autonumber_plugin: ShadcnProject):
     project = project_with_autonumber_plugin
 
-    with open(f"{project}/docs/label.md", "a") as f:
-        for ref, label in DEFAULT_PREFIXES.items():
-            f.write("\n\n")
-            f.write(f"{{#{ref}:my{label.lower()}}}\n")
+    labels = "".join(
+        f"\n\n{{#{ref}:my{label.lower()}}}\n"
+        for ref, label in DEFAULT_PREFIXES.items()
+    )
+    references = "".join(
+        f"\n\nLook at @{ref}:my{label.lower()}\n"
+        for ref, label in DEFAULT_PREFIXES.items()
+    )
+    project.write_file("label.md", labels)
+    project.write_file("reference.md", references)
 
-    with open(f"{project}/docs/reference.md", "a") as f:
-        for ref, label in DEFAULT_PREFIXES.items():
-            f.write("\n\n")
-            f.write(f"Look at @{ref}:my{label.lower()}\n")
-
-    # build the project
-    _uv_run(["mkdocs", "build"], cwd=project)
+    project.build()
 
     # check links
-    with open(f"{project}/site/reference/index.html", "r") as f:
+    with open(project.get_built_file("reference/index.html"), "r") as f:
         html = f.read()
 
     soup = BeautifulSoup(html, "html.parser")
@@ -55,47 +54,46 @@ def test_base_reference_in_html(project_with_autonumber_plugin: str):
     )
 
 
-def test_unknown_prefix(project_with_autonumber_plugin: str):
+def test_unknown_prefix(project_with_autonumber_plugin: ShadcnProject):
     project = project_with_autonumber_plugin
 
-    with open(f"{project}/docs/all.md", "a") as f:
-        f.write("\n\n")
-        f.write("Label {#unknown:mything}\n")
-        f.write("Reference to @unknown2:mything2\n")
+    project.write_file(
+        "all.md",
+        "\n\nLabel {#unknown:mything}\nReference to @unknown2:mything2\n",
+    )
 
-    # build the project
-    _uv_run(["mkdocs", "build"], cwd=project)
+    project.build()
 
     # check that references and labels are not replaced
-    with open(f"{project}/site/all/index.html", "r") as f:
+    with open(project.get_built_file("all/index.html"), "r") as f:
         html = f.read()
         assert "Label {#unknown:mything}" in html
         assert "Reference to @unknown2:mything2" in html
 
 
-def test_custom_prefix(project_with_autonumber_plugin: str):
+def test_custom_prefix(project_with_autonumber_plugin: ShadcnProject):
     project = project_with_autonumber_plugin
-    update_mkdocs_config(
-        project, {"plugins": {"autonumber": {"prefixes": {"xxx": "Cool"}}}}
+    project.update_config(
+        {"plugins": {"autonumber": {"prefixes": {"xxx": "Cool"}}}}
     )
 
     prefixes = {**DEFAULT_PREFIXES, "xxx": "Cool"}
 
-    with open(f"{project}/docs/label.md", "a") as f:
-        for ref, label in prefixes.items():
-            f.write("\n\n")
-            f.write(f"{{#{ref}:my{label.lower()}}}\n")
+    labels = "".join(
+        f"\n\n{{#{ref}:my{label.lower()}}}\n"
+        for ref, label in prefixes.items()
+    )
+    references = "".join(
+        f"\n\nLook at @{ref}:my{label.lower()}\n"
+        for ref, label in prefixes.items()
+    )
+    project.write_file("label.md", labels)
+    project.write_file("reference.md", references)
 
-    with open(f"{project}/docs/reference.md", "a") as f:
-        for ref, label in prefixes.items():
-            f.write("\n\n")
-            f.write(f"Look at @{ref}:my{label.lower()}\n")
-
-    # build the project
-    _uv_run(["mkdocs", "build"], cwd=project)
+    project.build()
 
     # check links
-    with open(f"{project}/site/reference/index.html", "r") as f:
+    with open(project.get_built_file("reference/index.html"), "r") as f:
         html = f.read()
 
     soup = BeautifulSoup(html, "html.parser")
@@ -109,23 +107,21 @@ def test_custom_prefix(project_with_autonumber_plugin: str):
     assert hrefs == expected, f"Expected {expected}, but got {hrefs}"
 
 
-def test_uppercase_and_numbering(project_with_autonumber_plugin: str):
+def test_uppercase_and_numbering(
+    project_with_autonumber_plugin: ShadcnProject,
+):
     project = project_with_autonumber_plugin
 
-    with open(f"{project}/docs/label.md", "a") as f:
-        f.write("\n\n")
-        f.write("{#fig:myfigure}\n")
-        f.write("{#fig:myfigure2}\n")
+    project.write_file("label.md", "\n\n{#fig:myfigure}\n{#fig:myfigure2}\n")
+    project.write_file(
+        "reference.md",
+        "\n\nLook at @Fig:myfigure and @fig:myfigure2\n",
+    )
 
-    with open(f"{project}/docs/reference.md", "a") as f:
-        f.write("\n\n")
-        f.write("Look at @Fig:myfigure and @fig:myfigure2\n")
-
-    # build the project
-    _uv_run(["mkdocs", "build"], cwd=project)
+    project.build()
 
     # check links
-    with open(f"{project}/site/reference/index.html", "r") as f:
+    with open(project.get_built_file("reference/index.html"), "r") as f:
         html = f.read()
 
     soup = BeautifulSoup(html, "html.parser")

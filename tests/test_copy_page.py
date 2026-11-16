@@ -3,7 +3,7 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-from conftest import BASE, SITE_DIR, FileHandler, _run, http_server
+from conftest import BASE, SITE_DIR, FileHandler, ShadcnProject, http_server
 from playwright.sync_api import Page, expect
 
 
@@ -45,15 +45,16 @@ def test_md_files_are_copied_to_build_dir(local_deployment: str):
 
 def test_copy_page_button_is_hidden(
     page: Page,
-    shadcn_project: str,
+    shadcn_project: ShadcnProject,
     random_port: int,
 ):
-    with open(f"{shadcn_project}/mkdocs.yml", "a") as f:
-        f.write("    hide_source_files: true\n")
+    shadcn_project.update_config(
+        {"theme": {"name": "shadcn", "hide_source_files": True}}
+    )
 
-    _run(["uv", "run", "mkdocs", "build"], cwd=shadcn_project)
+    shadcn_project.build()
     server = http_server(
-        handler=FileHandler(Path(shadcn_project) / "site"),
+        handler=FileHandler(shadcn_project.path / "site"),
         port=random_port,
     )
     page.goto(

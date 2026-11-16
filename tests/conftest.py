@@ -167,59 +167,75 @@ def local_deployment():
         os.unlink(PAGES_DIR / "test.mkdocs.yml")
 
 
+class ShadcnProject:
+    path: Path
+
+    def __init__(self, path: str | Path):
+        self.path = Path(path) / "docsite"
+
+    def __fspath__(self):
+        return str(self.path)
+
+    def __str__(self):
+        return str(self.path)
+
+    def init(self):
+        self.path.mkdir()
+
+        logger.info("Init new uv project")
+        _run(["uv", "init", "--no-readme", "."], cwd=self.path)
+        _run(["uv", "add", "mkdocs[i18n]"], cwd=self.path)
+
+        logger.info("Install shadcn theme from local path")
+        _run(["uv", "add", str(THEME_PATH.parent)], cwd=self.path)
+
+        logger.info("Init mkdocs project")
+        # it creates also git repo
+        _uv_run(["mkdocs", "new", "."], cwd=self.path)
+        self.update_config(
+            {
+                "site_name": "Testing pages",
+                "theme": {"name": "shadcn"},
+            }
+        )
+
+    def _init_git(
+        self,
+        user_email: str = "mkdocs-shadcn@github.com",
+        user_name: str = "Mkdocs Shadcn",
+    ):
+        if not (self.path / ".git").exists():
+            _run(["git", "init"], cwd=self.path)
+        _run(["git", "config", "user.email", user_email], cwd=self.path)
+        _run(["git", "config", "user.name", user_name], cwd=self.path)
+        _run(["git", "add", "-A"], cwd=self.path)
+        _run(["git", "commit", "-m", "chore: initial project"], cwd=self.path)
+
+    def build(self):
+        _uv_run(["mkdocs", "build"], cwd=self.path)
+
+    def update_config(self, extra_config: dict):
+        update_mkdocs_config(self.path, extra_config)
+
+    def write_file(self, relpath: str | Path, content: str):
+        file_path = self.path / "docs" / relpath
+        file_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(file_path, "w") as f:
+            f.write(content)
+
+    def get_built_file(self, relpath: str | Path) -> Path:
+        if isinstance(relpath, str):
+            relpath = Path(relpath)
+        return self.path / "site" / relpath.with_suffix("") / "index.html"
+
+
 @pytest.fixture
-def shadcn_project(
-    tmp_path: Path,
-    mkdocs_extra_config: dict | None = None,
-    theme_extra_config: dict | None = None,
-) -> Path:
-    # print(f"mkdocs_extra_config: {mkdocs_extra_config}")
-    """A fresh uv-managed python project with mkdocs, shadcn theme (local)
-    and git-initialized."""
-    project_dir = tmp_path / "docsite"
-    project_dir.mkdir()
-
-    logger.info("Init new uv project")
-    _run(["uv", "init", "--no-readme", "."], cwd=project_dir)
-    _run(["uv", "add", "mkdocs[i18n]"], cwd=project_dir)
-
-    logger.info("Install shadcn theme from local path")
-    _run(["uv", "add", str(THEME_PATH.parent)], cwd=project_dir)
-
-    logger.info("Init mkdocs project")
-    # it creates also git repo
-    _uv_run(["mkdocs", "new", "."], cwd=project_dir)
-
-    with open(project_dir / "mkdocs.yml", "w") as config_file:
-        config_file.write("site_name: Testing docs\n")
-        if isinstance(mkdocs_extra_config, dict):
-            config_file.writelines(
-                f"{key}: {value}\n"
-                for key, value in mkdocs_extra_config.items()
-            )
-        config_file.write("theme:\n")
-        config_file.write("    name: shadcn\n")
-        # config_file.write(f"    custom_dir: {THEME_PATH}\n")
-        if isinstance(theme_extra_config, dict):
-            config_file.writelines(
-                f"    {key}: {value}\n"
-                for key, value in theme_extra_config.items()
-            )
-
-    _run(
-        ["git", "config", "user.email", "mkdocs-shadcn@github.com"],
-        cwd=project_dir,
-    )
-    _run(["git", "config", "user.name", "Mkdocs Shadcn"], cwd=project_dir)
-
-    logger.info("First commit")
-    _run(["git", "add", "-A"], cwd=project_dir)
-    _run(["git", "commit", "-m", "chore: initial project"], cwd=project_dir)
-    # test build is ok
-    logger.info("First build...")
-    _run(["uv", "run", "mkdocs", "build"], cwd=project_dir)
-
-    return project_dir
+def shadcn_project(tmp_path: Path) -> ShadcnProject:
+    project = ShadcnProject(tmp_path)
+    project.init()
+    project._init_git()
+    project.build()
+    return project
 
 
 @pytest.fixture
