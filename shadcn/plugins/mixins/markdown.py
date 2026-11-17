@@ -19,6 +19,7 @@ class MarkdownMixin(Mixin):
 
     def __init__(self):
         self.raw_markdown = {}
+        super().__init__()
 
     def on_page_context(
         self,
@@ -28,7 +29,9 @@ class MarkdownMixin(Mixin):
         nav: Navigation,
     ):
         if not config.theme.get("hide_source_files", False):
-            src_path = NUMBER_PREFIX.sub(lambda m: m.group(1), page.file.src_path)
+            src_path = NUMBER_PREFIX.sub(
+                lambda m: m.group(1), page.file.src_path
+            )
             self.raw_markdown[page.file.abs_src_path] = os.path.join(
                 config.site_dir, src_path
             )

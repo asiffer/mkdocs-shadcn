@@ -11,3 +11,4 @@ show_datetime: false
 accent: null
 static_templates:
   - 404.html
+llmstxt: false

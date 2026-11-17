@@ -179,6 +179,18 @@ class ShadcnProject:
     def __str__(self):
         return str(self.path)
 
+    @property
+    def site_dir(self) -> Path:
+        return self.path / "site"
+
+    @property
+    def site_name(self) -> str:
+        return "Testing pages"
+
+    @property
+    def site_description(self) -> str:
+        return "Website to test the mkdocs-shadcn theme"
+
     def init(self):
         self.path.mkdir()
 
@@ -194,7 +206,8 @@ class ShadcnProject:
         _uv_run(["mkdocs", "new", "."], cwd=self.path)
         self.update_config(
             {
-                "site_name": "Testing pages",
+                "site_name": self.site_name,
+                "site_description": self.site_description,
                 "theme": {"name": "shadcn"},
             }
         )
@@ -217,10 +230,19 @@ class ShadcnProject:
     def update_config(self, extra_config: dict):
         update_mkdocs_config(self.path, extra_config)
 
-    def write_file(self, relpath: str | Path, content: str):
+    def write_file(
+        self,
+        relpath: str | Path,
+        content: str,
+        options: dict | None = None,
+    ):
         file_path = self.path / "docs" / relpath
         file_path.parent.mkdir(parents=True, exist_ok=True)
         with open(file_path, "w") as f:
+            if options:
+                f.write("---\n")
+                yaml.dump(options, f)
+                f.write("\n---\n\n")
             f.write(content)
 
     def get_built_file(self, relpath: str | Path) -> Path:
@@ -228,8 +250,8 @@ class ShadcnProject:
             relpath = Path(relpath)
 
         if relpath.name in {"index.md", "index.html"}:
-            return self.path / "site" / relpath.with_suffix(".html")
-        return self.path / "site" / relpath.with_suffix("") / "index.html"
+            return self.site_dir / relpath.with_suffix(".html")
+        return self.site_dir / relpath.with_suffix("") / "index.html"
 
 
 @pytest.fixture
