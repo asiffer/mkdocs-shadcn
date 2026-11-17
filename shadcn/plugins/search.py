@@ -23,6 +23,7 @@ from shadcn.plugins.mixins.dev import DevServerMixin
 from shadcn.plugins.mixins.git import GitTimestampsMixin
 from shadcn.plugins.mixins.i18n import I18nMixin
 from shadcn.plugins.mixins.katex import KatexMixin
+from shadcn.plugins.mixins.llmstxt import LlmstxtMixin
 from shadcn.plugins.mixins.markdown import MarkdownMixin
 from shadcn.plugins.mixins.mkdocstrings import MkdocstringsMixin
 from shadcn.plugins.mixins.order import OrderMixin
@@ -40,6 +41,7 @@ class SearchPlugin(
     KatexMixin,
     TableMixin,
     MarkdownMixin,
+    LlmstxtMixin,
     BaseSearchPlugin,
 ):
     """⚠️ HACK ⚠️

@@ -4,6 +4,7 @@ show_datetime: true
 extra_css:
   - "css/pygments/all.css" # add scoped styles
 new: true
+summary: Setup an mkdocs project with shadcn theme
 ---
 
 ## Install

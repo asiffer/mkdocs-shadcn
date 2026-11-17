@@ -24,7 +24,8 @@ theme:
       "\\RR": "\\mathbb{R}" 
       "\\dx": "\\mathrm{d}x"
   show_datetime: false 
-  accent: "oklch(64.5% 0.246 16.439)" # NEW!
+  accent: "oklch(64.5% 0.246 16.439)" 
+  llmstxt: false # NEW!
 ```
 
 ### `show_title: bool` 
@@ -179,3 +180,6 @@ If you want to disable it for a specific page, you can set `show_datetime: false
 Defines an accent color. Currently it is only used for ["new" badges](./20_pages.md#extra).
 If not defined, the default shadcn color used (tailwind [blue-500](https://tailwindcss.com/docs/colors)).
 
+### `llmstxt: bool`
+
+Generates a `llms.txt` file (following [`v2` proposal](https://llmstxt.org/)) at the root of the project. It aims to help agent to use your documentation.
