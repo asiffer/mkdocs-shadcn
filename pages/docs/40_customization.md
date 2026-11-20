@@ -18,7 +18,7 @@ This css is **not tailwind related**. It means that you do not have to know tail
 
 ## Layers
 
-Tailwind defines [4 layers]((https://tailwindcss.com/docs/preflight#disabling-preflight)):
+Tailwind defines [4 layers](https://tailwindcss.com/docs/preflight#disabling-preflight):
 
 ```css
 @layer theme, base, components, utilities;
