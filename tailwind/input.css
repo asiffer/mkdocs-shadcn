@@ -3,68 +3,47 @@
    ====================================================== */
 
 article a.button {
-  @apply no-underline;
+	@apply no-underline;
 }
 
-
 header a.button,
-header button, 
+header button,
 article input[type="button"],
 article a.button,
 #bottom-navigation a.button,
 article button {
-  @apply inline-flex shrink-0 items-center justify-center bg-clip-padding
-    font-medium whitespace-nowrap transition-all outline-none select-none
-    /* svg */
-    [&_svg]:pointer-events-none [&_svg]:shrink-0
-    /* interaction */
-    active:not-aria-[haspopup]:translate-y-px
-    disabled:pointer-events-none disabled:opacity-50
-    /* validation */
-    aria-invalid:border-destructive aria-invalid:ring-3
-    aria-invalid:ring-destructive/20
-    dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40
-    /* default size (md) */
-    rounded-lg text-sm h-8 gap-1.5 px-2.5
-    has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2
-    [&_svg:not([class*='size-'])]:size-4;
+	@apply inline-flex shrink-0 items-center justify-center bg-clip-padding font-medium whitespace-nowrap transition-all outline-none select-none /* svg */ [&_svg]:pointer-events-none [&_svg]:shrink-0 /* interaction */ active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 /* validation */ aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 /* default size (md) */ rounded-lg text-sm h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 [&_svg:not([class*='size-'])]:size-4;
 }
 
 header button#burger-button {
-  @apply flex justify-start gap-2.5 p-0! lg:hidden touch-manipulation;
+	@apply flex justify-start gap-2.5 p-0! lg:hidden touch-manipulation;
 }
 
 /* Primary (default — applied when no other variant class is present) */
 article input[type="button"].primary,
-article input[type="button"]:where(:not(.secondary, .outline, .destructive, .ghost, .link)),
+article
+	input[type="button"]:where(
+		:not(.secondary, .outline, .destructive, .ghost, .link)
+	),
 article a.button.primary,
 article a.button:where(:not(.secondary, .outline, .destructive, .ghost, .link)),
 article button.primary,
 article button:where(:not(.secondary, .outline, .destructive, .ghost, .link)) {
-  @apply border border-transparent
-    bg-primary text-primary-foreground hover:bg-primary/80
-    focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50;
+	@apply border border-transparent bg-primary text-primary-foreground hover:bg-primary/80 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50;
 }
 
 article input[type="button"].outline,
 article a.button.outline,
 article button.outline {
-  @apply border border-border bg-background
-    hover:bg-muted hover:text-foreground
-    aria-expanded:bg-muted aria-expanded:text-foreground
-    dark:border-input dark:bg-input/30 dark:hover:bg-input/50
-    focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50;
+	@apply border border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50;
 }
 
-header button.secondary, 
+header button.secondary,
 article input[type="button"].secondary,
 article a.button.secondary,
 #bottom-navigation a.button.secondary,
 article button.secondary {
-  @apply border border-transparent
-    bg-secondary text-secondary-foreground hover:bg-secondary/80
-    aria-expanded:bg-secondary aria-expanded:text-secondary-foreground
-    focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50;
+	@apply border border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50;
 }
 
 header input[type="button"].ghost,
@@ -73,53 +52,39 @@ header button.ghost,
 article input[type="button"].ghost,
 article a.button.ghost,
 article button.ghost {
-  @apply border border-transparent
-    hover:bg-muted hover:text-foreground
-    aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50
-    focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50;
+	@apply border border-transparent hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50;
 }
 
 /* Destructive uses its own focus-visible colors (no border-ring / ring-ring) */
 article input[type="button"].destructive,
 article a.button.destructive,
 article button.destructive {
-  @apply border border-transparent
-    bg-destructive/10 text-destructive hover:bg-destructive/20
-    focus-visible:ring-3 focus-visible:border-destructive/40 focus-visible:ring-destructive/20
-    dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40;
+	@apply border border-transparent bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:ring-3 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40;
 }
 
 article input[type="button"].link,
 article a.button.link,
 article button.link {
-  @apply border border-transparent
-    text-primary underline-offset-4 hover:underline
-    focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50;
+	@apply border border-transparent text-primary underline-offset-4 hover:underline focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50;
 }
-
 
 article input[type="button"].xs,
 article a.button.xs,
 article button.xs {
-  @apply h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs
-    has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5
-    [&_svg:not([class*='size-'])]:size-3;
+	@apply h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3;
 }
 
 article input[type="button"].sm,
 article a.button.sm,
 article button.sm {
-  @apply h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem]
-    has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5
-    [&_svg:not([class*='size-'])]:size-3.5;
+	@apply h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5;
 }
 
 /* md is the default — no override needed */
 article input[type="button"].lg,
 article a.button.lg,
 article button.lg {
-  @apply h-9 gap-1.5 px-2.5
-    has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3;
+	@apply h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3;
 }
 
 /* Icon: square, no horizontal padding — combine with a variant for colors */
@@ -129,45 +94,44 @@ header button.icon,
 article input[type="button"].icon,
 article a.button.icon,
 article button.icon {
-  @apply aspect-square p-0;
+	@apply aspect-square p-0;
 }
-
 
 /* ======================================================
    Sliders
    ====================================================== */
 
 article input[type="range"] {
-  --progress: 50%;
-    @apply appearance-none relative grow rounded-full h-1 w-full data-vertical:h-full data-vertical:w-1;
+	--progress: 50%;
+	@apply appearance-none relative grow rounded-full h-1 w-full data-vertical:h-full data-vertical:w-1;
 }
 
 article input[type="range"]::-moz-range-track {
-  @apply bg-muted;
+	@apply bg-muted;
 }
 
 article input[type="range"]::-webkit-slider-thumb,
 article input[type="range"]::-moz-range-thumb {
-  @apply appearance-none size-3 shrink-0 rounded-full border border-ring bg-white ring-ring/50 transition-[color,box-shadow] select-none after:absolute after:-inset-2 hover:ring-3 focus-visible:ring-3 focus-visible:outline-hidden active:ring-3 disabled:pointer-events-none disabled:opacity-50;
+	@apply appearance-none size-3 shrink-0 rounded-full border border-ring bg-white ring-ring/50 transition-[color,box-shadow] select-none after:absolute after:-inset-2 hover:ring-3 focus-visible:ring-3 focus-visible:outline-hidden active:ring-3 disabled:pointer-events-none disabled:opacity-50;
 }
 article input[type="range"]::-webkit-slider-thumb {
-  @apply -mt-1;
+	@apply -mt-1;
 }
 
 article input[type="range"]::-moz-range-progress {
-    @apply bg-primary rounded-full;
+	@apply bg-primary rounded-full;
 }
 
-article input[type="range"]::-webkit-slider-runnable-track { 
-  /* --progress is updated by js in chrome browsers, see js/slider.js */
-  background: linear-gradient(
-    to right,
-    var(--primary) var(--progress, 50%),
-    var(--muted) var(--progress, 50%)
-  );
+article input[type="range"]::-webkit-slider-runnable-track {
+	/* --progress is updated by js in chrome browsers, see js/slider.js */
+	background: linear-gradient(
+		to right,
+		var(--primary) var(--progress, 50%),
+		var(--muted) var(--progress, 50%)
+	);
 }
 article input[type="range"]::-webkit-slider-runnable-track {
-  @apply h-1 rounded-full;
+	@apply h-1 rounded-full;
 }
 
 /* ======================================================
@@ -175,44 +139,43 @@ article input[type="range"]::-webkit-slider-runnable-track {
    ====================================================== */
 
 article fieldset {
-  @apply flex flex-row items-center flex-wrap w-fit gap-2 mt-4;
+	@apply flex flex-row items-center flex-wrap w-fit gap-2 mt-4;
 }
 
 article fieldset label {
-  @apply grow flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50;
+	@apply grow flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50;
 }
 
-article fieldset:not(:has(input[type="checkbox"],input[type="range"])) label {
-  @apply basis-full;
+article fieldset:not(:has(input[type="checkbox"], input[type="range"])) label {
+	@apply basis-full;
 }
 
 article fieldset output {
-  @apply min-w-6 inline-flex text-sm text-muted-foreground justify-end;
+	@apply min-w-6 inline-flex text-sm text-muted-foreground justify-end;
 }
 
 article fieldset small {
-  @apply basis-full text-left text-sm leading-normal font-normal text-muted-foreground group-has-data-horizontal/field:text-balance [[data-variant=legend]+&]:-mt-1.5 last:mt-0 nth-last-2:-mt-1 [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary;
+	@apply basis-full text-left text-sm leading-normal font-normal text-muted-foreground group-has-data-horizontal/field:text-balance [[data-variant=legend]+&]:-mt-1.5 last:mt-0 nth-last-2:-mt-1 [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary;
 }
 
 /* article fieldset input[type="range"] {
   @apply basis-full flex-none;
 } */
 
-
 /* ======================================================
    checkbox
    ====================================================== */
 
 article input[type="checkbox"]:not(.switch) {
-  @apply flex appearance-none outline-none rounded-[4px] size-4 border border-border overflow-hidden; 
+	@apply flex appearance-none outline-none rounded-lg size-4 border border-border overflow-hidden;
 }
 
 article input[type="checkbox"]:not(.switch):checked {
-  @apply bg-primary text-primary-foreground border-primary;
+	@apply bg-primary text-primary-foreground border-primary;
 }
 
 article input[type="checkbox"]:not(.switch):checked {
-   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
 }
 
 /* ======================================================
@@ -220,35 +183,36 @@ article input[type="checkbox"]:not(.switch):checked {
    ====================================================== */
 
 article input[type="checkbox"].switch {
-    @apply appearance-none w-8 h-[18.4px] bg-input dark:bg-input/80 rounded-full relative cursor-pointer transition-colors duration-200;
+	@apply appearance-none w-8 h-[18.4px] bg-input dark:bg-input/80 rounded-full relative cursor-pointer transition-colors duration-200;
 }
 
 article input[type="checkbox"].switch::before {
-  @apply content-[''] absolute top-px left-px size-4 bg-background rounded-full transition-transform duration-200;
+	@apply content-[''] absolute top-px left-px size-4 bg-background rounded-full transition-transform duration-200;
 }
 
 article input[type="checkbox"].switch:checked {
-  @apply bg-primary;
+	@apply bg-primary;
 }
 
 article input[type="checkbox"].switch:checked::before {
-  @apply translate-x-3.5;
+	@apply translate-x-3.5;
 }
-
 
 /* ======================================================
    select
    ====================================================== */
 
-article select, header select {
-  @apply flex items-center justify-between gap-1.5 rounded-lg border border-input bg-transparent py-2 pr-2 pl-2.5 text-sm whitespace-nowrap transition-colors outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 data-placeholder:text-muted-foreground data-[size=default]:h-8 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)] *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 dark:bg-input/30 dark:hover:bg-input/50 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 w-full max-w-48;
+article select,
+header select {
+	@apply flex items-center justify-between gap-1.5 rounded-lg border border-input bg-transparent py-2 pr-2 pl-2.5 text-sm whitespace-nowrap transition-colors outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 data-placeholder:text-muted-foreground data-[size=default]:h-8 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)] *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 dark:bg-input/30 dark:hover:bg-input/50 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 w-full max-w-48;
 }
 
-article select, header select {
-  @apply appearance-none pr-8 bg-no-repeat bg-position-[right_8px_center] bg-size-[16px];
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+article select,
+header select {
+	@apply appearance-none pr-8 bg-no-repeat bg-position-[right_8px_center] bg-size-[16px];
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
 }
 
 header select#version-selector {
-  @apply text-xs h-8 w-fit;
+	@apply text-xs h-8 w-fit;
 }

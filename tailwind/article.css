@@ -3,7 +3,7 @@ article {
 }
 
 #summary {
-	@apply mt-0 max-w-[450px] text-muted-foreground leading-6;
+	@apply mt-0 max-w-112.5 text-muted-foreground leading-6;
 }
 
 article #page-header h1 {
@@ -20,7 +20,7 @@ article .typography h1 {
 }
 
 article .typography h2 {
-	@apply mt-12 scroll-m-28 text-2xl font-medium tracking-tight lg:mt-20 [&+p]:!mt-4 *:[code]:text-2xl;
+	@apply mt-12 scroll-m-28 text-2xl font-medium tracking-tight lg:mt-20 [&+p]:mt-4! *:[code]:text-2xl;
 }
 
 article .typography > h2 {
@@ -36,11 +36,11 @@ article .typography h4 {
 }
 
 article p {
-	@apply leading-relaxed [&:not(:first-child)]:mt-6;
+	@apply leading-relaxed not-first:mt-6;
 }
 
 article .typography > div {
-	@apply [&:not(:first-child)]:mt-6;
+	@apply not-first:mt-6;
 }
 
 article a {
@@ -64,7 +64,7 @@ article ol {
 }
 
 article pre {
-	@apply block mb-4 mt-6 max-h-[650px] rounded-xl py-4 px-4;
+	@apply block mb-4 mt-6 max-h-162.5 rounded-xl py-4 px-4;
 }
 
 article > pre {
@@ -113,5 +113,3 @@ article a.footnote-backref {
 article .iconify {
 	@apply inline-block;
 }
-
-

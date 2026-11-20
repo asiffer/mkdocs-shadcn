@@ -1,9 +1,9 @@
 .theme-default {
-  --doc-symbol-attribute-fg-color: var(--color-primary);
-  --doc-symbol-function-fg-color: var(--color-chart-5);
-  --doc-symbol-method-fg-color: var(--color-chart-5);
-  --doc-symbol-class-fg-color: var(--color-chart-3);
-  --doc-symbol-module-fg-color: var(--color-chart-1);
+	--doc-symbol-attribute-fg-color: var(--color-primary);
+	--doc-symbol-function-fg-color: var(--color-chart-5);
+	--doc-symbol-method-fg-color: var(--color-chart-5);
+	--doc-symbol-class-fg-color: var(--color-chart-3);
+	--doc-symbol-module-fg-color: var(--color-chart-1);
 }
 
 article .doc code {
@@ -119,7 +119,6 @@ article .doc .doc-symbol::after {
 article .doc .doc-children .doc-symbol {
 	@apply text-sm py-0;
 }
-
 
 article .doc .doc-symbol.doc-symbol-class {
 	@apply border-(--doc-symbol-class-fg-color);

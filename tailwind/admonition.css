@@ -7,11 +7,11 @@ article .admonition {
 }
 
 article .admonition > p:nth-child(1) {
-	@apply inline !m-0;
+	@apply inline m-0!;
 }
 
 article .admonition > p:nth-child(2) {
-	@apply inline !m-0;
+	@apply inline m-0!;
 }
 
 article .admonition > p.admonition-title {

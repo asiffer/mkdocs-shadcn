@@ -1,5 +1,5 @@
 .hover-card {
-	@apply absolute z-10 !mt-0 pointer-events-none w-max min-w-[150px] max-w-[350px] transition-colors opacity-0 ring-foreground/10 bg-popover text-popover-foreground rounded-lg p-2.5 text-sm shadow-md ring-1 duration-150 outline-hidden;
+	@apply absolute z-10 mt-0! pointer-events-none w-max min-w-37 max-w-87 transition-colors opacity-0 ring-foreground/10 bg-popover text-popover-foreground rounded-lg p-2.5 text-sm shadow-md ring-1 duration-150 outline-hidden;
 }
 
 div.hover-card {
