@@ -9,12 +9,12 @@
     "dev": "tailwindcss -i ./tailwind/main.css -o ./shadcn/css/base.css --minify --watch"
   },
   "dependencies": {
-    "@tailwindcss/cli": "^4.3.3",
+    "@tailwindcss/cli": "^4.3.5",
     "@tailwindcss/typography": "^0.5.20",
-    "tailwindcss": "^4.3.3",
+    "tailwindcss": "^4.3.5",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.13"
+    "@biomejs/biome": "^2.6.8"
   }
 }

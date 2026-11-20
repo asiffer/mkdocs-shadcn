@@ -8,40 +8,39 @@ article h3:hover .headerlink,
 article h4:hover .headerlink,
 article h5:hover .headerlink,
 article h6:hover .headerlink {
-    @apply opacity-30;
+	@apply opacity-30;
 }
 
 article .headerlink:hover {
-    @apply !opacity-100;
+	@apply opacity-100!;
 }
 
 article div.toc {
-    @apply text-muted-foreground;
+	@apply text-muted-foreground;
 }
 
 article div.toc a {
-    @apply no-underline text-muted-foreground font-normal hover:text-primary transition-colors duration-200;
+	@apply no-underline text-muted-foreground font-normal hover:text-primary transition-colors duration-200;
 }
 
 article div.toc ul {
-    @apply mt-2 mx-4 list-none;
+	@apply mt-2 mx-4 list-none;
 }
 
-
 article h1:has(.headerlink.leading),
-article h2:has(.headerlink.leading) ,
-article h3:has(.headerlink.leading) ,
+article h2:has(.headerlink.leading),
+article h3:has(.headerlink.leading),
 article h4:has(.headerlink.leading),
-article h5:has(.headerlink.leading) ,
+article h5:has(.headerlink.leading),
 article h6:has(.headerlink.leading) {
-    @apply relative;
+	@apply relative;
 }
 
 article .headerlink.leading {
-    @apply absolute left-0 -translate-x-full ml-0 pr-2;
+	@apply absolute left-0 -translate-x-full ml-0 pr-2;
 }
 
 /* on this page */
 div#toc a {
-    @apply text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6;
+	@apply text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6;
 }

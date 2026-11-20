@@ -4,7 +4,7 @@ article .codehilite table.codehilitetable {
 }
 
 article .codehilite .linenos {
-	@apply text-sm text-right sticky left-0 text-[var(--color-code-number)] pr-6;
+	@apply text-sm text-right sticky left-0 text-code-number pr-6;
 }
 
 article .codehilite .hll .linenos {

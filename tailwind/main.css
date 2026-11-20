@@ -1,30 +1,42 @@
 @import "tailwindcss";
-@import "./admonition.css";
-@import "./article.css";
-@import "./codehilite.css";
-@import "./details.css";
-@import "./extra.css";
-@import "./fonts.css";
-@import "./footer.css";
-@import "./mkdocstrings.css";
-@import "./progress.css";
-@import "./scrollbar.css";
-@import "./search.css";
 @import "./shadcn.css";
-@import "./tabs.css";
-@import "./transition.css";
-@import "./table.css";
-@import "./codexec.css";
-@import "./caption.css";
-@import "./kbd.css";
-@import "./hover_card.css";
-@import "./toc.css";
-@import "./input.css";
-@import "./excalidraw.css";
+@import "./fonts.css" layer(theme);
+@import "./scroll.css" layer(base);
+@import "./admonition.css" layer(base);
+@import "./article.css" layer(base);
+@import "./codehilite.css" layer(base);
+@import "./details.css" layer(base);
+@import "./footer.css" layer(base);
+@import "./mkdocstrings.css" layer(base);
+@import "./progress.css" layer(base);
+@import "./scrollbar.css" layer(base);
+@import "./search.css" layer(base);
+@import "./tabs.css" layer(base);
+@import "./transition.css" layer(base);
+@import "./table.css" layer(base);
+@import "./codexec.css" layer(base);
+@import "./caption.css" layer(base);
+@import "./kbd.css" layer(base);
+@import "./hover_card.css" layer(base);
+@import "./toc.css" layer(base);
+@import "./input.css" layer(base);
+@import "./excalidraw.css" layer(base);
 
 @theme {
-	--breakpoint-3xl: 1600px;
-	--breakpoint-4xl: 2000px;
+	--breakpoint-3xl: 100rem; /* 1600px */
+	--breakpoint-4xl: 125rem; /* 2000px */
+	--container-7xl: 87.5rem; /* 1400px */
+	--container-8xl: 96rem; /* 1536px */
+}
+
+@layer utilities {
+	.container-wrapper {
+		@apply w-full mx-auto;
+	}
+
+	.layout-fixed .container-wrapper {
+		@apply 3xl:max-w-[calc(var(--breakpoint-2xl)+2rem)] 3xl:px-0;
+	}
 }
 
 @utility container {
@@ -37,5 +49,3 @@
 
 @plugin "@tailwindcss/typography";
 @plugin "tailwindcss-animate";
-
-
