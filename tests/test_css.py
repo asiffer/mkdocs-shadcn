@@ -45,7 +45,7 @@ custom_styles: list[_CustomStyle] = [
         selector=["article", ".typography", "h2"],
         css={
             "color": "rgb(255, 255, 0)",
-            "font-size": "34.2px",
+            "font-size": "34px",
             "font-weight": "300",
         },
     ),
