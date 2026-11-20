@@ -53,7 +53,7 @@ custom_styles: list[_CustomStyle] = [
         layer="utilities",
         selector=["article", "p"],
         css={
-            "text-justify": "inter-word",
+            "text-align": "justify",
             "font-size": "12px",
         },
     ),
