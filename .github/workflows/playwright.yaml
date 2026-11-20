@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   test:
-    timeout-minutes: 15
+    timeout-minutes: 20
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -23,13 +23,36 @@ jobs:
           python-version-file: "pyproject.toml"
 
       - name: Install the project
-        run: uv sync --all-extras --dev
+        run: uv sync --all-extras --dev --locked
 
-      - name: Ensure browsers are installed
-        run: |
-          uv run playwright install --with-deps chromium
-          uv run playwright install --with-deps firefox
-          uv run playwright install --with-deps webkit
+      - name: Get Playwright version
+        id: pw-version
+        run: echo "version=$(uv run python -c 'from importlib.metadata import version; print(version("playwright"))')" >> $GITHUB_OUTPUT
+
+      - name: Cache Playwright browsers
+        id: pw-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.pw-version.outputs.version }}
+
+      - name: Install browsers
+        if: steps.pw-cache.outputs.cache-hit != 'true'
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 5
+          max_attempts: 3
+          command: uv run playwright install --with-deps chromium firefox webkit
+        env:
+          PLAYWRIGHT_DOWNLOAD_CONNECTION_TIMEOUT: 120000
+
+      - name: Install system deps only (cache hit)
+        if: steps.pw-cache.outputs.cache-hit == 'true'
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 5
+          max_attempts: 3
+          command: uv run playwright install-deps chromium firefox webkit
 
       - name: Run tests
         run: uv run pytest --tracing=retain-on-failure --browser webkit --browser firefox --browser chromium
