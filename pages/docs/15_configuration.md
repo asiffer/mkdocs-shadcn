@@ -19,6 +19,9 @@ theme:
         dark: github-dark
   icon: heroicons:rocket-launch # use the shadcn svg if not defined
   topbar_sections: false 
+  topbar_links: # optional
+    English: /en/
+    Français: /fr/
   katex_options: # optional
     macros: # example of macros
       "\\RR": "\\mathbb{R}" 
@@ -154,6 +157,19 @@ Sets the top-left icon. If not defined (or null), the default shadcn icon is use
 ### `topbar_sections: bool`
 
 If `true`, the top level sections (i.e. top level directories of the docs) will be displayed in the top bar (and not in the sidebar). It allows to have a deeper navigation tree within the website (basically 2 levels of nesting), but it can be used in any cases. Default to `false`.
+
+### `topbar_links: dict`
+
+`null` by default. Additional links displayed in the top bar (right side, before the search). Keys are the labels and values are the targets: URLs, absolute paths (like `/fr/`, kept as is) or paths relative to the site root (like `blog/`). On small screens, they are displayed in the menu. A typical use case is a language switcher for multilingual sites.
+
+```yaml
+topbar_links:
+  English: /en/
+  Français: /fr/
+  Blog: https://example.com/blog
+```
+
+If you need more control (icons, dropdown...), you can override the [`templates/header_links.html`](./40_customization.md#templates) template.
 
 ### `katex_options: dict`
 

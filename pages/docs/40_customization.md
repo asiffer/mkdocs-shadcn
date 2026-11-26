@@ -83,3 +83,10 @@ or use a template hook, like `extra_head.html` to inject additional stuff in the
 <!-- custom_theme/templates/extra_head.html -->
 <link href="https://fonts.googleapis.com/css2?family=Geist+Pixel&display=swap" rel="stylesheet">
 ```
+
+Similarly, `header_links.html` is a hook to inject content in the top bar (right side, before the search). By default, it renders the [`topbar_links`](./15_configuration.md#topbar_links-dict) theme option. The theme css classes are available in the header, so your elements stay consistent with the rest of the top bar:
+
+```html
+<!-- custom_theme/templates/header_links.html -->
+<a class="button ghost" href="/fr/">Français</a>
+```

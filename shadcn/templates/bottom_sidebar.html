@@ -50,6 +50,17 @@
             {% endif %}
             {% endif %}
 
+            {% if config.theme.topbar_links %}
+            <div class="flex flex-col gap-4">
+                <div class="text-muted-foreground text-sm font-medium">{{ _("Links") }}</div>
+                <div class="flex flex-col gap-3">
+                    {% for link_name, href in config.theme.topbar_links.items() %}
+                    <a class="text-2xl font-medium" href="{{ href | url }}">{{ link_name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
         </div>
     </div>
 </dialog>
