@@ -1,0 +1,11 @@
+{# extra template to let user inject additional links/content in the top bar (right side, before the search) #}
+{# by default it renders the `topbar_links` theme option #}
+{% if config.theme.topbar_links %}
+<nav class="hidden items-center gap-0.5 md:flex">
+    {% for link_name, href in config.theme.topbar_links.items() %}
+    <a class="ghost button" href="{{ href | url }}">
+        {{ link_name }}
+    </a>
+    {% endfor %}
+</nav>
+{% endif %}

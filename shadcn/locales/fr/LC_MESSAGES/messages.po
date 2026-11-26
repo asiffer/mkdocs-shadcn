@@ -22,6 +22,10 @@ msgstr ""
 msgid "Menu"
 msgstr "Menu"
 
+#: bottom_sidebar.html:55
+msgid "Links"
+msgstr "Liens"
+
 #: copy_button.html:11
 msgid "Copy Page"
 msgstr "Copier la page"

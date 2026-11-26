@@ -6,6 +6,7 @@ pygments_style:
   light: shadcn-light
   dark: github-dark
 topbar_sections: false
+topbar_links: null
 katex_options: null
 show_datetime: false
 accent: null
